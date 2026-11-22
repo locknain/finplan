@@ -42,7 +42,12 @@
             --ink-primary: #111114;
             --ink-secondary: #484852;
             --ink-muted: #767684;
-            --nav-glass: rgba(255, 255, 255, 0.92);
+            --nav-glass: rgba(255, 255, 255, 0.72);
+            --nav-border: rgba(255, 255, 255, 0.85);
+            --nav-ring: rgba(0, 0, 0, 0.08);
+            --nav-highlight: inset 0 1px 0 0 rgba(255, 255, 255, 0.95), inset 0 -1px 0 0 rgba(0, 0, 0, 0.04);
+            --nav-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.14), 0 4px 12px -2px rgba(0, 0, 0, 0.06);
+            --nav-pill-active: rgba(16, 185, 129, 0.14);
             --header-glass: rgba(245, 245, 247, 0.92);
             --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.02);
         }
@@ -58,7 +63,12 @@
                 --ink-primary: #F4F4F6;
                 --ink-secondary: #A1A1AA;
                 --ink-muted: #71717A;
-                --nav-glass: rgba(17, 17, 20, 0.92);
+                --nav-glass: rgba(24, 24, 29, 0.68);
+                --nav-border: rgba(255, 255, 255, 0.14);
+                --nav-ring: rgba(0, 0, 0, 0.55);
+                --nav-highlight: inset 0 1px 0 0 rgba(255, 255, 255, 0.22), inset 0 -1px 0 0 rgba(255, 255, 255, 0.05);
+                --nav-shadow: 0 16px 38px -4px rgba(0, 0, 0, 0.72), 0 4px 14px -2px rgba(0, 0, 0, 0.45);
+                --nav-pill-active: rgba(16, 185, 129, 0.18);
                 --header-glass: rgba(9, 9, 11, 0.92);
                 --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 6px 16px rgba(0, 0, 0, 0.25);
             }
@@ -74,7 +84,12 @@
             --ink-primary: #F4F4F6;
             --ink-secondary: #A1A1AA;
             --ink-muted: #71717A;
-            --nav-glass: rgba(17, 17, 20, 0.92);
+            --nav-glass: rgba(24, 24, 29, 0.68);
+            --nav-border: rgba(255, 255, 255, 0.14);
+            --nav-ring: rgba(0, 0, 0, 0.55);
+            --nav-highlight: inset 0 1px 0 0 rgba(255, 255, 255, 0.22), inset 0 -1px 0 0 rgba(255, 255, 255, 0.05);
+            --nav-shadow: 0 16px 38px -4px rgba(0, 0, 0, 0.72), 0 4px 14px -2px rgba(0, 0, 0, 0.45);
+            --nav-pill-active: rgba(16, 185, 129, 0.18);
             --header-glass: rgba(9, 9, 11, 0.92);
             --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 6px 16px rgba(0, 0, 0, 0.25);
         }
@@ -110,10 +125,26 @@
             -webkit-backdrop-filter: blur(14px);
         }
 
-        .bottom-nav-surface {
-            background-color: var(--nav-glass);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+        /* Apple Liquid Glass Floating Pill Navigation */
+        .liquid-glass-pill {
+            background: var(--nav-glass);
+            backdrop-filter: blur(28px) saturate(190%);
+            -webkit-backdrop-filter: blur(28px) saturate(190%);
+            border: 1px solid var(--nav-border);
+            box-shadow: var(--nav-highlight), var(--nav-shadow), 0 0 0 1px var(--nav-ring);
+        }
+
+        .liquid-nav-active {
+            background: var(--nav-pill-active);
+            box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.18);
+        }
+
+        .nav-safe-lift {
+            bottom: calc(env(safe-area-inset-bottom, 0px) + 18px);
+        }
+
+        .fab-safe-lift {
+            bottom: calc(env(safe-area-inset-bottom, 0px) + 92px);
         }
 
         /* Standardized 44px Control Height */
@@ -643,30 +674,30 @@
     </main>
 
     <!-- Floating Quick-Add Action Button (Bottom Right on Income Plan & Budget) -->
-    <button type="button" id="fab-quick-add" aria-label="Quick Add" class="hidden fixed bottom-20 right-4 sm:right-6 z-40 w-14 h-14 rounded-full bg-emerald-500 hover:bg-emerald-600 active:scale-95 text-zinc-950 shadow-xl shadow-emerald-500/25 flex items-center justify-center transition-all duration-200">
+    <button type="button" id="fab-quick-add" aria-label="Quick Add" class="hidden fixed fab-safe-lift right-4 sm:right-6 z-40 w-14 h-14 rounded-full bg-emerald-500 hover:bg-emerald-600 active:scale-95 text-zinc-950 shadow-xl shadow-emerald-500/25 flex items-center justify-center transition-all duration-200">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>
         </svg>
     </button>
 
-    <!-- ==================== FIXED BOTTOM NAVIGATION BAR ==================== -->
-    <nav aria-label="Primary Navigation" class="fixed bottom-0 inset-x-0 z-30 bottom-nav-surface border-t border-subtle">
-        <div class="max-w-5xl mx-auto px-2 sm:px-6 h-16 grid grid-cols-4 gap-1 items-center">
-            <button type="button" data-nav="home" class="nav-btn h-12 rounded-xl flex flex-col items-center justify-center gap-0.5 text-emerald-500 bg-emerald-500/10 transition">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-                <span class="text-[11px] font-semibold">Home</span>
+    <!-- ==================== FLOATING APPLE LIQUID GLASS PILL NAV BAR ==================== -->
+    <nav aria-label="Primary Navigation" class="fixed nav-safe-lift inset-x-0 z-30 flex justify-center px-4 pointer-events-none">
+        <div class="liquid-glass-pill pointer-events-auto w-full max-w-[390px] sm:max-w-[430px] h-[62px] rounded-full p-1.5 grid grid-cols-4 gap-1 items-center">
+            <button type="button" data-nav="home" class="nav-btn h-full rounded-full flex flex-col items-center justify-center gap-0.5 text-emerald-500 liquid-nav-active active:scale-95 transition-all duration-200">
+                <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2.1" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                <span class="text-[10px] font-semibold tracking-tight leading-none">Home</span>
             </button>
-            <button type="button" data-nav="income" class="nav-btn h-12 rounded-xl flex flex-col items-center justify-center gap-0.5 text-ink-secondary transition">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                <span class="text-[11px] font-semibold">Income Plan</span>
+            <button type="button" data-nav="income" class="nav-btn h-full rounded-full flex flex-col items-center justify-center gap-0.5 text-ink-secondary hover:text-ink-primary active:scale-95 transition-all duration-200">
+                <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2.1" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <span class="text-[10px] font-semibold tracking-tight leading-none">Income Plan</span>
             </button>
-            <button type="button" data-nav="budget" class="nav-btn h-12 rounded-xl flex flex-col items-center justify-center gap-0.5 text-ink-secondary transition">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
-                <span class="text-[11px] font-semibold">Budget</span>
+            <button type="button" data-nav="budget" class="nav-btn h-full rounded-full flex flex-col items-center justify-center gap-0.5 text-ink-secondary hover:text-ink-primary active:scale-95 transition-all duration-200">
+                <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2.1" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                <span class="text-[10px] font-semibold tracking-tight leading-none">Budget</span>
             </button>
-            <button type="button" data-nav="analysis" class="nav-btn h-12 rounded-xl flex flex-col items-center justify-center gap-0.5 text-ink-secondary transition">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-                <span class="text-[11px] font-semibold">Analysis</span>
+            <button type="button" data-nav="analysis" class="nav-btn h-full rounded-full flex flex-col items-center justify-center gap-0.5 text-ink-secondary hover:text-ink-primary active:scale-95 transition-all duration-200">
+                <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2.1" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                <span class="text-[10px] font-semibold tracking-tight leading-none">Analysis</span>
             </button>
         </div>
     </nav>
@@ -903,7 +934,7 @@
     </div>
 
     <!-- Toast Notification Banner -->
-    <div id="toast-banner" class="fixed bottom-20 left-1/2 -translate-x-1/2 z-50 px-4 py-2.5 rounded-xl bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 text-xs font-medium shadow-lg opacity-0 pointer-events-none transition-opacity duration-200">
+    <div id="toast-banner" class="fixed fab-safe-lift left-1/2 -translate-x-1/2 z-50 px-4 py-2.5 rounded-full bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 text-xs font-medium shadow-lg opacity-0 pointer-events-none transition-opacity duration-200">
         Saved
     </div>
 
@@ -1198,7 +1229,7 @@
                     const target = btn.getAttribute('data-nav');
                     const isActive = target === pageName;
                     btn.classList.toggle('text-emerald-500', isActive);
-                    btn.classList.toggle('bg-emerald-500/10', isActive);
+                    btn.classList.toggle('liquid-nav-active', isActive);
                     btn.classList.toggle('text-ink-secondary', !isActive);
                 });
 
