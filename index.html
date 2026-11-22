@@ -181,48 +181,49 @@
 </head>
 <body class="min-h-screen flex flex-col pb-28">
 
-    <!-- Persistent Single-Row Aligned Header -->
-    <header class="sticky top-0 z-30 header-surface border-b border-subtle">
-        <div class="max-w-5xl mx-auto px-3 sm:px-6 py-2.5 flex items-center justify-between gap-2">
+    <!-- Persistent Responsive Header -->
+    <header class="sticky top-0 z-30 header-surface border-b border-subtle w-full max-w-full overflow-x-hidden">
+        <div class="max-w-5xl mx-auto px-3 sm:px-6 py-2.5 flex flex-wrap sm:flex-nowrap items-center justify-between gap-2">
             <!-- Left: Brand Logo & Title -->
-            <div class="flex items-center gap-2.5 shrink-0">
-                <div class="w-9 h-9 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-500 shrink-0">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <div class="flex items-center gap-2 shrink-0 min-w-0">
+                <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-500 shrink-0">
+                    <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M21 12V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2h14a2 2 0 002-2v-5zm0 0h-5a2 2 0 100 4h5v-4z" />
                     </svg>
                 </div>
-                <div class="leading-tight">
-                    <h1 class="font-bold text-sm sm:text-[17px] tracking-tight text-ink-primary">
+                <div class="leading-tight min-w-0">
+                    <h1 class="font-bold text-sm sm:text-[17px] tracking-tight text-ink-primary truncate">
                         Fin<span class="text-emerald-500">Plan</span>
                     </h1>
-                    <p id="header-page-subtitle" class="text-[10px] sm:text-[11px] text-ink-muted">Monthly Summary</p>
+                    <p id="header-page-subtitle" class="text-[10px] sm:text-[11px] text-ink-muted truncate">Monthly Summary</p>
                 </div>
             </div>
 
-            <!-- Right: Month Switcher, Clone, Data Backup ONLY -->
-            <div class="flex items-center justify-end gap-1.5 sm:gap-2">
+            <!-- Right: Month Switcher, Clone, Data Backup (Fits 100% on Mobile) -->
+            <div class="flex items-center justify-between sm:justify-end gap-1.5 w-full sm:w-auto min-w-0">
                 <!-- Month Switcher Pill -->
-                <div class="flex items-center bg-card border border-subtle rounded-xl h-9 px-1">
-                    <button type="button" id="btn-prev-month" aria-label="Previous Month" class="w-7 h-7 rounded-lg flex items-center justify-center text-ink-secondary hover:text-ink-primary hover:bg-elevated transition">
+                <div class="flex items-center justify-between bg-card border border-subtle rounded-xl h-9 px-1 flex-1 sm:flex-initial min-w-0">
+                    <button type="button" id="btn-prev-month" aria-label="Previous Month" class="w-7 h-7 rounded-lg flex items-center justify-center text-ink-secondary hover:text-ink-primary hover:bg-elevated transition shrink-0">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
                     </button>
-                    <span id="header-month-label" class="px-2 font-mono text-[11px] sm:text-xs font-semibold text-ink-primary whitespace-nowrap">Nov 2026</span>
-                    <button type="button" id="btn-next-month" aria-label="Next Month" class="w-7 h-7 rounded-lg flex items-center justify-center text-ink-secondary hover:text-ink-primary hover:bg-elevated transition">
+                    <span id="header-month-label" class="px-1.5 font-mono text-[11px] sm:text-xs font-semibold text-ink-primary whitespace-nowrap truncate text-center">Nov 2026</span>
+                    <button type="button" id="btn-next-month" aria-label="Next Month" class="w-7 h-7 rounded-lg flex items-center justify-center text-ink-secondary hover:text-ink-primary hover:bg-elevated transition shrink-0">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
                     </button>
                 </div>
 
-                <!-- Clone Button -->
-                <button type="button" id="btn-clone-prev" title="Clone Previous Cycle" class="h-9 px-2.5 rounded-xl bg-card border border-subtle hover:border-strong text-xs font-medium text-ink-primary flex items-center gap-1.5 transition shrink-0">
-                    <svg class="w-3.5 h-3.5 text-ink-secondary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                    <span>Clone</span>
-                </button>
+                <!-- Clone & Data Action Group -->
+                <div class="flex items-center gap-1.5 shrink-0">
+                    <button type="button" id="btn-clone-prev" title="Clone Previous Cycle" class="h-9 px-2.5 rounded-xl bg-card border border-subtle hover:border-strong text-[11px] sm:text-xs font-medium text-ink-primary flex items-center gap-1 transition shrink-0">
+                        <svg class="w-3.5 h-3.5 text-ink-secondary shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                        <span>Clone</span>
+                    </button>
 
-                <!-- Data Backup Button -->
-                <button type="button" id="btn-open-data" title="Data Backup" class="h-9 px-2.5 rounded-xl bg-card border border-subtle hover:border-strong text-xs font-medium text-ink-primary flex items-center gap-1.5 transition shrink-0">
-                    <svg class="w-3.5 h-3.5 text-ink-secondary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"/></svg>
-                    <span>Data</span>
-                </button>
+                    <button type="button" id="btn-open-data" title="Data Backup" class="h-9 px-2.5 rounded-xl bg-card border border-subtle hover:border-strong text-[11px] sm:text-xs font-medium text-ink-primary flex items-center gap-1 transition shrink-0">
+                        <svg class="w-3.5 h-3.5 text-ink-secondary shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"/></svg>
+                        <span>Data</span>
+                    </button>
+                </div>
             </div>
         </div>
     </header>
@@ -349,7 +350,7 @@
                 </div>
             </div>
 
-            <!-- 2) Financial Plan Ratios (Commitment > Needs > Savings) -->
+            <!-- 2) Financial Plan Ratios (Commitment > Wants > Savings) -->
             <div class="bg-card border border-subtle rounded-2xl p-4 sm:p-5 space-y-4">
                 <div class="flex flex-wrap items-center justify-between gap-2">
                     <div>
@@ -365,7 +366,7 @@
                 <!-- Segmented Visual Bar -->
                 <div class="w-full h-2.5 bg-elevated rounded-full overflow-hidden flex">
                     <div id="ratio-bar-commitment" class="h-full bg-rose-500 transition-all duration-300" style="width: 50%"></div>
-                    <div id="ratio-bar-needs" class="h-full bg-sky-500 transition-all duration-300" style="width: 30%"></div>
+                    <div id="ratio-bar-wants" class="h-full bg-sky-500 transition-all duration-300" style="width: 30%"></div>
                     <div id="ratio-bar-savings" class="h-full bg-emerald-500 transition-all duration-300" style="width: 20%"></div>
                 </div>
 
@@ -388,20 +389,20 @@
                         </div>
                     </div>
 
-                    <!-- Needs -->
+                    <!-- Wants -->
                     <div class="bg-elevated border border-subtle rounded-xl p-3.5 space-y-2.5">
                         <div class="flex items-center justify-between">
                             <span class="text-xs font-semibold text-sky-500 flex items-center gap-1.5">
-                                <span class="w-2 h-2 rounded-full bg-sky-500"></span>Needs
+                                <span class="w-2 h-2 rounded-full bg-sky-500"></span>Wants
                             </span>
                             <div class="flex items-center gap-1">
-                                <input type="number" id="input-ratio-needs" min="0" max="100" step="1" class="w-16 h-9 px-2 rounded-lg bg-input border border-subtle font-mono text-right text-xs font-bold text-ink-primary focus:outline-none focus:border-sky-500">
+                                <input type="number" id="input-ratio-wants" min="0" max="100" step="1" class="w-16 h-9 px-2 rounded-lg bg-input border border-subtle font-mono text-right text-xs font-bold text-ink-primary focus:outline-none focus:border-sky-500">
                                 <span class="font-mono text-xs text-ink-muted">%</span>
                             </div>
                         </div>
                         <div class="flex items-center justify-between text-[11px] font-mono pt-1 border-t border-subtle">
-                            <span id="ratio-target-needs" class="text-ink-secondary">Target: RM 0.00</span>
-                            <span id="ratio-actual-needs" class="text-ink-primary font-semibold">Actual: RM 0.00</span>
+                            <span id="ratio-target-wants" class="text-ink-secondary">Target: RM 0.00</span>
+                            <span id="ratio-actual-wants" class="text-ink-primary font-semibold">Actual: RM 0.00</span>
                         </div>
                     </div>
 
@@ -477,9 +478,9 @@
                         <span class="text-xs font-semibold block">Commitment</span>
                         <span id="tab-meta-Commitment" class="font-mono text-[10px] text-ink-muted block mt-0.5 truncate">0 • RM 0</span>
                     </button>
-                    <button type="button" data-budget-tab="Needs" class="budget-tab-btn rounded-lg py-2 px-2 text-center transition">
-                        <span class="text-xs font-semibold block">Needs</span>
-                        <span id="tab-meta-Needs" class="font-mono text-[10px] text-ink-muted block mt-0.5 truncate">0 • RM 0</span>
+                    <button type="button" data-budget-tab="Wants" class="budget-tab-btn rounded-lg py-2 px-2 text-center transition">
+                        <span class="text-xs font-semibold block">Wants</span>
+                        <span id="tab-meta-Wants" class="font-mono text-[10px] text-ink-muted block mt-0.5 truncate">0 • RM 0</span>
                     </button>
                     <button type="button" data-budget-tab="Savings" class="budget-tab-btn rounded-lg py-2 px-2 text-center transition">
                         <span class="text-xs font-semibold block">Savings</span>
@@ -649,26 +650,23 @@
     </button>
 
     <!-- ==================== FIXED BOTTOM NAVIGATION BAR ==================== -->
-    <nav class="fixed bottom-0 inset-x-0 z-30 bottom-nav-surface border-t border-subtle">
-        <div class="max-w-5xl mx-auto px-2 py-1.5 grid grid-cols-4 gap-1">
-            <button type="button" data-nav="home" class="nav-btn flex flex-col items-center justify-center py-1.5 rounded-xl transition">
-                <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-                <span class="text-[11px] font-medium">Home</span>
+    <nav aria-label="Primary Navigation" class="fixed bottom-0 inset-x-0 z-30 bottom-nav-surface border-t border-subtle">
+        <div class="max-w-5xl mx-auto px-2 sm:px-6 h-16 grid grid-cols-4 gap-1 items-center">
+            <button type="button" data-nav="home" class="nav-btn h-12 rounded-xl flex flex-col items-center justify-center gap-0.5 text-emerald-500 bg-emerald-500/10 transition">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                <span class="text-[11px] font-semibold">Home</span>
             </button>
-
-            <button type="button" data-nav="income" class="nav-btn flex flex-col items-center justify-center py-1.5 rounded-xl transition">
-                <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                <span class="text-[11px] font-medium">Income Plan</span>
+            <button type="button" data-nav="income" class="nav-btn h-12 rounded-xl flex flex-col items-center justify-center gap-0.5 text-ink-secondary transition">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <span class="text-[11px] font-semibold">Income Plan</span>
             </button>
-
-            <button type="button" data-nav="budget" class="nav-btn flex flex-col items-center justify-center py-1.5 rounded-xl transition">
-                <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
-                <span class="text-[11px] font-medium">Budget</span>
+            <button type="button" data-nav="budget" class="nav-btn h-12 rounded-xl flex flex-col items-center justify-center gap-0.5 text-ink-secondary transition">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                <span class="text-[11px] font-semibold">Budget</span>
             </button>
-
-            <button type="button" data-nav="analysis" class="nav-btn flex flex-col items-center justify-center py-1.5 rounded-xl transition">
-                <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"/><path stroke-linecap="round" stroke-linejoin="round" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"/></svg>
-                <span class="text-[11px] font-medium">Analysis</span>
+            <button type="button" data-nav="analysis" class="nav-btn h-12 rounded-xl flex flex-col items-center justify-center gap-0.5 text-ink-secondary transition">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                <span class="text-[11px] font-semibold">Analysis</span>
             </button>
         </div>
     </nav>
@@ -681,55 +679,49 @@
                 <button type="button" data-close-modal="cycle-modal" class="w-8 h-8 rounded-lg bg-elevated flex items-center justify-center text-ink-secondary hover:text-ink-primary">✕</button>
             </div>
 
-            <!-- Selected Range Preview -->
-            <div class="grid grid-cols-2 gap-2.5 bg-elevated border border-subtle rounded-xl p-3">
+            <div class="grid grid-cols-2 gap-2 bg-elevated border border-subtle rounded-xl p-3">
                 <div>
-                    <span class="text-[10px] uppercase tracking-wider text-ink-muted block">Start Date</span>
-                    <span id="cal-preview-start" class="font-mono text-xs font-semibold text-emerald-500 mt-0.5 block">1 Nov 2026</span>
+                    <span class="text-[10px] font-medium text-ink-muted block">Start Date</span>
+                    <span id="cal-preview-start" class="font-mono text-xs font-semibold text-emerald-500">1 Nov 2026</span>
                 </div>
                 <div>
-                    <span class="text-[10px] uppercase tracking-wider text-ink-muted block">End Date</span>
-                    <span id="cal-preview-end" class="font-mono text-xs font-semibold text-sky-500 mt-0.5 block">30 Nov 2026</span>
+                    <span class="text-[10px] font-medium text-ink-muted block">End Date</span>
+                    <span id="cal-preview-end" class="font-mono text-xs font-semibold text-sky-500">30 Nov 2026</span>
                 </div>
             </div>
 
-            <!-- Calendar Month Navigation -->
             <div class="flex items-center justify-between">
                 <button type="button" id="cal-prev-view" class="w-9 h-9 rounded-xl bg-elevated border border-subtle flex items-center justify-center text-ink-primary hover:border-strong">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
                 </button>
-                <span id="cal-view-month-label" class="font-semibold text-sm text-ink-primary">November 2026</span>
+                <span id="cal-view-month-label" class="font-mono text-xs font-semibold text-ink-primary">November 2026</span>
                 <button type="button" id="cal-next-view" class="w-9 h-9 rounded-xl bg-elevated border border-subtle flex items-center justify-center text-ink-primary hover:border-strong">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
                 </button>
             </div>
 
-            <!-- Weekday Headers -->
-            <div class="grid grid-cols-7 text-center text-[11px] font-medium text-ink-muted">
+            <div class="grid grid-cols-7 gap-1 text-center text-[10px] font-mono text-ink-muted">
                 <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
             </div>
-
-            <!-- Interactive Calendar Grid -->
             <div id="cal-days-grid" class="grid grid-cols-7 gap-1">
                 <!-- Rendered dynamically -->
             </div>
 
-            <!-- Save Default Rule Checkbox -->
-            <label class="flex items-center gap-2.5 text-xs text-ink-secondary cursor-pointer select-none pt-1">
-                <input type="checkbox" id="cal-save-default" class="w-4 h-4 rounded accent-emerald-500">
-                <span>Save default rule</span>
+            <label class="flex items-center gap-2 text-xs text-ink-secondary cursor-pointer pt-1">
+                <input type="checkbox" id="cal-save-default" class="rounded accent-emerald-500">
+                <span>Save start day as default rule</span>
             </label>
 
             <div class="flex items-center justify-end gap-2 pt-1">
                 <button type="button" data-close-modal="cycle-modal" class="ctrl-44 px-4 rounded-xl bg-elevated border border-subtle text-xs font-medium text-ink-primary">Cancel</button>
-                <button type="button" id="btn-apply-cycle" class="ctrl-44 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-zinc-950 text-xs font-semibold">Apply Cycle</button>
+                <button type="button" id="btn-apply-cycle" class="ctrl-44 px-5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-zinc-950 text-xs font-semibold">Apply Cycle</button>
             </div>
         </div>
     </div>
 
-    <!-- ==================== MODAL: ADD / EDIT INCOME (Source & Amount ONLY) ==================== -->
-    <div id="income-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
-        <form id="income-form" class="bg-card border border-subtle rounded-2xl max-w-md w-full p-4 sm:p-5 space-y-4">
+    <!-- ==================== MODAL: ADD / EDIT INCOME (With Inline Calculator) ==================== -->
+    <div id="income-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/60 backdrop-blur-xs overflow-y-auto">
+        <form id="income-form" class="bg-card border border-subtle rounded-2xl max-w-md w-full p-4 sm:p-5 space-y-4 my-auto">
             <div class="flex items-center justify-between">
                 <h3 id="income-modal-title" class="text-base font-semibold text-ink-primary">Add Income</h3>
                 <button type="button" data-close-modal="income-modal" class="w-8 h-8 rounded-lg bg-elevated flex items-center justify-center text-ink-secondary hover:text-ink-primary">✕</button>
@@ -745,7 +737,46 @@
 
                 <div>
                     <label for="income-amount" class="block text-xs font-medium text-ink-secondary mb-1">Amount (RM)</label>
-                    <input type="number" id="income-amount" required min="0.01" step="0.01" placeholder="0.00" class="ctrl-44 w-full px-3 rounded-xl bg-input border border-subtle font-mono text-sm text-ink-primary focus:outline-none focus:border-emerald-500">
+                    <div class="flex items-center gap-2">
+                        <input type="number" id="income-amount" required min="0.01" step="0.01" placeholder="0.00" class="ctrl-44 flex-1 min-w-0 px-3 rounded-xl bg-input border border-subtle font-mono text-sm text-ink-primary focus:outline-none focus:border-emerald-500">
+                        <button type="button" data-toggle-calc="income" aria-label="Toggle Calculator" class="ctrl-44 px-3 rounded-xl bg-elevated hover:border-strong border border-subtle text-xs font-semibold text-ink-primary flex items-center gap-1.5 shrink-0 transition">
+                            <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                            <span>Calc</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Inline Calculator Panel (Income) -->
+                <div id="calc-panel-income" class="hidden bg-elevated border border-subtle rounded-xl p-3 space-y-2.5">
+                    <div class="bg-input border border-subtle rounded-lg px-3 py-2 text-right">
+                        <div id="calc-expr-income" class="font-mono text-[11px] text-ink-muted h-4 truncate">0</div>
+                        <div id="calc-disp-income" class="font-mono text-base font-bold text-ink-primary truncate">0</div>
+                    </div>
+                    <div class="grid grid-cols-4 gap-1.5 font-mono text-xs font-semibold">
+                        <button type="button" data-calc-target="income" data-calc-key="C" class="h-9 rounded-lg bg-rose-500/15 text-rose-500 hover:bg-rose-500/25">C</button>
+                        <button type="button" data-calc-target="income" data-calc-key="BS" class="h-9 rounded-lg bg-card border border-subtle text-ink-secondary hover:text-ink-primary">⌫</button>
+                        <button type="button" data-calc-target="income" data-calc-key="/" class="h-9 rounded-lg bg-card border border-subtle text-sky-500 hover:border-strong">÷</button>
+                        <button type="button" data-calc-target="income" data-calc-key="*" class="h-9 rounded-lg bg-card border border-subtle text-sky-500 hover:border-strong">×</button>
+
+                        <button type="button" data-calc-target="income" data-calc-key="7" class="h-9 rounded-lg bg-card border border-subtle text-ink-primary hover:border-strong">7</button>
+                        <button type="button" data-calc-target="income" data-calc-key="8" class="h-9 rounded-lg bg-card border border-subtle text-ink-primary hover:border-strong">8</button>
+                        <button type="button" data-calc-target="income" data-calc-key="9" class="h-9 rounded-lg bg-card border border-subtle text-ink-primary hover:border-strong">9</button>
+                        <button type="button" data-calc-target="income" data-calc-key="-" class="h-9 rounded-lg bg-card border border-subtle text-sky-500 hover:border-strong">−</button>
+
+                        <button type="button" data-calc-target="income" data-calc-key="4" class="h-9 rounded-lg bg-card border border-subtle text-ink-primary hover:border-strong">4</button>
+                        <button type="button" data-calc-target="income" data-calc-key="5" class="h-9 rounded-lg bg-card border border-subtle text-ink-primary hover:border-strong">5</button>
+                        <button type="button" data-calc-target="income" data-calc-key="6" class="h-9 rounded-lg bg-card border border-subtle text-ink-primary hover:border-strong">6</button>
+                        <button type="button" data-calc-target="income" data-calc-key="+" class="h-9 rounded-lg bg-card border border-subtle text-sky-500 hover:border-strong">+</button>
+
+                        <button type="button" data-calc-target="income" data-calc-key="1" class="h-9 rounded-lg bg-card border border-subtle text-ink-primary hover:border-strong">1</button>
+                        <button type="button" data-calc-target="income" data-calc-key="2" class="h-9 rounded-lg bg-card border border-subtle text-ink-primary hover:border-strong">2</button>
+                        <button type="button" data-calc-target="income" data-calc-key="3" class="h-9 rounded-lg bg-card border border-subtle text-ink-primary hover:border-strong">3</button>
+                        <button type="button" data-calc-target="income" data-calc-key="=" class="h-9 rounded-lg bg-sky-500/20 text-sky-500 hover:bg-sky-500/30 font-bold">=</button>
+
+                        <button type="button" data-calc-target="income" data-calc-key="0" class="col-span-2 h-9 rounded-lg bg-card border border-subtle text-ink-primary hover:border-strong">0</button>
+                        <button type="button" data-calc-target="income" data-calc-key="." class="h-9 rounded-lg bg-card border border-subtle text-ink-primary hover:border-strong">.</button>
+                        <button type="button" data-calc-target="income" data-calc-key="USE" class="h-9 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-zinc-950 font-sans text-[11px] font-bold">Use Result</button>
+                    </div>
                 </div>
             </div>
 
@@ -756,9 +787,9 @@
         </form>
     </div>
 
-    <!-- ==================== MODAL: ADD / EDIT BUDGET (Title, Category & Amount ONLY) ==================== -->
-    <div id="budget-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
-        <form id="budget-form" class="bg-card border border-subtle rounded-2xl max-w-md w-full p-4 sm:p-5 space-y-4">
+    <!-- ==================== MODAL: ADD / EDIT BUDGET (With Inline Calculator) ==================== -->
+    <div id="budget-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/60 backdrop-blur-xs overflow-y-auto">
+        <form id="budget-form" class="bg-card border border-subtle rounded-2xl max-w-md w-full p-4 sm:p-5 space-y-4 my-auto">
             <div class="flex items-center justify-between">
                 <h3 id="budget-modal-title" class="text-base font-semibold text-ink-primary">Add Budget</h3>
                 <button type="button" data-close-modal="budget-modal" class="w-8 h-8 rounded-lg bg-elevated flex items-center justify-center text-ink-secondary hover:text-ink-primary">✕</button>
@@ -776,14 +807,53 @@
                     <label for="budget-category" class="block text-xs font-medium text-ink-secondary mb-1">Category</label>
                     <select id="budget-category" class="ctrl-44 w-full px-3 rounded-xl bg-input border border-subtle text-sm text-ink-primary focus:outline-none focus:border-emerald-500">
                         <option value="Commitment">Commitment</option>
-                        <option value="Needs">Needs</option>
+                        <option value="Wants">Wants</option>
                         <option value="Savings">Savings</option>
                     </select>
                 </div>
 
                 <div>
                     <label for="budget-amount" class="block text-xs font-medium text-ink-secondary mb-1">Amount (RM)</label>
-                    <input type="number" id="budget-amount" required min="0.01" step="0.01" placeholder="0.00" class="ctrl-44 w-full px-3 rounded-xl bg-input border border-subtle font-mono text-sm text-ink-primary focus:outline-none focus:border-emerald-500">
+                    <div class="flex items-center gap-2">
+                        <input type="number" id="budget-amount" required min="0.01" step="0.01" placeholder="0.00" class="ctrl-44 flex-1 min-w-0 px-3 rounded-xl bg-input border border-subtle font-mono text-sm text-ink-primary focus:outline-none focus:border-emerald-500">
+                        <button type="button" data-toggle-calc="budget" aria-label="Toggle Calculator" class="ctrl-44 px-3 rounded-xl bg-elevated hover:border-strong border border-subtle text-xs font-semibold text-ink-primary flex items-center gap-1.5 shrink-0 transition">
+                            <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                            <span>Calc</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Inline Calculator Panel (Budget) -->
+                <div id="calc-panel-budget" class="hidden bg-elevated border border-subtle rounded-xl p-3 space-y-2.5">
+                    <div class="bg-input border border-subtle rounded-lg px-3 py-2 text-right">
+                        <div id="calc-expr-budget" class="font-mono text-[11px] text-ink-muted h-4 truncate">0</div>
+                        <div id="calc-disp-budget" class="font-mono text-base font-bold text-ink-primary truncate">0</div>
+                    </div>
+                    <div class="grid grid-cols-4 gap-1.5 font-mono text-xs font-semibold">
+                        <button type="button" data-calc-target="budget" data-calc-key="C" class="h-9 rounded-lg bg-rose-500/15 text-rose-500 hover:bg-rose-500/25">C</button>
+                        <button type="button" data-calc-target="budget" data-calc-key="BS" class="h-9 rounded-lg bg-card border border-subtle text-ink-secondary hover:text-ink-primary">⌫</button>
+                        <button type="button" data-calc-target="budget" data-calc-key="/" class="h-9 rounded-lg bg-card border border-subtle text-sky-500 hover:border-strong">÷</button>
+                        <button type="button" data-calc-target="budget" data-calc-key="*" class="h-9 rounded-lg bg-card border border-subtle text-sky-500 hover:border-strong">×</button>
+
+                        <button type="button" data-calc-target="budget" data-calc-key="7" class="h-9 rounded-lg bg-card border border-subtle text-ink-primary hover:border-strong">7</button>
+                        <button type="button" data-calc-target="budget" data-calc-key="8" class="h-9 rounded-lg bg-card border border-subtle text-ink-primary hover:border-strong">8</button>
+                        <button type="button" data-calc-target="budget" data-calc-key="9" class="h-9 rounded-lg bg-card border border-subtle text-ink-primary hover:border-strong">9</button>
+                        <button type="button" data-calc-target="budget" data-calc-key="-" class="h-9 rounded-lg bg-card border border-subtle text-sky-500 hover:border-strong">−</button>
+
+                        <button type="button" data-calc-target="budget" data-calc-key="4" class="h-9 rounded-lg bg-card border border-subtle text-ink-primary hover:border-strong">4</button>
+                        <button type="button" data-calc-target="budget" data-calc-key="5" class="h-9 rounded-lg bg-card border border-subtle text-ink-primary hover:border-strong">5</button>
+                        <button type="button" data-calc-target="budget" data-calc-key="6" class="h-9 rounded-lg bg-card border border-subtle text-ink-primary hover:border-strong">6</button>
+                        <button type="button" data-calc-target="budget" data-calc-key="+" class="h-9 rounded-lg bg-card border border-subtle text-sky-500 hover:border-strong">+</button>
+
+                        <button type="button" data-calc-target="budget" data-calc-key="1" class="h-9 rounded-lg bg-card border border-subtle text-ink-primary hover:border-strong">1</button>
+                        <button type="button" data-calc-target="budget" data-calc-key="2" class="h-9 rounded-lg bg-card border border-subtle text-ink-primary hover:border-strong">2</button>
+                        <button type="button" data-calc-target="budget" data-calc-key="3" class="h-9 rounded-lg bg-card border border-subtle text-ink-primary hover:border-strong">3</button>
+                        <button type="button" data-calc-target="budget" data-calc-key="=" class="h-9 rounded-lg bg-sky-500/20 text-sky-500 hover:bg-sky-500/30 font-bold">=</button>
+
+                        <button type="button" data-calc-target="budget" data-calc-key="0" class="col-span-2 h-9 rounded-lg bg-card border border-subtle text-ink-primary hover:border-strong">0</button>
+                        <button type="button" data-calc-target="budget" data-calc-key="." class="h-9 rounded-lg bg-card border border-subtle text-ink-primary hover:border-strong">.</button>
+                        <button type="button" data-calc-target="budget" data-calc-key="USE" class="h-9 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-zinc-950 font-sans text-[11px] font-bold">Use Result</button>
+                    </div>
                 </div>
             </div>
 
@@ -845,17 +915,23 @@
             const STORAGE_KEY_DATA = 'finplan_data_v1';
             const STORAGE_KEY_DEFAULTS = 'finplan_defaults_v1';
 
-            const CATEGORIES = ['Commitment', 'Needs', 'Savings'];
+            const CATEGORIES = ['Commitment', 'Wants', 'Savings'];
             const MONTH_SHORT = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
             const MONTH_FULL = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
             // Application State
             let appData = {};
-            let defaultRatios = { Commitment: 50, Needs: 30, Savings: 20 };
+            let defaultRatios = { Commitment: 50, Wants: 30, Savings: 20 };
             let defaultCycleStartDay = 1;
             let currentMonthKey = getTodayMonthKey();
             let activePage = 'home';
             let activeBudgetTab = 'Commitment';
+
+            // Inline Calculator State per Modal
+            const calcStates = {
+                income: { expr: '', lastResult: null },
+                budget: { expr: '', lastResult: null }
+            };
 
             // Calendar Picker Temporary State
             let calViewYear = new Date().getFullYear();
@@ -999,9 +1075,12 @@
                     if (rawDefaults) {
                         const parsedDef = JSON.parse(rawDefaults);
                         if (parsedDef.ratios) {
+                            const migratedWants = parsedDef.ratios.Wants !== undefined
+                                ? parsedDef.ratios.Wants
+                                : parsedDef.ratios.Needs;
                             defaultRatios = {
                                 Commitment: Number(parsedDef.ratios.Commitment) || 50,
-                                Needs: Number(parsedDef.ratios.Needs) || 30,
+                                Wants: Number(migratedWants) || 30,
                                 Savings: Number(parsedDef.ratios.Savings) || 20
                             };
                         }
@@ -1021,6 +1100,7 @@
                     console.warn('Storage load fallback:', err);
                     appData = {};
                 }
+                Object.keys(appData).forEach(k => ensureMonth(k));
                 ensureMonth(currentMonthKey);
             }
 
@@ -1055,12 +1135,17 @@
                 }
                 if (!m.ratios) {
                     m.ratios = { ...defaultRatios };
+                } else if (m.ratios.Wants === undefined) {
+                    m.ratios.Wants = Number(m.ratios.Needs) || defaultRatios.Wants;
+                    delete m.ratios.Needs;
                 }
                 if (!Array.isArray(m.incomes)) m.incomes = [];
                 if (!Array.isArray(m.budgets)) m.budgets = [];
 
                 m.budgets.forEach(item => {
-                    if (!CATEGORIES.includes(item.category)) {
+                    if (item.category === 'Needs') {
+                        item.category = 'Wants';
+                    } else if (!CATEGORIES.includes(item.category)) {
                         item.category = 'Commitment';
                     }
                 });
@@ -1129,7 +1214,7 @@
 
                 const byCategory = {
                     Commitment: { allocated: 0, count: 0, target: 0 },
-                    Needs: { allocated: 0, count: 0, target: 0 },
+                    Wants: { allocated: 0, count: 0, target: 0 },
                     Savings: { allocated: 0, count: 0, target: 0 }
                 };
 
@@ -1139,7 +1224,8 @@
                 });
 
                 monthData.budgets.forEach(b => {
-                    const cat = CATEGORIES.includes(b.category) ? b.category : 'Commitment';
+                    const rawCat = b.category === 'Needs' ? 'Wants' : b.category;
+                    const cat = CATEGORIES.includes(rawCat) ? rawCat : 'Commitment';
                     const amt = Number(b.amount) || 0;
                     byCategory[cat].allocated += amt;
                     byCategory[cat].count += 1;
@@ -1220,7 +1306,7 @@
 
                 const accentMap = {
                     Commitment: { dot: 'bg-rose-500', bar: 'bg-rose-500', text: 'text-rose-500' },
-                    Needs: { dot: 'bg-sky-500', bar: 'bg-sky-500', text: 'text-sky-500' },
+                    Wants: { dot: 'bg-sky-500', bar: 'bg-sky-500', text: 'text-sky-500' },
                     Savings: { dot: 'bg-emerald-500', bar: 'bg-emerald-500', text: 'text-emerald-500' }
                 };
 
@@ -1302,15 +1388,15 @@
 
                 // Financial Plan Ratios
                 const rC = Number(monthData.ratios.Commitment) || 0;
-                const rN = Number(monthData.ratios.Needs) || 0;
+                const rW = Number(monthData.ratios.Wants) || 0;
                 const rS = Number(monthData.ratios.Savings) || 0;
-                const totalPct = rC + rN + rS;
+                const totalPct = rC + rW + rS;
 
                 const inpC = document.getElementById('input-ratio-commitment');
-                const inpN = document.getElementById('input-ratio-needs');
+                const inpW = document.getElementById('input-ratio-wants');
                 const inpS = document.getElementById('input-ratio-savings');
                 if (inpC && document.activeElement !== inpC) inpC.value = rC;
-                if (inpN && document.activeElement !== inpN) inpN.value = rN;
+                if (inpW && document.activeElement !== inpW) inpW.value = rW;
                 if (inpS && document.activeElement !== inpS) inpS.value = rS;
 
                 const indicatorEl = document.getElementById('ratio-total-indicator');
@@ -1321,14 +1407,14 @@
 
                 const normDenominator = totalPct > 0 ? totalPct : 100;
                 document.getElementById('ratio-bar-commitment').style.width = `${(rC / normDenominator) * 100}%`;
-                document.getElementById('ratio-bar-needs').style.width = `${(rN / normDenominator) * 100}%`;
+                document.getElementById('ratio-bar-wants').style.width = `${(rW / normDenominator) * 100}%`;
                 document.getElementById('ratio-bar-savings').style.width = `${(rS / normDenominator) * 100}%`;
 
                 document.getElementById('ratio-target-commitment').textContent = `Target: ${formatMYR(metrics.byCategory.Commitment.target)}`;
                 document.getElementById('ratio-actual-commitment').textContent = `Actual: ${formatMYR(metrics.byCategory.Commitment.allocated)}`;
 
-                document.getElementById('ratio-target-needs').textContent = `Target: ${formatMYR(metrics.byCategory.Needs.target)}`;
-                document.getElementById('ratio-actual-needs').textContent = `Actual: ${formatMYR(metrics.byCategory.Needs.allocated)}`;
+                document.getElementById('ratio-target-wants').textContent = `Target: ${formatMYR(metrics.byCategory.Wants.target)}`;
+                document.getElementById('ratio-actual-wants').textContent = `Actual: ${formatMYR(metrics.byCategory.Wants.allocated)}`;
 
                 document.getElementById('ratio-target-savings').textContent = `Target: ${formatMYR(metrics.byCategory.Savings.target)}`;
                 document.getElementById('ratio-actual-savings').textContent = `Actual: ${formatMYR(metrics.byCategory.Savings.allocated)}`;
@@ -1432,7 +1518,7 @@
 
                 const dotColorMap = {
                     Commitment: 'bg-rose-500',
-                    Needs: 'bg-sky-500',
+                    Wants: 'bg-sky-500',
                     Savings: 'bg-emerald-500'
                 };
                 const dotClass = dotColorMap[activeBudgetTab] || 'bg-emerald-500';
@@ -1490,11 +1576,12 @@
                             data: {
                                 labels: CATEGORIES,
                                 datasets: [{
-                                    data: hasBudgetData ? catValues : [1],
+                                    data: hasBudgetData ? catValues : [1, 1, 1],
                                     backgroundColor: hasBudgetData
                                         ? ['#F43F5E', '#0EA5E9', '#10B981']
-                                        : [isDark ? '#26262C' : '#DFDFE5'],
-                                    borderWidth: 0
+                                        : [isDark ? '#26262C' : '#E4E4E7', isDark ? '#26262C' : '#E4E4E7', isDark ? '#26262C' : '#E4E4E7'],
+                                    borderWidth: 0,
+                                    hoverOffset: 4
                                 }]
                             },
                             options: {
@@ -1503,76 +1590,85 @@
                                 cutout: '68%',
                                 plugins: {
                                     legend: {
-                                        display: hasBudgetData,
-                                        position: 'right',
+                                        position: 'bottom',
                                         labels: {
                                             color: isDark ? '#A1A1AA' : '#484852',
                                             boxWidth: 10,
                                             font: { family: 'Inter', size: 11 }
                                         }
                                     },
-                                    tooltip: { enabled: hasBudgetData }
+                                    tooltip: {
+                                        enabled: hasBudgetData,
+                                        callbacks: {
+                                            label: (ctx) => ` ${ctx.label}: ${formatMYR(ctx.parsed)}`
+                                        }
+                                    }
                                 }
                             }
                         });
                     }
                 }
 
-                // Multi-Cycle Aggregation
+                // All-Time Metrics & History Table
                 const sortedKeys = Object.keys(appData).sort();
                 let cumIncome = 0;
                 let cumBudget = 0;
-                const cycleRows = [];
-                const allIncomes = [];
+                const cycleLabels = [];
+                const cycleIncomeSeries = [];
+                const cycleBudgetSeries = [];
 
-                sortedKeys.forEach(key => {
+                const rowsHtml = sortedKeys.map(key => {
                     const m = ensureMonth(key);
                     const met = getMetrics(m);
                     cumIncome += met.totalIncome;
                     cumBudget += met.totalBudget;
 
-                    cycleRows.push({
-                        key,
-                        label: formatMonthKeyShort(key),
-                        range: `${formatShortDate(m.cycle.startDate)} – ${formatShortDate(m.cycle.endDate)}`,
-                        income: met.totalIncome,
-                        budget: met.totalBudget,
-                        balance: met.salaryBalance
-                    });
+                    cycleLabels.push(formatMonthKeyShort(key));
+                    cycleIncomeSeries.push(met.totalIncome);
+                    cycleBudgetSeries.push(met.totalBudget);
 
-                    m.incomes.forEach(inc => {
-                        allIncomes.push({
-                            ...inc,
-                            cycleKey: key,
-                            cycleLabel: formatMonthKeyShort(key)
-                        });
-                    });
-                });
+                    const isCurrent = key === currentMonthKey;
+                    return `
+                        <tr data-action="jump-cycle" data-key="${escapeHTML(key)}" class="cursor-pointer hover:bg-elevated transition ${isCurrent ? 'bg-emerald-500/5 font-semibold' : ''}">
+                            <td class="py-2.5 px-3 font-mono text-ink-primary whitespace-nowrap">
+                                ${escapeHTML(formatMonthKeyShort(key))}
+                                <span class="block text-[10px] text-ink-muted font-normal">${escapeHTML(formatShortDate(m.cycle.startDate))} – ${escapeHTML(formatShortDate(m.cycle.endDate))}</span>
+                            </td>
+                            <td class="py-2.5 px-3 text-right font-mono text-emerald-500 whitespace-nowrap">${formatMYR(met.totalIncome)}</td>
+                            <td class="py-2.5 px-3 text-right font-mono text-sky-500 whitespace-nowrap">${formatMYR(met.totalBudget)}</td>
+                            <td class="py-2.5 px-3 text-right font-mono ${met.salaryBalance >= 0 ? 'text-ink-primary' : 'text-rose-500'} whitespace-nowrap">${formatMYR(met.salaryBalance)}</td>
+                        </tr>
+                    `;
+                }).join('');
 
                 document.getElementById('history-kpi-income').textContent = formatMYR(cumIncome);
                 document.getElementById('history-kpi-budget').textContent = formatMYR(cumBudget);
                 document.getElementById('history-kpi-cycles').textContent = String(sortedKeys.length);
 
-                // Bar Chart
+                const tbody = document.getElementById('history-table-body');
+                if (tbody) {
+                    tbody.innerHTML = rowsHtml || `<tr><td colspan="4" class="py-6 text-center text-ink-muted">No recorded cycles</td></tr>`;
+                }
+
+                // Multi-Cycle Bar Chart
                 if (typeof Chart !== 'undefined') {
                     const bCanvas = document.getElementById('chart-history-bar');
                     if (bCanvas) {
                         if (historyBarChart) historyBarChart.destroy();
-                        const recent = cycleRows.slice(-6);
                         historyBarChart = new Chart(bCanvas, {
                             type: 'bar',
                             data: {
-                                labels: recent.map(r => r.label),
+                                labels: cycleLabels,
                                 datasets: [
                                     {
                                         label: 'Income',
-                                        data: recent.map(r => r.income),
+                                        data: cycleIncomeSeries,
                                         backgroundColor: '#10B981',
                                         borderRadius: 6
                                     },
                                     {
                                         label: 'Budget',
-                                        data: recent.map(r => r.budget),
+                                        data: cycleBudgetSeries,
                                         backgroundColor: '#0EA5E9',
                                         borderRadius: 6
                                     }
@@ -1581,24 +1677,23 @@
                             options: {
                                 responsive: true,
                                 maintainAspectRatio: false,
-                                scales: {
-                                    x: {
-                                        grid: { display: false },
-                                        ticks: { color: isDark ? '#A1A1AA' : '#484852', font: { size: 11 } }
-                                    },
-                                    y: {
-                                        beginAtZero: true,
-                                        grid: { color: isDark ? '#26262C' : '#DFDFE5' },
-                                        ticks: { color: isDark ? '#A1A1AA' : '#484852', font: { size: 10 } }
-                                    }
-                                },
                                 plugins: {
                                     legend: {
                                         labels: {
                                             color: isDark ? '#A1A1AA' : '#484852',
                                             boxWidth: 10,
-                                            font: { size: 11 }
+                                            font: { family: 'Inter', size: 11 }
                                         }
+                                    }
+                                },
+                                scales: {
+                                    x: {
+                                        ticks: { color: isDark ? '#71717A' : '#767684', font: { family: 'JetBrains Mono', size: 10 } },
+                                        grid: { display: false }
+                                    },
+                                    y: {
+                                        ticks: { color: isDark ? '#71717A' : '#767684', font: { family: 'JetBrains Mono', size: 10 } },
+                                        grid: { color: isDark ? '#26262C' : '#DFDFE5' }
                                     }
                                 }
                             }
@@ -1606,60 +1701,210 @@
                     }
                 }
 
-                // History Table
-                const tbody = document.getElementById('history-table-body');
-                if (tbody) {
-                    const descRows = [...cycleRows].reverse();
-                    tbody.innerHTML = descRows.map(r => {
-                        const isCurrent = r.key === currentMonthKey;
-                        return `
-                            <tr data-action="jump-cycle" data-key="${escapeHTML(r.key)}" class="cursor-pointer transition ${isCurrent ? 'bg-emerald-500/10' : 'hover:bg-elevated'}">
-                                <td class="py-2.5 px-3">
-                                    <span class="font-semibold text-ink-primary block">${escapeHTML(r.label)}</span>
-                                    <span class="font-mono text-[10px] text-ink-muted">${escapeHTML(r.range)}</span>
-                                </td>
-                                <td class="py-2.5 px-3 text-right font-mono text-emerald-500 font-medium">${formatMYR(r.income)}</td>
-                                <td class="py-2.5 px-3 text-right font-mono text-sky-500 font-medium">${formatMYR(r.budget)}</td>
-                                <td class="py-2.5 px-3 text-right font-mono ${r.balance >= 0 ? 'text-ink-primary' : 'text-rose-500'}">${formatMYR(r.balance)}</td>
-                            </tr>
-                        `;
-                    }).join('');
-                }
-
                 // Past Income Ledger
-                renderIncomeLedger(allIncomes);
-            }
-
-            function renderIncomeLedger(allIncomes) {
-                const container = document.getElementById('past-income-ledger-container');
-                if (!container) return;
-
                 const query = (document.getElementById('ledger-search-input')?.value || '').trim().toLowerCase();
-
-                let filtered = allIncomes.filter(item => {
-                    return !query || (item.source || '').toLowerCase().includes(query) || item.cycleLabel.toLowerCase().includes(query);
+                const allIncomes = [];
+                sortedKeys.slice().reverse().forEach(key => {
+                    const m = ensureMonth(key);
+                    m.incomes.forEach(inc => {
+                        if (!query || (inc.source || '').toLowerCase().includes(query) || formatMonthKeyShort(key).toLowerCase().includes(query)) {
+                            allIncomes.push({
+                                cycleLabel: formatMonthKeyShort(key),
+                                source: inc.source,
+                                amount: inc.amount
+                            });
+                        }
+                    });
                 });
 
-                filtered.reverse();
+                const ledgerEl = document.getElementById('past-income-ledger-container');
+                if (ledgerEl) {
+                    if (allIncomes.length === 0) {
+                        ledgerEl.innerHTML = `<div class="py-8 text-center text-xs text-ink-muted border border-dashed border-subtle rounded-xl">No matching income records</div>`;
+                    } else {
+                        ledgerEl.innerHTML = allIncomes.map(entry => `
+                            <div class="bg-elevated border border-subtle rounded-xl px-3.5 py-2.5 flex items-center justify-between gap-2">
+                                <div class="min-w-0">
+                                    <p class="text-xs font-medium text-ink-primary truncate">${escapeHTML(entry.source)}</p>
+                                    <span class="font-mono text-[10px] text-ink-muted">${escapeHTML(entry.cycleLabel)}</span>
+                                </div>
+                                <span class="font-mono text-xs font-bold text-emerald-500 shrink-0">${formatMYR(entry.amount)}</span>
+                            </div>
+                        `).join('');
+                    }
+                }
+            }
 
-                if (filtered.length === 0) {
-                    container.innerHTML = `
-                        <div class="empty-placeholder-220 rounded-xl border border-dashed border-subtle flex items-center justify-center text-xs text-ink-muted p-6">
-                            No matching income records
-                        </div>
-                    `;
+            // ==================== INLINE CALCULATOR ENGINE ====================
+            function evaluateMathExpression(rawExpr) {
+                const sanitized = String(rawExpr || '').replace(/[^0-9+\-*/.]/g, '');
+                if (!sanitized) return 0;
+                const trimmed = sanitized.replace(/[+\-*/.]+$/, '');
+                if (!trimmed) return 0;
+
+                const tokens = trimmed.match(/(\d+\.?\d*|\.\d+|[+\-*/])/g);
+                if (!tokens || tokens.length === 0) return 0;
+
+                // First pass: * and /
+                const pass1 = [];
+                let i = 0;
+                while (i < tokens.length) {
+                    const tok = tokens[i];
+                    if ((tok === '*' || tok === '/') && pass1.length > 0 && i + 1 < tokens.length) {
+                        const prev = parseFloat(pass1.pop());
+                        const next = parseFloat(tokens[i + 1]);
+                        if (isNaN(prev) || isNaN(next)) return NaN;
+                        if (tok === '/' && next === 0) return NaN;
+                        pass1.push(tok === '*' ? prev * next : prev / next);
+                        i += 2;
+                    } else {
+                        pass1.push(tok);
+                        i += 1;
+                    }
+                }
+
+                // Second pass: + and -
+                let result = parseFloat(pass1[0]);
+                if (isNaN(result)) return NaN;
+                for (let j = 1; j < pass1.length; j += 2) {
+                    const op = pass1[j];
+                    const val = parseFloat(pass1[j + 1]);
+                    if (isNaN(val)) break;
+                    if (op === '+') result += val;
+                    else if (op === '-') result -= val;
+                }
+
+                return Number.isFinite(result) ? result : NaN;
+            }
+
+            function resetCalculator(target, initialVal) {
+                const startStr = initialVal && Number(initialVal) > 0 ? String(Number(initialVal)) : '';
+                calcStates[target] = {
+                    expr: startStr,
+                    lastResult: startStr ? Number(startStr) : null
+                };
+                updateCalculatorDisplay(target);
+            }
+
+            function toggleCalculatorPanel(target, forceHide) {
+                const panel = document.getElementById(`calc-panel-${target}`);
+                if (!panel) return;
+                if (forceHide) {
+                    panel.classList.add('hidden');
+                    return;
+                }
+                const willShow = panel.classList.contains('hidden');
+                panel.classList.toggle('hidden', !willShow);
+                if (willShow) {
+                    const amtInput = document.getElementById(target === 'income' ? 'income-amount' : 'budget-amount');
+                    resetCalculator(target, amtInput ? amtInput.value : '');
+                }
+            }
+
+            function updateCalculatorDisplay(target) {
+                const state = calcStates[target];
+                const exprEl = document.getElementById(`calc-expr-${target}`);
+                const dispEl = document.getElementById(`calc-disp-${target}`);
+                if (!state || !exprEl || !dispEl) return;
+
+                const prettyExpr = state.expr
+                    ? state.expr.replace(/\*/g, '×').replace(/\//g, '÷')
+                    : '0';
+                exprEl.textContent = prettyExpr;
+
+                if (state.lastResult !== null && !isNaN(state.lastResult)) {
+                    dispEl.textContent = Number(state.lastResult.toFixed(2)).toString();
+                } else if (state.expr) {
+                    const liveVal = evaluateMathExpression(state.expr);
+                    dispEl.textContent = Number.isFinite(liveVal) ? Number(liveVal.toFixed(2)).toString() : '0';
+                } else {
+                    dispEl.textContent = '0';
+                }
+            }
+
+            function applyCalculatorResultToInput(target, val) {
+                if (!Number.isFinite(val) || val < 0) return;
+                const formatted = val.toFixed(2);
+                const amtInput = document.getElementById(target === 'income' ? 'income-amount' : 'budget-amount');
+                if (amtInput) {
+                    amtInput.value = formatted;
+                }
+            }
+
+            function handleCalculatorKey(target, key) {
+                const state = calcStates[target];
+                if (!state) return;
+
+                if (key === 'C') {
+                    state.expr = '';
+                    state.lastResult = null;
+                    updateCalculatorDisplay(target);
                     return;
                 }
 
-                container.innerHTML = filtered.map(item => `
-                    <div class="bg-elevated border border-subtle rounded-xl p-3 flex items-center justify-between gap-2">
-                        <div class="min-w-0">
-                            <p class="text-xs font-semibold text-ink-primary truncate">${escapeHTML(item.source)}</p>
-                            <p class="font-mono text-[11px] text-ink-muted mt-0.5">${escapeHTML(item.cycleLabel)}</p>
-                        </div>
-                        <span class="font-mono text-xs font-bold text-emerald-500 shrink-0">${formatMYR(item.amount)}</span>
-                    </div>
-                `).join('');
+                if (key === 'BS') {
+                    state.expr = state.expr.slice(0, -1);
+                    state.lastResult = null;
+                    updateCalculatorDisplay(target);
+                    return;
+                }
+
+                if (key === '=') {
+                    const res = evaluateMathExpression(state.expr);
+                    if (Number.isFinite(res)) {
+                        const rounded = Math.max(0, Number(res.toFixed(2)));
+                        state.lastResult = rounded;
+                        state.expr = String(rounded);
+                        applyCalculatorResultToInput(target, rounded);
+                    }
+                    updateCalculatorDisplay(target);
+                    return;
+                }
+
+                if (key === 'USE') {
+                    const res = state.lastResult !== null
+                        ? state.lastResult
+                        : evaluateMathExpression(state.expr);
+                    if (Number.isFinite(res) && res > 0) {
+                        const rounded = Number(res.toFixed(2));
+                        applyCalculatorResultToInput(target, rounded);
+                        toggleCalculatorPanel(target, true);
+                        showToast(`Amount set to RM ${rounded.toFixed(2)}`);
+                    } else {
+                        showToast('Enter a valid amount');
+                    }
+                    return;
+                }
+
+                const isOp = ['+', '-', '*', '/'].includes(key);
+                if (isOp) {
+                    if (!state.expr) return;
+                    if (['+', '-', '*', '/'].includes(state.expr.slice(-1))) {
+                        state.expr = state.expr.slice(0, -1) + key;
+                    } else {
+                        state.expr += key;
+                    }
+                    state.lastResult = null;
+                    updateCalculatorDisplay(target);
+                    return;
+                }
+
+                if (key === '.') {
+                    const parts = state.expr.split(/[+\-*/]/);
+                    const lastNum = parts[parts.length - 1] || '';
+                    if (lastNum.includes('.')) return;
+                    state.expr += lastNum === '' ? '0.' : '.';
+                    state.lastResult = null;
+                    updateCalculatorDisplay(target);
+                    return;
+                }
+
+                // Digits 0-9
+                if (/^[0-9]$/.test(key)) {
+                    state.expr += key;
+                    state.lastResult = null;
+                    updateCalculatorDisplay(target);
+                }
             }
 
             // ==================== MODALS & INTERACTIVE FORMS ====================
@@ -1768,13 +2013,15 @@
                 showToast('Financial cycle updated');
             }
 
-            // Income Modal (Source & Amount ONLY)
+            // Income Modal (Source & Amount + Inline Calculator)
             function openIncomeModal(editId) {
                 const monthData = getCurrentMonthData();
                 const titleEl = document.getElementById('income-modal-title');
                 const idEl = document.getElementById('income-edit-id');
                 const srcEl = document.getElementById('income-source');
                 const amtEl = document.getElementById('income-amount');
+
+                toggleCalculatorPanel('income', true);
 
                 if (editId) {
                     const item = monthData.incomes.find(i => i.id === editId);
@@ -1821,7 +2068,7 @@
                 renderAll();
             }
 
-            // Budget Modal (Title, Category & Amount ONLY)
+            // Budget Modal (Title, Category & Amount + Inline Calculator)
             function openBudgetModal(editId) {
                 const monthData = getCurrentMonthData();
                 const titleEl = document.getElementById('budget-modal-title');
@@ -1830,13 +2077,15 @@
                 const catEl = document.getElementById('budget-category');
                 const amtEl = document.getElementById('budget-amount');
 
+                toggleCalculatorPanel('budget', true);
+
                 if (editId) {
                     const item = monthData.budgets.find(b => b.id === editId);
                     if (!item) return;
                     titleEl.textContent = 'Edit Budget';
                     idEl.value = item.id;
                     nameEl.value = item.name;
-                    catEl.value = item.category;
+                    catEl.value = item.category === 'Needs' ? 'Wants' : item.category;
                     amtEl.value = item.amount;
                 } else {
                     titleEl.textContent = 'Add Budget';
@@ -1884,10 +2133,10 @@
             function handleRatioInputChange() {
                 const monthData = getCurrentMonthData();
                 const c = Math.max(0, Math.min(100, Number(document.getElementById('input-ratio-commitment').value) || 0));
-                const n = Math.max(0, Math.min(100, Number(document.getElementById('input-ratio-needs').value) || 0));
+                const w = Math.max(0, Math.min(100, Number(document.getElementById('input-ratio-wants').value) || 0));
                 const s = Math.max(0, Math.min(100, Number(document.getElementById('input-ratio-savings').value) || 0));
 
-                monthData.ratios = { Commitment: c, Needs: n, Savings: s };
+                monthData.ratios = { Commitment: c, Wants: w, Savings: s };
                 saveState();
                 renderAll();
             }
@@ -1895,12 +2144,12 @@
             function autoBalanceRatios() {
                 const monthData = getCurrentMonthData();
                 const c = Math.max(0, Math.min(100, Number(monthData.ratios.Commitment) || 0));
-                const n = Math.max(0, Math.min(100, Number(monthData.ratios.Needs) || 0));
-                const rem = 100 - (c + n);
+                const w = Math.max(0, Math.min(100, Number(monthData.ratios.Wants) || 0));
+                const rem = 100 - (c + w);
                 if (rem >= 0) {
                     monthData.ratios.Savings = rem;
                 } else {
-                    monthData.ratios = { Commitment: 50, Needs: 30, Savings: 20 };
+                    monthData.ratios = { Commitment: 50, Wants: 30, Savings: 20 };
                 }
                 saveState();
                 renderAll();
@@ -2004,8 +2253,18 @@
                         const parsed = JSON.parse(ev.target.result);
                         if (parsed && parsed.months && typeof parsed.months === 'object') {
                             appData = parsed.months;
-                            if (parsed.defaultRatios) defaultRatios = parsed.defaultRatios;
+                            if (parsed.defaultRatios) {
+                                const importedWants = parsed.defaultRatios.Wants !== undefined
+                                    ? parsed.defaultRatios.Wants
+                                    : parsed.defaultRatios.Needs;
+                                defaultRatios = {
+                                    Commitment: Number(parsed.defaultRatios.Commitment) || 50,
+                                    Wants: Number(importedWants) || 30,
+                                    Savings: Number(parsed.defaultRatios.Savings) || 20
+                                };
+                            }
                             if (parsed.defaultCycleStartDay) defaultCycleStartDay = parsed.defaultCycleStartDay;
+                            Object.keys(appData).forEach(k => ensureMonth(k));
                             ensureMonth(currentMonthKey);
                             saveState();
                             closeModal('data-modal');
@@ -2038,7 +2297,7 @@
 
             function resetAllData() {
                 appData = {};
-                defaultRatios = { Commitment: 50, Needs: 30, Savings: 20 };
+                defaultRatios = { Commitment: 50, Wants: 30, Savings: 20 };
                 defaultCycleStartDay = 1;
                 ensureMonth(currentMonthKey);
                 saveState();
@@ -2069,7 +2328,7 @@
                 document.getElementById('btn-add-income')?.addEventListener('click', () => openIncomeModal(null));
                 document.getElementById('sort-income-by')?.addEventListener('change', renderAll);
                 document.getElementById('input-ratio-commitment')?.addEventListener('input', handleRatioInputChange);
-                document.getElementById('input-ratio-needs')?.addEventListener('input', handleRatioInputChange);
+                document.getElementById('input-ratio-wants')?.addEventListener('input', handleRatioInputChange);
                 document.getElementById('input-ratio-savings')?.addEventListener('input', handleRatioInputChange);
                 document.getElementById('btn-auto-balance')?.addEventListener('click', autoBalanceRatios);
                 document.getElementById('btn-save-default-ratio')?.addEventListener('click', saveRatiosAsDefault);
@@ -2128,6 +2387,21 @@
 
                 // Delegated Click Events for Dynamic Elements & Nav
                 document.addEventListener('click', (e) => {
+                    const calcToggleTarget = e.target.closest('[data-toggle-calc]');
+                    if (calcToggleTarget) {
+                        toggleCalculatorPanel(calcToggleTarget.getAttribute('data-toggle-calc'));
+                        return;
+                    }
+
+                    const calcKeyTarget = e.target.closest('[data-calc-key]');
+                    if (calcKeyTarget) {
+                        handleCalculatorKey(
+                            calcKeyTarget.getAttribute('data-calc-target'),
+                            calcKeyTarget.getAttribute('data-calc-key')
+                        );
+                        return;
+                    }
+
                     const navTarget = e.target.closest('[data-nav]');
                     if (navTarget) {
                         switchPage(navTarget.getAttribute('data-nav'));
