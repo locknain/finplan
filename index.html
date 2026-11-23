@@ -17,13 +17,6 @@
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-
-    <!-- Supabase JS Client -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -31,12 +24,16 @@
                 extend: {
                     fontFamily: {
                         sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
+                        mono: ['JetBrains Mono', 'monospace']
                     }
                 }
             }
         };
     </script>
+
+    <!-- Chart.js & Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <style>
         /* Automatic Device Theme Tokens: Matte White (Light) & Matte Black (Dark) */
@@ -564,6 +561,17 @@
                 <div id="budget-list-container" class="space-y-2.5">
                     <!-- Rendered dynamically -->
                 </div>
+
+                <!-- Subcategory Totals Summary (Rolled-up inside active category) -->
+                <div id="budget-subcategory-summary" class="hidden pt-2 border-t border-subtle space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-semibold text-ink-secondary">Subcategory Totals</span>
+                        <span class="text-[11px] text-ink-muted">Current category</span>
+                    </div>
+                    <div id="budget-subcategory-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                        <!-- Rendered dynamically -->
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -613,6 +621,26 @@
                         <canvas id="chart-category-doughnut"></canvas>
                         <div id="doughnut-empty-label" class="hidden absolute inset-0 flex items-center justify-center text-xs text-ink-muted">No budget entries yet</div>
                     </div>
+                </div>
+            </div>
+
+            <!-- Detailed Subcategory Breakdown -->
+            <div class="bg-card border border-subtle rounded-2xl p-4 sm:p-5 space-y-4">
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                    <div>
+                        <h2 class="section-title-fluid font-semibold text-ink-primary">Subcategory Breakdown</h2>
+                        <p class="text-xs text-ink-muted mt-0.5">Detailed allocation by subcategory</p>
+                    </div>
+                    <select id="analysis-subcat-filter" class="h-9 px-3 rounded-xl bg-input border border-subtle text-xs font-medium text-ink-primary focus:outline-none">
+                        <option value="ALL">All Categories</option>
+                        <option value="Commitment">Commitment</option>
+                        <option value="Wants">Wants</option>
+                        <option value="Savings">Savings</option>
+                    </select>
+                </div>
+
+                <div id="analysis-subcategory-container" class="space-y-2.5">
+                    <!-- Rendered dynamically -->
                 </div>
             </div>
 
@@ -674,8 +702,8 @@
                         <input type="text" id="ledger-search-input" placeholder="Search source..." class="ctrl-44 px-3 rounded-xl bg-input border border-subtle text-xs text-ink-primary w-full focus:outline-none">
                     </div>
                 </div>
-
-                <div id="past-income-ledger-container" class="space-y-2">
+                <!-- Budget Items List (Rolled-up by Subcategory per Category) -->
+                <div id="budget-list-container" class="space-y-2.5">
                     <!-- Rendered dynamically -->
                 </div>
             </div>
@@ -854,6 +882,18 @@
                 </div>
 
                 <div>
+                    <label for="budget-subcategory" class="block text-xs font-medium text-ink-secondary mb-1">Subcategory</label>
+                    <select id="budget-subcategory" class="ctrl-44 w-full px-3 rounded-xl bg-input border border-subtle text-sm text-ink-primary focus:outline-none focus:border-emerald-500">
+                        <option value="Self">Self</option>
+                        <option value="Bills">Bills</option>
+                        <option value="Parents">Parents</option>
+                        <option value="Loans">Loans</option>
+                        <option value="BNPL">BNPL</option>
+                        <option value="Subscription">Subscription</option>
+                    </select>
+                </div>
+
+                <div>
                     <label for="budget-amount" class="block text-xs font-medium text-ink-secondary mb-1">Amount (RM)</label>
                     <div class="flex items-center gap-2">
                         <input type="number" id="budget-amount" required min="0.01" step="0.01" placeholder="0.00" class="ctrl-44 flex-1 min-w-0 px-3 rounded-xl bg-input border border-subtle font-mono text-sm text-ink-primary focus:outline-none focus:border-emerald-500">
@@ -1004,6 +1044,7 @@
             const STORAGE_KEY_SUPABASE = 'finplan_supabase_cfg_v1';
 
             const CATEGORIES = ['Commitment', 'Wants', 'Savings'];
+            const SUBCATEGORIES = ['Self', 'Bills', 'Parents', 'Loans', 'BNPL', 'Subscription'];
             const MONTH_SHORT = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
             const MONTH_FULL = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -1534,6 +1575,7 @@ notify pgrst, 'reload schema';`;
                     m.budgets.forEach(item => {
                         if (item.category === 'Needs') item.category = 'Wants';
                         if (!CATEGORIES.includes(item.category)) item.category = 'Commitment';
+                        if (!SUBCATEGORIES.includes(item.subcategory)) item.subcategory = 'Self';
                     });
                 }
                 return appData[monthKey];
@@ -1971,20 +2013,21 @@ notify pgrst, 'reload schema';`;
                         </div>
                     `;
                 } else {
-                    listEl.innerHTML = filtered.map(item => `
-                        <div class="bg-elevated border border-subtle rounded-xl px-3.5 py-3 flex items-center justify-between gap-3">
-                            <div class="min-w-0 flex-1">
-                                <p class="text-xs sm:text-sm font-semibold text-ink-primary truncate">${escapeHTML(item.name)}</p>
-                                <p class="font-mono text-xs sm:text-sm font-bold text-sky-500 mt-0.5">${formatMYR(item.amount)}</p>
-                            </div>
-                            <div class="flex items-center gap-1.5 shrink-0">
-                                <button type="button" data-action="edit-budget" data-id="${escapeHTML(item.id)}" aria-label="Edit Budget" class="w-9 h-9 rounded-lg bg-card border border-subtle hover:border-strong flex items-center justify-center text-ink-secondary hover:text-ink-primary transition">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
-                                </button>
-                                <button type="button" data-action="delete-budget" data-id="${escapeHTML(item.id)}" aria-label="Delete Budget" class="w-9 h-9 rounded-lg bg-card border border-subtle hover:border-rose-500/50 flex items-center justify-center text-ink-secondary hover:text-rose-500 transition">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-                                </button>
-                            </div>
+                    const subTotals = {};
+                    filtered.forEach(item => {
+                        const sc = SUBCATEGORIES.includes(item.subcategory) ? item.subcategory : 'Self';
+                        subTotals[sc] = (subTotals[sc] || 0) + (Number(item.amount) || 0);
+                    });
+
+                    const activeSubs = SUBCATEGORIES.filter(sc => (subTotals[sc] || 0) > 0);
+                    if (sortBy === 'amount-desc') activeSubs.sort((a, b) => subTotals[b] - subTotals[a]);
+                    else if (sortBy === 'amount-asc') activeSubs.sort((a, b) => subTotals[a] - subTotals[b]);
+                    else if (sortBy === 'name-asc') activeSubs.sort((a, b) => a.localeCompare(b));
+
+                    listEl.innerHTML = activeSubs.map(sc => `
+                        <div class="bg-elevated border border-subtle rounded-xl px-4 py-3.5 flex items-center justify-between gap-3">
+                            <span class="text-xs sm:text-sm font-semibold text-ink-primary truncate">${escapeHTML(sc)}</span>
+                            <span class="font-mono text-xs sm:text-sm font-bold text-sky-500 shrink-0">${formatMYR(subTotals[sc])}</span>
                         </div>
                     `).join('');
                 }
@@ -2078,6 +2121,66 @@ notify pgrst, 'reload schema';`;
 
                 // Charts
                 renderCharts(byCategory, sortedKeys);
+
+                // Render Detailed Subcategory Breakdown
+                renderAnalysisSubcategories(m);
+            }
+
+            function renderAnalysisSubcategories(monthObj) {
+                const container = document.getElementById('analysis-subcategory-container');
+                if (!container) return;
+
+                const catFilter = document.getElementById('analysis-subcat-filter')?.value || 'ALL';
+                const items = monthObj.budgets.filter(b => catFilter === 'ALL' || b.category === catFilter);
+
+                if (items.length === 0) {
+                    container.innerHTML = `<p class="text-xs text-ink-muted text-center py-6">No budget items recorded for this selection</p>`;
+                    return;
+                }
+
+                const grandTotal = items.reduce((sum, b) => sum + (Number(b.amount) || 0), 0);
+                const grouped = {};
+                SUBCATEGORIES.forEach(sc => { grouped[sc] = []; });
+
+                items.forEach(item => {
+                    const sc = SUBCATEGORIES.includes(item.subcategory) ? item.subcategory : 'Self';
+                    grouped[sc].push(item);
+                });
+
+                const populatedSubs = SUBCATEGORIES.filter(sc => grouped[sc].length > 0);
+                container.innerHTML = populatedSubs.map(sc => {
+                    const subItems = grouped[sc];
+                    const subSum = subItems.reduce((s, i) => s + (Number(i.amount) || 0), 0);
+                    const pct = grandTotal > 0 ? Math.round((subSum / grandTotal) * 100) : 0;
+
+                    const rowsHtml = subItems.map(it => `
+                        <div class="flex items-center justify-between gap-2 text-xs py-1.5 px-2.5 rounded-lg bg-card border border-subtle">
+                            <div class="flex items-center gap-2 min-w-0">
+                                <span class="text-ink-primary font-medium truncate">${escapeHTML(it.name)}</span>
+                                <span class="font-mono text-[10px] text-ink-muted shrink-0">(${escapeHTML(it.category)})</span>
+                            </div>
+                            <span class="font-mono font-semibold text-ink-primary shrink-0">${formatMYR(it.amount)}</span>
+                        </div>
+                    `).join('');
+
+                    return `
+                        <div class="bg-elevated border border-subtle rounded-xl p-3.5 space-y-2.5">
+                            <div class="flex items-center justify-between gap-2">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs sm:text-sm font-semibold text-ink-primary">${escapeHTML(sc)}</span>
+                                    <span class="font-mono text-[11px] px-2 py-0.5 rounded-md bg-card border border-subtle text-ink-secondary">${pct}%</span>
+                                </div>
+                                <span class="font-mono text-xs sm:text-sm font-bold text-sky-500">${formatMYR(subSum)}</span>
+                            </div>
+                            <div class="w-full h-1.5 bg-card rounded-full overflow-hidden">
+                                <div class="h-full bg-sky-500 transition-all duration-300" style="width: ${pct}%"></div>
+                            </div>
+                            <div class="space-y-1.5 pt-1">
+                                ${rowsHtml}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
             }
 
             function renderCharts(byCategory, sortedKeys) {
@@ -2336,6 +2439,7 @@ notify pgrst, 'reload schema';`;
                 const idEl = document.getElementById('budget-edit-id');
                 const nameEl = document.getElementById('budget-name');
                 const catEl = document.getElementById('budget-category');
+                const subCatEl = document.getElementById('budget-subcategory');
                 const amtEl = document.getElementById('budget-amount');
                 const calcPanel = document.getElementById('calc-panel-budget');
                 if (calcPanel) calcPanel.classList.add('hidden');
@@ -2347,6 +2451,7 @@ notify pgrst, 'reload schema';`;
                     if (idEl) idEl.value = item.id;
                     if (nameEl) nameEl.value = item.name;
                     if (catEl) catEl.value = item.category;
+                    if (subCatEl) subCatEl.value = SUBCATEGORIES.includes(item.subcategory) ? item.subcategory : 'Self';
                     if (amtEl) amtEl.value = Number(item.amount).toFixed(2);
                     resetCalc('budget', item.amount);
                 } else {
@@ -2354,6 +2459,7 @@ notify pgrst, 'reload schema';`;
                     if (idEl) idEl.value = '';
                     if (nameEl) nameEl.value = '';
                     if (catEl) catEl.value = activeBudgetTab;
+                    if (subCatEl) subCatEl.value = 'Self';
                     if (amtEl) amtEl.value = '';
                     resetCalc('budget', 0);
                 }
@@ -2366,6 +2472,8 @@ notify pgrst, 'reload schema';`;
                 const editId = document.getElementById('budget-edit-id').value;
                 const name = document.getElementById('budget-name').value.trim();
                 const category = document.getElementById('budget-category').value;
+                const subVal = document.getElementById('budget-subcategory').value;
+                const subcategory = SUBCATEGORIES.includes(subVal) ? subVal : 'Self';
                 const amount = parseFloat(document.getElementById('budget-amount').value);
 
                 if (!name || !CATEGORIES.includes(category) || isNaN(amount) || amount <= 0) {
@@ -2376,11 +2484,11 @@ notify pgrst, 'reload schema';`;
                 if (editId) {
                     const idx = m.budgets.findIndex(b => b.id === editId);
                     if (idx !== -1) {
-                        m.budgets[idx] = { ...m.budgets[idx], name, category, amount };
+                        m.budgets[idx] = { ...m.budgets[idx], name, category, subcategory, amount };
                     }
                     showToast('Budget updated');
                 } else {
-                    m.budgets.push({ id: generateId('bud'), name, category, amount });
+                    m.budgets.push({ id: generateId('bud'), name, category, subcategory, amount });
                     showToast('Budget added');
                 }
 
@@ -2421,6 +2529,7 @@ notify pgrst, 'reload schema';`;
                     id: generateId('bud'),
                     name: b.name,
                     category: b.category,
+                    subcategory: SUBCATEGORIES.includes(b.subcategory) ? b.subcategory : 'Self',
                     amount: Number(b.amount) || 0
                 }));
 
@@ -2443,14 +2552,15 @@ notify pgrst, 'reload schema';`;
             }
 
             function exportCycleCSV(monthKeys) {
-                const rows = [['Cycle', 'Type', 'Category', 'Title', 'Amount_MYR']];
+                const rows = [['Cycle', 'Type', 'Category', 'Subcategory', 'Title', 'Amount_MYR']];
                 monthKeys.forEach(k => {
                     const mo = ensureMonth(k);
                     mo.incomes.forEach(i => {
-                        rows.push([k, 'Income', 'Inflow', `"${String(i.source).replace(/"/g, '""')}"`, Number(i.amount).toFixed(2)]);
+                        rows.push([k, 'Income', 'Inflow', 'Income', `"${String(i.source).replace(/"/g, '""')}"`, Number(i.amount).toFixed(2)]);
                     });
                     mo.budgets.forEach(b => {
-                        rows.push([k, 'Budget', b.category, `"${String(b.name).replace(/"/g, '""')}"`, Number(b.amount).toFixed(2)]);
+                        const sc = SUBCATEGORIES.includes(b.subcategory) ? b.subcategory : 'Self';
+                        rows.push([k, 'Budget', b.category, sc, `"${String(b.name).replace(/"/g, '""')}"`, Number(b.amount).toFixed(2)]);
                     });
                 });
                 const csv = rows.map(r => r.join(',')).join('\n');
@@ -2593,6 +2703,7 @@ notify pgrst, 'reload schema';`;
                 document.getElementById('sort-income-by')?.addEventListener('change', renderIncomePage);
                 document.getElementById('sort-budget-by')?.addEventListener('change', renderBudgetPage);
                 document.getElementById('ledger-search-input')?.addEventListener('input', renderAnalysisPage);
+                document.getElementById('analysis-subcat-filter')?.addEventListener('change', renderAnalysisPage);
 
                 // Financial Plan Ratios
                 ['commitment', 'wants', 'savings'].forEach(key => {
