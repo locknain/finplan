@@ -1028,11 +1028,16 @@ create table if not exists public.finplan_workspaces (
 
 alter table public.finplan_workspaces enable row level security;
 
+drop policy if exists "Allow public workspace read/write" on public.finplan_workspaces;
+
 create policy "Allow public workspace read/write"
   on public.finplan_workspaces
   for all
+  to anon, authenticated
   using (true)
-  with check (true);`;
+  with check (true);
+
+notify pgrst, 'reload schema';`;
 
             // Application State
             let appData = {};
@@ -1337,19 +1342,22 @@ create policy "Allow public workspace read/write"
                 } catch (err) {
                     console.error('Supabase connection error:', err);
                     isSupabaseConnected = false;
-                    updateSupabaseStatusUI('Table/Key Error', 'error');
+                    updateSupabaseStatusUI('Connection Error', 'error');
                     const rawMsg = err && (err.message || err.error_description || JSON.stringify(err));
-                    let friendlyHint = rawMsg || 'Unknown connection error';
+                    const errCode = err && err.code ? `[${err.code}] ` : '';
+                    let friendlyHint = `${errCode}${rawMsg || 'Unknown connection error'}`;
                     if (rawMsg && (rawMsg.includes('does not exist') || rawMsg.includes('Could not find the table') || err.code === '42P01' || err.code === 'PGRST205')) {
-                        friendlyHint = 'Table "finplan_workspaces" not found. Tap "Copy Table SQL" and run it in Supabase SQL Editor.';
+                        friendlyHint = `${errCode}Table "finplan_workspaces" not found or schema cache stale. Run "Copy Table SQL" in Supabase SQL Editor and wait 5 seconds.`;
                     } else if (rawMsg && (rawMsg.toLowerCase().includes('jwt') || rawMsg.toLowerCase().includes('api key') || err.status === 401)) {
-                        friendlyHint = 'Invalid API Key. Copy the "Publishable / anon" key from Supabase Project Settings → API.';
+                        friendlyHint = `${errCode}Invalid API Key. Copy the "Publishable / anon" key from Supabase Project Settings → API.`;
                     } else if (rawMsg && (rawMsg.includes('row-level security') || err.code === '42501')) {
-                        friendlyHint = 'Blocked by RLS policy. Run the CREATE POLICY statement from "Copy Table SQL" in Supabase.';
+                        friendlyHint = `${errCode}Blocked by RLS policy. Run the updated "Copy Table SQL" (with "to anon, authenticated") in Supabase SQL Editor.`;
+                    } else if (rawMsg && rawMsg.toLowerCase().includes('failed to fetch')) {
+                        friendlyHint = 'Network / CORS error: Check that your Supabase Project URL is active (not paused) and matches https://<ref>.supabase.co.';
                     }
                     showSupabaseErrorDetail(friendlyHint);
                     if (!silent) {
-                        showToast('Connection failed — see details in modal');
+                        showToast('Connection failed — see error details in modal');
                     }
                     return false;
                 }
