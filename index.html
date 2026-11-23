@@ -861,6 +861,50 @@
                             <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
                             <span>Calc</span>
                         </button>
+                    </div>
+                </div>
+
+                <!-- Inline Calculator Panel (Budget) -->
+                <div id="calc-panel-budget" class="hidden bg-elevated border border-subtle rounded-xl p-3 space-y-2.5">
+                    <div class="bg-input border border-subtle rounded-lg px-3 py-2 text-right">
+                        <div id="calc-expr-budget" class="font-mono text-[11px] text-ink-muted h-4 truncate">0</div>
+                        <div id="calc-disp-budget" class="font-mono text-base font-bold text-ink-primary truncate">0</div>
+                    </div>
+                    <div class="grid grid-cols-4 gap-1.5 font-mono text-xs font-semibold">
+                        <button type="button" data-calc-target="budget" data-calc-key="C" class="h-9 rounded-lg bg-rose-500/15 text-rose-500 hover:bg-rose-500/25">C</button>
+                        <button type="button" data-calc-target="budget" data-calc-key="BS" class="h-9 rounded-lg bg-card border border-subtle text-ink-secondary hover:text-ink-primary">⌫</button>
+                        <button type="button" data-calc-target="budget" data-calc-key="/" class="h-9 rounded-lg bg-card border border-subtle text-sky-500 hover:border-strong">÷</button>
+                        <button type="button" data-calc-target="budget" data-calc-key="*" class="h-9 rounded-lg bg-card border border-subtle text-sky-500 hover:border-strong">×</button>
+
+                        <button type="button" data-calc-target="budget" data-calc-key="7" class="h-9 rounded-lg bg-card border border-subtle text-ink-primary hover:border-strong">7</button>
+                        <button type="button" data-calc-target="budget" data-calc-key="8" class="h-9 rounded-lg bg-card border border-subtle text-ink-primary hover:border-strong">8</button>
+                        <button type="button" data-calc-target="budget" data-calc-key="9" class="h-9 rounded-lg bg-card border border-subtle text-ink-primary hover:border-strong">9</button>
+                        <button type="button" data-calc-target="budget" data-calc-key="-" class="h-9 rounded-lg bg-card border border-subtle text-sky-500 hover:border-strong">−</button>
+
+                        <button type="button" data-calc-target="budget" data-calc-key="4" class="h-9 rounded-lg bg-card border border-subtle text-ink-primary hover:border-strong">4</button>
+                        <button type="button" data-calc-target="budget" data-calc-key="5" class="h-9 rounded-lg bg-card border border-subtle text-ink-primary hover:border-strong">5</button>
+                        <button type="button" data-calc-target="budget" data-calc-key="6" class="h-9 rounded-lg bg-card border border-subtle text-ink-primary hover:border-strong">6</button>
+                        <button type="button" data-calc-target="budget" data-calc-key="+" class="h-9 rounded-lg bg-card border border-subtle text-sky-500 hover:border-strong">+</button>
+
+                        <button type="button" data-calc-target="budget" data-calc-key="1" class="h-9 rounded-lg bg-card border border-subtle text-ink-primary hover:border-strong">1</button>
+                        <button type="button" data-calc-target="budget" data-calc-key="2" class="h-9 rounded-lg bg-card border border-subtle text-ink-primary hover:border-strong">2</button>
+                        <button type="button" data-calc-target="budget" data-calc-key="3" class="h-9 rounded-lg bg-card border border-subtle text-ink-primary hover:border-strong">3</button>
+                        <button type="button" data-calc-target="budget" data-calc-key="=" class="h-9 rounded-lg bg-sky-500/20 text-sky-500 hover:bg-sky-500/30 font-bold">=</button>
+
+                        <button type="button" data-calc-target="budget" data-calc-key="0" class="col-span-2 h-9 rounded-lg bg-card border border-subtle text-ink-primary hover:border-strong">0</button>
+                        <button type="button" data-calc-target="budget" data-calc-key="." class="h-9 rounded-lg bg-card border border-subtle text-ink-primary hover:border-strong">.</button>
+                        <button type="button" data-calc-target="budget" data-calc-key="USE" class="h-9 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-zinc-950 font-sans text-[11px] font-bold">Use Result</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-end gap-2 pt-2">
+                <button type="button" data-close-modal="budget-modal" class="ctrl-44 px-4 rounded-xl bg-elevated border border-subtle text-xs font-medium text-ink-primary">Cancel</button>
+                <button type="submit" class="ctrl-44 px-5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-zinc-950 text-xs font-semibold">Save Budget</button>
+            </div>
+        </form>
+    </div>
+
     <!-- ==================== MODAL: DATA BACKUP & SUPABASE SYNC ==================== -->
     <div id="data-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/60 backdrop-blur-xs overflow-y-auto">
         <div class="bg-card border border-subtle rounded-2xl max-w-md w-full p-4 sm:p-5 space-y-4 my-auto">
