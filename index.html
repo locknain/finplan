@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>FinPlan | Personal Budget Tracker</title>
 
+    <!-- Favicon & App Icon from Repository -->
+    <link rel="icon" type="image/png" href="./FinPlan%20Logo.png">
+    <link rel="shortcut icon" type="image/png" href="./FinPlan%20Logo.png">
+    <link rel="apple-touch-icon" href="./FinPlan%20Logo.png">
+
     <!-- Google Fonts: Inter & JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,6 +20,9 @@
 
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+    <!-- Supabase JS Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script>
         tailwind.config = {
@@ -217,14 +225,16 @@
         <div class="max-w-5xl mx-auto px-3 sm:px-6 py-2.5 flex flex-wrap sm:flex-nowrap items-center justify-between gap-2">
             <!-- Left: Brand Logo & Title -->
             <div class="flex items-center gap-2 shrink-0 min-w-0">
-                <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-500 shrink-0">
-                    <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-500 overflow-hidden shrink-0">
+                    <img src="./FinPlan%20Logo.png" alt="FinPlan Logo" class="w-full h-full object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <svg style="display:none;" class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M21 12V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2h14a2 2 0 002-2v-5zm0 0h-5a2 2 0 100 4h5v-4z" />
                     </svg>
                 </div>
                 <div class="leading-tight min-w-0">
-                    <h1 class="font-bold text-sm sm:text-[17px] tracking-tight text-ink-primary truncate">
-                        Fin<span class="text-emerald-500">Plan</span>
+                    <h1 class="font-bold text-sm sm:text-[17px] tracking-tight text-ink-primary truncate flex items-center gap-1.5">
+                        <span>Fin<span class="text-emerald-500">Plan</span></span>
+                        <span id="supabase-status-dot" title="Local Mode (Configure Supabase in Data)" class="w-2 h-2 rounded-full bg-zinc-400 shrink-0 transition-colors"></span>
                     </h1>
                     <p id="header-page-subtitle" class="text-[10px] sm:text-[11px] text-ink-muted truncate">Monthly Summary</p>
                 </div>
@@ -851,59 +861,59 @@
                             <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
                             <span>Calc</span>
                         </button>
-                    </div>
-                </div>
-
-                <!-- Inline Calculator Panel (Budget) -->
-                <div id="calc-panel-budget" class="hidden bg-elevated border border-subtle rounded-xl p-3 space-y-2.5">
-                    <div class="bg-input border border-subtle rounded-lg px-3 py-2 text-right">
-                        <div id="calc-expr-budget" class="font-mono text-[11px] text-ink-muted h-4 truncate">0</div>
-                        <div id="calc-disp-budget" class="font-mono text-base font-bold text-ink-primary truncate">0</div>
-                    </div>
-                    <div class="grid grid-cols-4 gap-1.5 font-mono text-xs font-semibold">
-                        <button type="button" data-calc-target="budget" data-calc-key="C" class="h-9 rounded-lg bg-rose-500/15 text-rose-500 hover:bg-rose-500/25">C</button>
-                        <button type="button" data-calc-target="budget" data-calc-key="BS" class="h-9 rounded-lg bg-card border border-subtle text-ink-secondary hover:text-ink-primary">⌫</button>
-                        <button type="button" data-calc-target="budget" data-calc-key="/" class="h-9 rounded-lg bg-card border border-subtle text-sky-500 hover:border-strong">÷</button>
-                        <button type="button" data-calc-target="budget" data-calc-key="*" class="h-9 rounded-lg bg-card border border-subtle text-sky-500 hover:border-strong">×</button>
-
-                        <button type="button" data-calc-target="budget" data-calc-key="7" class="h-9 rounded-lg bg-card border border-subtle text-ink-primary hover:border-strong">7</button>
-                        <button type="button" data-calc-target="budget" data-calc-key="8" class="h-9 rounded-lg bg-card border border-subtle text-ink-primary hover:border-strong">8</button>
-                        <button type="button" data-calc-target="budget" data-calc-key="9" class="h-9 rounded-lg bg-card border border-subtle text-ink-primary hover:border-strong">9</button>
-                        <button type="button" data-calc-target="budget" data-calc-key="-" class="h-9 rounded-lg bg-card border border-subtle text-sky-500 hover:border-strong">−</button>
-
-                        <button type="button" data-calc-target="budget" data-calc-key="4" class="h-9 rounded-lg bg-card border border-subtle text-ink-primary hover:border-strong">4</button>
-                        <button type="button" data-calc-target="budget" data-calc-key="5" class="h-9 rounded-lg bg-card border border-subtle text-ink-primary hover:border-strong">5</button>
-                        <button type="button" data-calc-target="budget" data-calc-key="6" class="h-9 rounded-lg bg-card border border-subtle text-ink-primary hover:border-strong">6</button>
-                        <button type="button" data-calc-target="budget" data-calc-key="+" class="h-9 rounded-lg bg-card border border-subtle text-sky-500 hover:border-strong">+</button>
-
-                        <button type="button" data-calc-target="budget" data-calc-key="1" class="h-9 rounded-lg bg-card border border-subtle text-ink-primary hover:border-strong">1</button>
-                        <button type="button" data-calc-target="budget" data-calc-key="2" class="h-9 rounded-lg bg-card border border-subtle text-ink-primary hover:border-strong">2</button>
-                        <button type="button" data-calc-target="budget" data-calc-key="3" class="h-9 rounded-lg bg-card border border-subtle text-ink-primary hover:border-strong">3</button>
-                        <button type="button" data-calc-target="budget" data-calc-key="=" class="h-9 rounded-lg bg-sky-500/20 text-sky-500 hover:bg-sky-500/30 font-bold">=</button>
-
-                        <button type="button" data-calc-target="budget" data-calc-key="0" class="col-span-2 h-9 rounded-lg bg-card border border-subtle text-ink-primary hover:border-strong">0</button>
-                        <button type="button" data-calc-target="budget" data-calc-key="." class="h-9 rounded-lg bg-card border border-subtle text-ink-primary hover:border-strong">.</button>
-                        <button type="button" data-calc-target="budget" data-calc-key="USE" class="h-9 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-zinc-950 font-sans text-[11px] font-bold">Use Result</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="flex items-center justify-end gap-2 pt-2">
-                <button type="button" data-close-modal="budget-modal" class="ctrl-44 px-4 rounded-xl bg-elevated border border-subtle text-xs font-medium text-ink-primary">Cancel</button>
-                <button type="submit" class="ctrl-44 px-5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-zinc-950 text-xs font-semibold">Save Budget</button>
-            </div>
-        </form>
-    </div>
-
-    <!-- ==================== MODAL: DATA BACKUP ==================== -->
-    <div id="data-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
-        <div class="bg-card border border-subtle rounded-2xl max-w-md w-full p-4 sm:p-5 space-y-4">
+    <!-- ==================== MODAL: DATA BACKUP & SUPABASE SYNC ==================== -->
+    <div id="data-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/60 backdrop-blur-xs overflow-y-auto">
+        <div class="bg-card border border-subtle rounded-2xl max-w-md w-full p-4 sm:p-5 space-y-4 my-auto">
             <div class="flex items-center justify-between">
-                <h3 class="text-base font-semibold text-ink-primary">Data Backup</h3>
+                <h3 class="text-base font-semibold text-ink-primary">Data & Cloud Sync</h3>
                 <button type="button" data-close-modal="data-modal" class="w-8 h-8 rounded-lg bg-elevated flex items-center justify-center text-ink-secondary hover:text-ink-primary">✕</button>
             </div>
 
-            <div class="space-y-2.5">
+            <!-- Supabase Connection Card -->
+            <div class="bg-elevated border border-subtle rounded-xl p-3.5 space-y-3">
+                <div class="flex items-center justify-between gap-2">
+                    <div class="flex items-center gap-2">
+                        <span id="sb-modal-badge-dot" class="w-2.5 h-2.5 rounded-full bg-zinc-400"></span>
+                        <span class="text-xs font-semibold text-ink-primary">Supabase Cloud Sync</span>
+                    </div>
+                    <span id="sb-connection-label" class="font-mono text-[11px] text-ink-muted">Not Connected</span>
+                </div>
+
+                <div class="space-y-2">
+                    <div>
+                        <label for="sb-url-input" class="block text-[11px] font-medium text-ink-secondary mb-1">Project URL</label>
+                        <input type="url" id="sb-url-input" placeholder="https://xyzcompany.supabase.co" class="ctrl-44 w-full px-3 rounded-xl bg-input border border-subtle font-mono text-xs text-ink-primary focus:outline-none focus:border-emerald-500">
+                    </div>
+                    <div>
+                        <label for="sb-key-input" class="block text-[11px] font-medium text-ink-secondary mb-1">Anon Public Key</label>
+                        <input type="password" id="sb-key-input" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6..." class="ctrl-44 w-full px-3 rounded-xl bg-input border border-subtle font-mono text-xs text-ink-primary focus:outline-none focus:border-emerald-500">
+                    </div>
+                    <div>
+                        <label for="sb-workspace-input" class="block text-[11px] font-medium text-ink-secondary mb-1">Sync Profile ID (Same across devices)</label>
+                        <input type="text" id="sb-workspace-input" placeholder="e.g., personal-main" class="ctrl-44 w-full px-3 rounded-xl bg-input border border-subtle font-mono text-xs text-ink-primary focus:outline-none focus:border-emerald-500">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2 pt-0.5">
+                    <button type="button" id="btn-sb-connect" class="ctrl-44 px-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-zinc-950 font-semibold text-xs transition">
+                        Connect & Sync
+                    </button>
+                    <button type="button" id="btn-sb-sql" class="ctrl-44 px-3 rounded-xl bg-card hover:border-strong border border-subtle text-xs font-medium text-ink-primary transition">
+                        Copy Table SQL
+                    </button>
+                </div>
+
+                <div id="sb-connected-actions" class="hidden grid grid-cols-2 gap-2 pt-1 border-t border-subtle">
+                    <button type="button" id="btn-sb-pull" class="h-9 px-3 rounded-lg bg-card hover:border-strong border border-subtle text-[11px] font-medium text-sky-500 transition">
+                        Pull from Cloud
+                    </button>
+                    <button type="button" id="btn-sb-disconnect" class="h-9 px-3 rounded-lg bg-card hover:border-rose-500/50 border border-subtle text-[11px] font-medium text-rose-500 transition">
+                        Disconnect
+                    </button>
+                </div>
+            </div>
+
+            <div class="space-y-2">
                 <button type="button" id="btn-export-cycle-csv" class="ctrl-44 w-full px-4 rounded-xl bg-elevated hover:border-strong border border-subtle text-xs font-medium text-ink-primary flex items-center justify-between transition">
                     <span>Export Cycle CSV</span>
                     <span class="font-mono text-ink-muted">.csv</span>
@@ -945,10 +955,38 @@
             // Storage Keys
             const STORAGE_KEY_DATA = 'finplan_data_v1';
             const STORAGE_KEY_DEFAULTS = 'finplan_defaults_v1';
+            const STORAGE_KEY_SUPABASE = 'finplan_supabase_cfg_v1';
 
             const CATEGORIES = ['Commitment', 'Wants', 'Savings'];
             const MONTH_SHORT = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
             const MONTH_FULL = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+            // Supabase State
+            let supabaseClient = null;
+            let supabaseConfig = {
+                url: '',
+                anonKey: '',
+                workspaceId: 'personal-main'
+            };
+            let isSupabaseConnected = false;
+            let syncDebounceTimer = null;
+
+            const SUPABASE_SETUP_SQL = `-- Run this in your Supabase SQL Editor
+create table if not exists public.finplan_workspaces (
+  workspace_id text primary key,
+  app_data jsonb not null default '{}'::jsonb,
+  default_ratios jsonb not null default '{"Commitment": 50, "Wants": 30, "Savings": 20}'::jsonb,
+  default_cycle_start_day integer not null default 1,
+  updated_at timestamptz not null default now()
+);
+
+alter table public.finplan_workspaces enable row level security;
+
+create policy "Allow public workspace read/write"
+  on public.finplan_workspaces
+  for all
+  using (true)
+  with check (true);`;
 
             // Application State
             let appData = {};
@@ -1099,8 +1137,258 @@
             }
 
             // ==================== STORAGE & STATE ====================
+            function updateSupabaseStatusUI(statusText, stateType) {
+                const headerDot = document.getElementById('supabase-status-dot');
+                const modalDot = document.getElementById('sb-modal-badge-dot');
+                const labelEl = document.getElementById('sb-connection-label');
+                const connActions = document.getElementById('sb-connected-actions');
+
+                const colorMap = {
+                    connected: 'bg-emerald-500',
+                    syncing: 'bg-sky-500 animate-pulse',
+                    error: 'bg-rose-500',
+                    offline: 'bg-zinc-400'
+                };
+                const dotColor = colorMap[stateType] || colorMap.offline;
+
+                if (headerDot) {
+                    headerDot.className = `w-2 h-2 rounded-full ${dotColor} shrink-0 transition-colors`;
+                    headerDot.title = `Supabase: ${statusText}`;
+                }
+                if (modalDot) {
+                    modalDot.className = `w-2.5 h-2.5 rounded-full ${dotColor}`;
+                }
+                if (labelEl) {
+                    labelEl.textContent = statusText;
+                    labelEl.className = `font-mono text-[11px] ${
+                        stateType === 'connected' ? 'text-emerald-500 font-semibold' :
+                        stateType === 'error' ? 'text-rose-500 font-semibold' :
+                        stateType === 'syncing' ? 'text-sky-500' : 'text-ink-muted'
+                    }`;
+                }
+                if (connActions) {
+                    connActions.classList.toggle('hidden', !isSupabaseConnected);
+                }
+            }
+
+            function loadSupabaseConfig() {
+                try {
+                    const raw = localStorage.getItem(STORAGE_KEY_SUPABASE);
+                    if (raw) {
+                        const parsed = JSON.parse(raw);
+                        if (parsed && typeof parsed === 'object') {
+                            supabaseConfig = {
+                                url: (parsed.url || '').trim(),
+                                anonKey: (parsed.anonKey || '').trim(),
+                                workspaceId: (parsed.workspaceId || 'personal-main').trim() || 'personal-main'
+                            };
+                        }
+                    }
+                } catch (err) {
+                    console.warn('Supabase config load error:', err);
+                }
+
+                const urlInput = document.getElementById('sb-url-input');
+                const keyInput = document.getElementById('sb-key-input');
+                const wsInput = document.getElementById('sb-workspace-input');
+                if (urlInput) urlInput.value = supabaseConfig.url;
+                if (keyInput) keyInput.value = supabaseConfig.anonKey;
+                if (wsInput) wsInput.value = supabaseConfig.workspaceId;
+            }
+
+            function saveSupabaseConfig() {
+                try {
+                    localStorage.setItem(STORAGE_KEY_SUPABASE, JSON.stringify(supabaseConfig));
+                } catch (err) {
+                    console.warn('Supabase config save error:', err);
+                }
+            }
+
+            async function initSupabaseConnection(silent) {
+                if (!supabaseConfig.url || !supabaseConfig.anonKey) {
+                    isSupabaseConnected = false;
+                    supabaseClient = null;
+                    updateSupabaseStatusUI('Local Mode', 'offline');
+                    return false;
+                }
+
+                if (typeof window.supabase === 'undefined' || !window.supabase.createClient) {
+                    isSupabaseConnected = false;
+                    updateSupabaseStatusUI('SDK Unavailable', 'error');
+                    if (!silent) showToast('Supabase SDK failed to load');
+                    return false;
+                }
+
+                try {
+                    updateSupabaseStatusUI('Connecting...', 'syncing');
+                    supabaseClient = window.supabase.createClient(supabaseConfig.url, supabaseConfig.anonKey);
+
+                    const { data, error } = await supabaseClient
+                        .from('finplan_workspaces')
+                        .select('*')
+                        .eq('workspace_id', supabaseConfig.workspaceId)
+                        .maybeSingle();
+
+                    if (error) {
+                        throw error;
+                    }
+
+                    isSupabaseConnected = true;
+                    saveSupabaseConfig();
+
+                    if (data) {
+                        // Hydrate from cloud if workspace exists
+                        if (data.app_data && typeof data.app_data === 'object') {
+                            appData = data.app_data;
+                        }
+                        if (data.default_ratios && typeof data.default_ratios === 'object') {
+                            const w = data.default_ratios.Wants !== undefined ? data.default_ratios.Wants : data.default_ratios.Needs;
+                            defaultRatios = {
+                                Commitment: Number(data.default_ratios.Commitment) || 50,
+                                Wants: Number(w) || 30,
+                                Savings: Number(data.default_ratios.Savings) || 20
+                            };
+                        }
+                        if (data.default_cycle_start_day) {
+                            defaultCycleStartDay = Number(data.default_cycle_start_day) || 1;
+                        }
+                        Object.keys(appData).forEach(k => ensureMonth(k));
+                        ensureMonth(currentMonthKey);
+                        saveLocalOnly();
+                        renderAll();
+                        updateSupabaseStatusUI('Synced', 'connected');
+                        if (!silent) showToast('Connected & synced from Supabase');
+                    } else {
+                        // First time for this workspace_id: push local state up
+                        await pushStateToSupabase(true);
+                        updateSupabaseStatusUI('Synced', 'connected');
+                        if (!silent) showToast('Connected & created cloud workspace');
+                    }
+                    return true;
+                } catch (err) {
+                    console.error('Supabase connection error:', err);
+                    isSupabaseConnected = false;
+                    updateSupabaseStatusUI('Table/Key Error', 'error');
+                    if (!silent) {
+                        showToast('Connection failed — check URL, Key & Table SQL');
+                    }
+                    return false;
+                }
+            }
+
+            async function pushStateToSupabase(immediate) {
+                if (!isSupabaseConnected || !supabaseClient) return;
+
+                const executePush = async () => {
+                    try {
+                        updateSupabaseStatusUI('Syncing...', 'syncing');
+                        const { error } = await supabaseClient
+                            .from('finplan_workspaces')
+                            .upsert({
+                                workspace_id: supabaseConfig.workspaceId,
+                                app_data: appData,
+                                default_ratios: defaultRatios,
+                                default_cycle_start_day: defaultCycleStartDay,
+                                updated_at: new Date().toISOString()
+                            }, { onConflict: 'workspace_id' });
+
+                        if (error) throw error;
+                        updateSupabaseStatusUI('Synced', 'connected');
+                    } catch (err) {
+                        console.error('Supabase push error:', err);
+                        updateSupabaseStatusUI('Sync Error', 'error');
+                    }
+                };
+
+                if (immediate) {
+                    clearTimeout(syncDebounceTimer);
+                    await executePush();
+                } else {
+                    clearTimeout(syncDebounceTimer);
+                    syncDebounceTimer = setTimeout(executePush, 600);
+                }
+            }
+
+            async function pullStateFromSupabase() {
+                if (!isSupabaseConnected || !supabaseClient) {
+                    showToast('Connect Supabase first');
+                    return;
+                }
+                try {
+                    updateSupabaseStatusUI('Pulling...', 'syncing');
+                    const { data, error } = await supabaseClient
+                        .from('finplan_workspaces')
+                        .select('*')
+                        .eq('workspace_id', supabaseConfig.workspaceId)
+                        .maybeSingle();
+
+                    if (error) throw error;
+                    if (data && data.app_data) {
+                        appData = data.app_data;
+                        if (data.default_ratios) {
+                            const w = data.default_ratios.Wants !== undefined ? data.default_ratios.Wants : data.default_ratios.Needs;
+                            defaultRatios = {
+                                Commitment: Number(data.default_ratios.Commitment) || 50,
+                                Wants: Number(w) || 30,
+                                Savings: Number(data.default_ratios.Savings) || 20
+                            };
+                        }
+                        if (data.default_cycle_start_day) {
+                            defaultCycleStartDay = Number(data.default_cycle_start_day) || 1;
+                        }
+                        Object.keys(appData).forEach(k => ensureMonth(k));
+                        ensureMonth(currentMonthKey);
+                        saveLocalOnly();
+                        renderAll();
+                        updateSupabaseStatusUI('Synced', 'connected');
+                        showToast('Pulled latest cloud data');
+                    } else {
+                        updateSupabaseStatusUI('Synced', 'connected');
+                        showToast('No cloud data found for this ID');
+                    }
+                } catch (err) {
+                    console.error('Supabase pull error:', err);
+                    updateSupabaseStatusUI('Pull Error', 'error');
+                    showToast('Failed to pull from Supabase');
+                }
+            }
+
+            function disconnectSupabase() {
+                isSupabaseConnected = false;
+                supabaseClient = null;
+                supabaseConfig = { url: '', anonKey: '', workspaceId: 'personal-main' };
+                try {
+                    localStorage.removeItem(STORAGE_KEY_SUPABASE);
+                } catch (e) {}
+                const urlInput = document.getElementById('sb-url-input');
+                const keyInput = document.getElementById('sb-key-input');
+                const wsInput = document.getElementById('sb-workspace-input');
+                if (urlInput) urlInput.value = '';
+                if (keyInput) keyInput.value = '';
+                if (wsInput) wsInput.value = 'personal-main';
+                updateSupabaseStatusUI('Local Mode', 'offline');
+                showToast('Disconnected from Supabase');
+            }
+
+            function copySupabaseSQL() {
+                const temp = document.createElement('textarea');
+                temp.value = SUPABASE_SETUP_SQL;
+                temp.style.position = 'fixed';
+                temp.style.opacity = '0';
+                document.body.appendChild(temp);
+                temp.select();
+                try {
+                    document.execCommand('copy');
+                    showToast('Table SQL copied to clipboard');
+                } catch (err) {
+                    showToast('Unable to copy SQL');
+                }
+                document.body.removeChild(temp);
+            }
+
             function loadState() {
                 applySystemTheme();
+                loadSupabaseConfig();
                 try {
                     const rawDefaults = localStorage.getItem(STORAGE_KEY_DEFAULTS);
                     if (rawDefaults) {
@@ -1135,7 +1423,7 @@
                 ensureMonth(currentMonthKey);
             }
 
-            function saveState() {
+            function saveLocalOnly() {
                 try {
                     localStorage.setItem(STORAGE_KEY_DATA, JSON.stringify(appData));
                     localStorage.setItem(STORAGE_KEY_DEFAULTS, JSON.stringify({
@@ -1144,6 +1432,13 @@
                     }));
                 } catch (err) {
                     console.warn('Storage save error:', err);
+                }
+            }
+
+            function saveState() {
+                saveLocalOnly();
+                if (isSupabaseConnected) {
+                    pushStateToSupabase(false);
                 }
             }
 
@@ -2410,6 +2705,23 @@
                 document.getElementById('budget-form')?.addEventListener('submit', handleBudgetFormSubmit);
 
                 // Data Modal Actions
+                document.getElementById('btn-sb-connect')?.addEventListener('click', async () => {
+                    const url = (document.getElementById('sb-url-input')?.value || '').trim();
+                    const anonKey = (document.getElementById('sb-key-input')?.value || '').trim();
+                    const workspaceId = (document.getElementById('sb-workspace-input')?.value || '').trim() || 'personal-main';
+
+                    if (!url || !anonKey) {
+                        showToast('Enter Supabase URL and Anon Key');
+                        return;
+                    }
+                    supabaseConfig = { url, anonKey, workspaceId };
+                    await initSupabaseConnection(false);
+                });
+
+                document.getElementById('btn-sb-sql')?.addEventListener('click', copySupabaseSQL);
+                document.getElementById('btn-sb-pull')?.addEventListener('click', pullStateFromSupabase);
+                document.getElementById('btn-sb-disconnect')?.addEventListener('click', disconnectSupabase);
+
                 document.getElementById('btn-export-cycle-csv')?.addEventListener('click', exportCycleCSV);
                 document.getElementById('btn-export-json')?.addEventListener('click', exportJSON);
                 document.getElementById('input-import-json')?.addEventListener('change', importJSON);
@@ -2499,6 +2811,9 @@
                 loadState();
                 bindEvents();
                 switchPage('home');
+                if (supabaseConfig.url && supabaseConfig.anonKey) {
+                    initSupabaseConnection(true);
+                }
             });
         })();
     </script>
