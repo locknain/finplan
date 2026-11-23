@@ -210,7 +210,7 @@
                 padding-right: 12px;
             }
             .mobile-text-xs {
-                font-size: 11px;
+                font-size: 12px;
             }
         }
     </style>
@@ -233,31 +233,31 @@
                         <span>Fin<span class="text-emerald-500">Plan</span></span>
                         <span id="supabase-status-dot" title="Local Mode (Configure Supabase in Data)" class="w-2 h-2 rounded-full bg-zinc-400 shrink-0 transition-colors"></span>
                     </h1>
-                    <p id="header-page-subtitle" class="text-[10px] sm:text-[11px] text-ink-muted truncate">Monthly Summary</p>
+                    <p id="header-page-subtitle" class="text-[11px] sm:text-xs text-ink-secondary truncate">Monthly Summary</p>
                 </div>
             </div>
 
-            <!-- Right: Month Switcher, Clone, Data Backup (Fits 100% on Mobile) -->
+            <!-- Right: Cycle Switcher, Clone, Data Backup (Fits 100% on Mobile) -->
             <div class="flex items-center justify-between sm:justify-end gap-1.5 w-full sm:w-auto min-w-0">
-                <!-- Month Switcher Pill -->
+                <!-- Cycle Switcher Pill -->
                 <div class="flex items-center justify-between bg-card border border-subtle rounded-xl h-9 px-1 flex-1 sm:flex-initial min-w-0">
-                    <button type="button" id="btn-prev-month" aria-label="Previous Month" class="w-7 h-7 rounded-lg flex items-center justify-center text-ink-secondary hover:text-ink-primary hover:bg-elevated transition shrink-0">
+                    <button type="button" id="btn-prev-month" aria-label="Previous Cycle" class="w-7 h-7 rounded-lg flex items-center justify-center text-ink-secondary hover:text-ink-primary hover:bg-elevated transition shrink-0">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
                     </button>
-                    <span id="header-month-label" class="px-1.5 font-mono text-[11px] sm:text-xs font-semibold text-ink-primary whitespace-nowrap truncate text-center">Nov 2026</span>
-                    <button type="button" id="btn-next-month" aria-label="Next Month" class="w-7 h-7 rounded-lg flex items-center justify-center text-ink-secondary hover:text-ink-primary hover:bg-elevated transition shrink-0">
+                    <span id="header-month-label" class="px-1.5 font-mono text-[11px] sm:text-xs font-semibold text-ink-primary whitespace-nowrap truncate text-center">1 Nov – 30 Nov 2026</span>
+                    <button type="button" id="btn-next-month" aria-label="Next Cycle" class="w-7 h-7 rounded-lg flex items-center justify-center text-ink-secondary hover:text-ink-primary hover:bg-elevated transition shrink-0">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
                     </button>
                 </div>
 
                 <!-- Clone & Data Action Group -->
                 <div class="flex items-center gap-1.5 shrink-0">
-                    <button type="button" id="btn-clone-prev" title="Clone Previous Cycle" class="h-9 px-2.5 rounded-xl bg-card border border-subtle hover:border-strong text-[11px] sm:text-xs font-medium text-ink-primary flex items-center gap-1 transition shrink-0">
+                    <button type="button" id="btn-clone-prev" title="Clone Previous Cycle" class="h-9 px-2.5 rounded-xl bg-card border border-subtle hover:border-strong text-xs font-medium text-ink-primary flex items-center gap-1 transition shrink-0">
                         <svg class="w-3.5 h-3.5 text-ink-secondary shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
                         <span>Clone</span>
                     </button>
 
-                    <button type="button" id="btn-open-data" title="Data Backup" class="h-9 px-2.5 rounded-xl bg-card border border-subtle hover:border-strong text-[11px] sm:text-xs font-medium text-ink-primary flex items-center gap-1 transition shrink-0">
+                    <button type="button" id="btn-open-data" title="Data Backup" class="h-9 px-2.5 rounded-xl bg-card border border-subtle hover:border-strong text-xs font-medium text-ink-primary flex items-center gap-1 transition shrink-0">
                         <svg class="w-3.5 h-3.5 text-ink-secondary shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"/></svg>
                         <span>Data</span>
                     </button>
@@ -467,16 +467,13 @@
         <!-- ==================== PAGE 3: BUDGET ==================== -->
         <section id="page-budget" class="hidden space-y-5">
             <!-- 1) Financial Cycle Card (Placed on Budget Page) -->
-            <div class="bg-card border border-subtle rounded-2xl p-4 sm:p-5 space-y-3">
-                <div class="flex items-center justify-between gap-2">
+            <div class="bg-card border border-subtle rounded-2xl p-4 sm:p-5">
+                <div class="flex items-center justify-between gap-3">
                     <div class="min-w-0">
                         <h2 class="section-title-fluid font-semibold text-ink-primary">Financial Cycle</h2>
                         <p id="cycle-card-range" class="font-mono text-xs sm:text-sm text-ink-secondary mt-0.5 truncate">1 Nov 2026 – 30 Nov 2026</p>
                     </div>
-                </div>
-                <div class="flex items-center justify-between gap-2 flex-nowrap">
-                    <span id="cycle-days-badge" class="ctrl-44 px-3.5 rounded-xl bg-elevated border border-subtle font-mono text-xs font-semibold text-ink-primary inline-flex items-center justify-center shrink-0">30 days</span>
-                    <button type="button" id="btn-open-cycle-card" class="ctrl-44 flex-1 sm:flex-initial px-4 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-zinc-950 font-semibold text-xs inline-flex items-center justify-center gap-1.5 whitespace-nowrap transition">
+                    <button type="button" id="btn-open-cycle-card" class="ctrl-44 px-3.5 sm:px-4 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-zinc-950 font-semibold text-xs inline-flex items-center justify-center gap-1.5 whitespace-nowrap shrink-0 transition">
                         <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                         <span>Pick Cycle Calendar</span>
                     </button>
@@ -512,17 +509,14 @@
 
                 <!-- 3 Separate Category Tabs -->
                 <div class="grid grid-cols-3 gap-2 bg-elevated p-1.5 rounded-xl border border-subtle">
-                    <button type="button" data-budget-tab="Commitment" class="budget-tab-btn rounded-lg py-2 px-2 text-center transition">
-                        <span class="text-xs font-semibold block">Commitment</span>
-                        <span id="tab-meta-Commitment" class="font-mono text-[10px] text-ink-muted block mt-0.5 truncate">0 • RM 0</span>
+                    <button type="button" data-budget-tab="Commitment" class="budget-tab-btn rounded-lg py-2.5 px-2 text-center transition">
+                        <span class="text-xs sm:text-sm font-semibold block">Commitment</span>
                     </button>
-                    <button type="button" data-budget-tab="Wants" class="budget-tab-btn rounded-lg py-2 px-2 text-center transition">
-                        <span class="text-xs font-semibold block">Wants</span>
-                        <span id="tab-meta-Wants" class="font-mono text-[10px] text-ink-muted block mt-0.5 truncate">0 • RM 0</span>
+                    <button type="button" data-budget-tab="Wants" class="budget-tab-btn rounded-lg py-2.5 px-2 text-center transition">
+                        <span class="text-xs sm:text-sm font-semibold block">Wants</span>
                     </button>
-                    <button type="button" data-budget-tab="Savings" class="budget-tab-btn rounded-lg py-2 px-2 text-center transition">
-                        <span class="text-xs font-semibold block">Savings</span>
-                        <span id="tab-meta-Savings" class="font-mono text-[10px] text-ink-muted block mt-0.5 truncate">0 • RM 0</span>
+                    <button type="button" data-budget-tab="Savings" class="budget-tab-btn rounded-lg py-2.5 px-2 text-center transition">
+                        <span class="text-xs sm:text-sm font-semibold block">Savings</span>
                     </button>
                 </div>
 
@@ -530,15 +524,15 @@
                 <div class="bg-elevated border border-subtle rounded-xl p-3.5 sm:p-4 space-y-3">
                     <div class="grid grid-cols-3 gap-2">
                         <div>
-                            <span class="text-[11px] text-ink-muted block">Category Subtotal</span>
+                            <span class="text-xs text-ink-secondary block">Category Subtotal</span>
                             <span id="bucket-allocated-val" class="font-mono font-bold text-xs sm:text-sm text-ink-primary mt-0.5 block truncate">RM 0.00</span>
                         </div>
                         <div>
-                            <span class="text-[11px] text-ink-muted block">Target Plan Budget</span>
+                            <span class="text-xs text-ink-secondary block">Target Plan Budget</span>
                             <span id="bucket-target-val" class="font-mono font-bold text-xs sm:text-sm text-sky-500 mt-0.5 block truncate">RM 0.00</span>
                         </div>
                         <div>
-                            <span class="text-[11px] text-ink-muted block">Category Balance</span>
+                            <span class="text-xs text-ink-secondary block">Category Balance</span>
                             <span id="bucket-remaining-val" class="font-mono font-bold text-xs sm:text-sm text-emerald-500 mt-0.5 block truncate">RM 0.00</span>
                         </div>
                     </div>
@@ -557,20 +551,9 @@
                     </select>
                 </div>
 
-                <!-- Budget Items List -->
+                <!-- Budget Items List (Rolled-up by Subcategory with Expandable Edit/Delete) -->
                 <div id="budget-list-container" class="space-y-2.5">
                     <!-- Rendered dynamically -->
-                </div>
-
-                <!-- Subcategory Totals Summary (Rolled-up inside active category) -->
-                <div id="budget-subcategory-summary" class="hidden pt-2 border-t border-subtle space-y-2">
-                    <div class="flex items-center justify-between">
-                        <span class="text-xs font-semibold text-ink-secondary">Subcategory Totals</span>
-                        <span class="text-[11px] text-ink-muted">Current category</span>
-                    </div>
-                    <div id="budget-subcategory-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                        <!-- Rendered dynamically -->
-                    </div>
                 </div>
             </div>
         </section>
@@ -702,8 +685,7 @@
                         <input type="text" id="ledger-search-input" placeholder="Search source..." class="ctrl-44 px-3 rounded-xl bg-input border border-subtle text-xs text-ink-primary w-full focus:outline-none">
                     </div>
                 </div>
-                <!-- Budget Items List (Rolled-up by Subcategory per Category) -->
-                <div id="budget-list-container" class="space-y-2.5">
+                <div id="past-income-ledger-container" class="space-y-2.5">
                     <!-- Rendered dynamically -->
                 </div>
             </div>
@@ -802,6 +784,11 @@
                 <div>
                     <label for="income-source" class="block text-xs font-medium text-ink-secondary mb-1">Income Source</label>
                     <input type="text" id="income-source" required placeholder="e.g., Monthly Salary" class="ctrl-44 w-full px-3 rounded-xl bg-input border border-subtle text-sm text-ink-primary focus:outline-none focus:border-emerald-500">
+                </div>
+
+                <div>
+                    <label for="income-date" class="block text-xs font-medium text-ink-secondary mb-1">Date Received</label>
+                    <input type="date" id="income-date" required class="ctrl-44 w-full px-3 rounded-xl bg-input border border-subtle font-mono text-sm text-ink-primary focus:outline-none focus:border-emerald-500">
                 </div>
 
                 <div>
@@ -1165,6 +1152,16 @@ notify pgrst, 'reload schema';`;
             function formatMonthKeyShort(key) {
                 const [y, m] = key.split('-').map(Number);
                 return `${MONTH_SHORT[(m || 1) - 1]} ${y}`;
+            }
+
+            function formatCycleHeaderLabel(monthObj) {
+                if (!monthObj || !monthObj.cycle) return formatMonthKeyShort(currentMonthKey);
+                const s = parseISODate(monthObj.cycle.startDate);
+                const e = parseISODate(monthObj.cycle.endDate);
+                if (s.getFullYear() === e.getFullYear()) {
+                    return `${s.getDate()} ${MONTH_SHORT[s.getMonth()]} – ${e.getDate()} ${MONTH_SHORT[e.getMonth()]} ${e.getFullYear()}`;
+                }
+                return `${s.getDate()} ${MONTH_SHORT[s.getMonth()]} ${String(s.getFullYear()).slice(-2)} – ${e.getDate()} ${MONTH_SHORT[e.getMonth()]} ${String(e.getFullYear()).slice(-2)}`;
             }
 
             function formatMYR(val) {
@@ -1755,7 +1752,7 @@ notify pgrst, 'reload schema';`;
 
             function renderHeader() {
                 const label = document.getElementById('header-month-label');
-                if (label) label.textContent = formatMonthKeyShort(currentMonthKey);
+                if (label) label.textContent = formatCycleHeaderLabel(getActiveMonthObj());
             }
 
             function renderHomePage() {
@@ -1793,7 +1790,7 @@ notify pgrst, 'reload schema';`;
                 }
                 if (balStatus) {
                     balStatus.textContent = salaryBalance < 0 ? 'Over Budget' : 'Remaining';
-                    balStatus.className = `text-[11px] font-mono font-semibold ${salaryBalance < 0 ? 'text-rose-500' : 'text-emerald-500'}`;
+                    balStatus.className = `text-xs font-mono font-semibold ${salaryBalance < 0 ? 'text-rose-500' : 'text-emerald-500'}`;
                 }
                 if (balBar) {
                     const remPct = totalIncome > 0 ? Math.max(0, Math.min(100, Math.round((salaryBalance / totalIncome) * 100))) : 0;
@@ -1823,11 +1820,11 @@ notify pgrst, 'reload schema';`;
                                 <span class="text-xs font-semibold text-ink-primary flex items-center gap-1.5">
                                     <span class="w-2 h-2 rounded-full ${c.dot}"></span>${cat}
                                 </span>
-                                <span class="font-mono text-[11px] font-semibold ${c.text}">${ratioPct}%</span>
+                                <span class="font-mono text-xs font-semibold ${c.text}">${ratioPct}%</span>
                             </div>
                             <div class="flex items-baseline justify-between gap-2">
                                 <span class="font-mono text-sm font-bold text-ink-primary">${formatMYR(actualAmt)}</span>
-                                <span class="font-mono text-[11px] text-ink-muted">/ ${formatMYR(targetAmt)}</span>
+                                <span class="font-mono text-xs text-ink-secondary">/ ${formatMYR(targetAmt)}</span>
                             </div>
                             <div class="w-full h-1.5 bg-card rounded-full overflow-hidden">
                                 <div class="h-full ${c.bar} transition-all duration-300" style="width: ${fillPct}%"></div>
@@ -1861,15 +1858,18 @@ notify pgrst, 'reload schema';`;
                         listEl.innerHTML = `
                             <div class="empty-placeholder-220 bg-elevated border border-dashed border-subtle rounded-xl flex flex-col items-center justify-center text-center p-6 space-y-2">
                                 <p class="text-xs font-medium text-ink-secondary">No income sources recorded for this cycle</p>
-                                <p class="text-[11px] text-ink-muted">Tap "+ Add Income" to enter your salary or inflows</p>
+                                <p class="text-xs text-ink-muted">Tap "+ Add Income" to enter your salary or inflows</p>
                             </div>
                         `;
                     } else {
                         listEl.innerHTML = sorted.map(item => `
                             <div class="bg-elevated border border-subtle rounded-xl px-3.5 py-3 flex items-center justify-between gap-3">
                                 <div class="min-w-0 flex-1">
-                                    <p class="text-xs sm:text-sm font-semibold text-ink-primary truncate">${escapeHTML(item.source)}</p>
-                                    <p class="font-mono text-xs sm:text-sm font-bold text-emerald-500 mt-0.5">${formatMYR(item.amount)}</p>
+                                    <div class="flex flex-wrap items-center gap-x-2 gap-y-0.5">
+                                        <p class="text-xs sm:text-sm font-semibold text-ink-primary truncate">${escapeHTML(item.source)}</p>
+                                        ${item.date ? `<span class="font-mono text-[11px] text-ink-secondary bg-card border border-subtle px-2 py-0.5 rounded-md shrink-0">${formatDisplayDate(item.date)}</span>` : ''}
+                                    </div>
+                                    <p class="font-mono text-xs sm:text-sm font-bold text-emerald-500 mt-1">${formatMYR(item.amount)}</p>
                                 </div>
                                 <div class="flex items-center gap-1.5 shrink-0">
                                     <button type="button" data-action="edit-income" data-id="${escapeHTML(item.id)}" aria-label="Edit Income" class="w-9 h-9 rounded-lg bg-card border border-subtle hover:border-strong flex items-center justify-center text-ink-secondary hover:text-ink-primary transition">
@@ -1932,12 +1932,6 @@ notify pgrst, 'reload schema';`;
                 const rangeEl = document.getElementById('cycle-card-range');
                 if (rangeEl) rangeEl.textContent = `${formatDisplayDate(m.cycle.startDate)} – ${formatDisplayDate(m.cycle.endDate)}`;
 
-                const daysBadge = document.getElementById('cycle-days-badge');
-                if (daysBadge) {
-                    const days = getCycleDayCount(m.cycle.startDate, m.cycle.endDate);
-                    daysBadge.textContent = `${days} ${days === 1 ? 'day' : 'days'}`;
-                }
-
                 // Live Salary Balance Card
                 const balSub = document.getElementById('budget-balance-sub');
                 if (balSub) balSub.textContent = `Income ${formatMYR(totalIncome)} − Allocated ${formatMYR(totalBudget)}`;
@@ -1955,14 +1949,7 @@ notify pgrst, 'reload schema';`;
                     usedBar.className = `h-full transition-all duration-300 ${salaryBalance < 0 ? 'bg-rose-500' : 'bg-emerald-500'}`;
                 }
 
-                // Category Tabs Metadata & Active Styling
-                CATEGORIES.forEach(cat => {
-                    const itemsInCat = m.budgets.filter(b => b.category === cat);
-                    const sumCat = byCategory[cat] || 0;
-                    const metaEl = document.getElementById(`tab-meta-${cat}`);
-                    if (metaEl) metaEl.textContent = `${itemsInCat.length} • ${formatMYR(sumCat)}`;
-                });
-
+                // Category Tabs Active Styling
                 document.querySelectorAll('.budget-tab-btn').forEach(btn => {
                     const isMatch = btn.getAttribute('data-budget-tab') === activeBudgetTab;
                     btn.classList.toggle('bg-card', isMatch);
@@ -2008,28 +1995,62 @@ notify pgrst, 'reload schema';`;
                 if (filtered.length === 0) {
                     listEl.innerHTML = `
                         <div class="empty-placeholder-220 bg-elevated border border-dashed border-subtle rounded-xl flex flex-col items-center justify-center text-center p-6 space-y-2">
-                            <p class="text-xs font-medium text-ink-secondary">No ${escapeHTML(activeBudgetTab)} items in this cycle</p>
-                            <p class="text-[11px] text-ink-muted">Tap "+ Add Budget" to allocate items under ${escapeHTML(activeBudgetTab)}</p>
+                            <p class="text-xs sm:text-sm font-medium text-ink-secondary">No ${escapeHTML(activeBudgetTab)} items in this cycle</p>
+                            <p class="text-xs text-ink-muted">Tap "+ Add Budget" to allocate items under ${escapeHTML(activeBudgetTab)}</p>
                         </div>
                     `;
                 } else {
+                    const subGroups = {};
                     const subTotals = {};
-                    filtered.forEach(item => {
-                        const sc = SUBCATEGORIES.includes(item.subcategory) ? item.subcategory : 'Self';
-                        subTotals[sc] = (subTotals[sc] || 0) + (Number(item.amount) || 0);
+                    SUBCATEGORIES.forEach(sc => {
+                        subGroups[sc] = [];
+                        subTotals[sc] = 0;
                     });
 
-                    const activeSubs = SUBCATEGORIES.filter(sc => (subTotals[sc] || 0) > 0);
+                    filtered.forEach(item => {
+                        const sc = SUBCATEGORIES.includes(item.subcategory) ? item.subcategory : 'Self';
+                        subGroups[sc].push(item);
+                        subTotals[sc] += (Number(item.amount) || 0);
+                    });
+
+                    const activeSubs = SUBCATEGORIES.filter(sc => subGroups[sc].length > 0);
                     if (sortBy === 'amount-desc') activeSubs.sort((a, b) => subTotals[b] - subTotals[a]);
                     else if (sortBy === 'amount-asc') activeSubs.sort((a, b) => subTotals[a] - subTotals[b]);
                     else if (sortBy === 'name-asc') activeSubs.sort((a, b) => a.localeCompare(b));
 
-                    listEl.innerHTML = activeSubs.map(sc => `
-                        <div class="bg-elevated border border-subtle rounded-xl px-4 py-3.5 flex items-center justify-between gap-3">
-                            <span class="text-xs sm:text-sm font-semibold text-ink-primary truncate">${escapeHTML(sc)}</span>
-                            <span class="font-mono text-xs sm:text-sm font-bold text-sky-500 shrink-0">${formatMYR(subTotals[sc])}</span>
-                        </div>
-                    `).join('');
+                    listEl.innerHTML = activeSubs.map(sc => {
+                        const subItemsHtml = subGroups[sc].map(it => `
+                            <div class="flex items-center justify-between gap-2 bg-card border border-subtle rounded-lg px-3 py-2.5">
+                                <div class="min-w-0 flex-1">
+                                    <p class="text-xs sm:text-sm font-medium text-ink-primary truncate">${escapeHTML(it.name)}</p>
+                                    <p class="font-mono text-xs font-semibold text-ink-secondary mt-0.5">${formatMYR(it.amount)}</p>
+                                </div>
+                                <div class="flex items-center gap-1.5 shrink-0">
+                                    <button type="button" data-action="edit-budget" data-id="${escapeHTML(it.id)}" aria-label="Edit Budget" class="w-9 h-9 rounded-lg bg-elevated border border-subtle hover:border-strong flex items-center justify-center text-ink-secondary hover:text-ink-primary transition">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                                    </button>
+                                    <button type="button" data-action="delete-budget" data-id="${escapeHTML(it.id)}" aria-label="Delete Budget" class="w-9 h-9 rounded-lg bg-elevated border border-subtle hover:border-rose-500/50 flex items-center justify-center text-ink-secondary hover:text-rose-500 transition">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                                    </button>
+                                </div>
+                            </div>
+                        `).join('');
+
+                        return `
+                            <details class="group bg-elevated border border-subtle rounded-xl overflow-hidden">
+                                <summary class="list-none cursor-pointer px-4 py-3.5 flex items-center justify-between gap-3 select-none">
+                                    <div class="flex items-center gap-2 min-w-0">
+                                        <svg class="w-4 h-4 text-ink-secondary transition-transform duration-200 group-open:rotate-90 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                                        <span class="text-xs sm:text-sm font-semibold text-ink-primary truncate">${escapeHTML(sc)}</span>
+                                    </div>
+                                    <span class="font-mono text-xs sm:text-sm font-bold text-sky-500 shrink-0">${formatMYR(subTotals[sc])}</span>
+                                </summary>
+                                <div class="px-3.5 pb-3.5 pt-2 border-t border-subtle space-y-2">
+                                    ${subItemsHtml}
+                                </div>
+                            </details>
+                        `;
+                    }).join('');
                 }
             }
 
@@ -2069,6 +2090,7 @@ notify pgrst, 'reload schema';`;
                         ledgerItems.push({
                             monthKey: k,
                             source: inc.source,
+                            date: inc.date || '',
                             amount: Number(inc.amount) || 0
                         });
                     });
@@ -2110,10 +2132,10 @@ notify pgrst, 'reload schema';`;
                         ledgerEl.innerHTML = filteredLedger.slice(0, 30).map(item => `
                             <div class="bg-elevated border border-subtle rounded-xl px-3.5 py-2.5 flex items-center justify-between gap-3">
                                 <div class="min-w-0">
-                                    <p class="text-xs font-semibold text-ink-primary truncate">${escapeHTML(item.source)}</p>
-                                    <p class="font-mono text-[10px] text-ink-muted">${formatMonthKeyShort(item.monthKey)}</p>
+                                    <p class="text-xs sm:text-sm font-semibold text-ink-primary truncate">${escapeHTML(item.source)}</p>
+                                    <p class="font-mono text-[11px] text-ink-secondary mt-0.5">${item.date ? formatDisplayDate(item.date) + ' • ' : ''}${formatMonthKeyShort(item.monthKey)}</p>
                                 </div>
-                                <span class="font-mono text-xs font-bold text-emerald-500 shrink-0">${formatMYR(item.amount)}</span>
+                                <span class="font-mono text-xs sm:text-sm font-bold text-emerald-500 shrink-0">${formatMYR(item.amount)}</span>
                             </div>
                         `).join('');
                     }
@@ -2383,6 +2405,7 @@ notify pgrst, 'reload schema';`;
                 const titleEl = document.getElementById('income-modal-title');
                 const idEl = document.getElementById('income-edit-id');
                 const srcEl = document.getElementById('income-source');
+                const dateEl = document.getElementById('income-date');
                 const amtEl = document.getElementById('income-amount');
                 const calcPanel = document.getElementById('calc-panel-income');
                 if (calcPanel) calcPanel.classList.add('hidden');
@@ -2393,12 +2416,16 @@ notify pgrst, 'reload schema';`;
                     if (titleEl) titleEl.textContent = 'Edit Income';
                     if (idEl) idEl.value = item.id;
                     if (srcEl) srcEl.value = item.source;
+                    if (dateEl) dateEl.value = item.date || m.cycle.startDate || '';
                     if (amtEl) amtEl.value = Number(item.amount).toFixed(2);
                     resetCalc('income', item.amount);
                 } else {
                     if (titleEl) titleEl.textContent = 'Add Income';
                     if (idEl) idEl.value = '';
                     if (srcEl) srcEl.value = '';
+                    const todayIso = new Date().toISOString().slice(0, 10);
+                    const defaultDate = (todayIso >= m.cycle.startDate && todayIso <= m.cycle.endDate) ? todayIso : m.cycle.startDate;
+                    if (dateEl) dateEl.value = defaultDate;
                     if (amtEl) amtEl.value = '';
                     resetCalc('income', 0);
                 }
@@ -2410,6 +2437,7 @@ notify pgrst, 'reload schema';`;
                 const m = getActiveMonthObj();
                 const editId = document.getElementById('income-edit-id').value;
                 const source = document.getElementById('income-source').value.trim();
+                const date = document.getElementById('income-date')?.value || m.cycle.startDate;
                 const amount = parseFloat(document.getElementById('income-amount').value);
 
                 if (!source || isNaN(amount) || amount <= 0) {
@@ -2420,11 +2448,11 @@ notify pgrst, 'reload schema';`;
                 if (editId) {
                     const idx = m.incomes.findIndex(i => i.id === editId);
                     if (idx !== -1) {
-                        m.incomes[idx] = { ...m.incomes[idx], source, amount };
+                        m.incomes[idx] = { ...m.incomes[idx], source, date, amount };
                     }
                     showToast('Income updated');
                 } else {
-                    m.incomes.push({ id: generateId('inc'), source, amount });
+                    m.incomes.push({ id: generateId('inc'), source, date, amount });
                     showToast('Income added');
                 }
 
@@ -2523,6 +2551,7 @@ notify pgrst, 'reload schema';`;
                 curr.incomes = prev.incomes.map(i => ({
                     id: generateId('inc'),
                     source: i.source,
+                    date: i.date || curr.cycle.startDate,
                     amount: Number(i.amount) || 0
                 }));
                 curr.budgets = prev.budgets.map(b => ({
@@ -2552,15 +2581,15 @@ notify pgrst, 'reload schema';`;
             }
 
             function exportCycleCSV(monthKeys) {
-                const rows = [['Cycle', 'Type', 'Category', 'Subcategory', 'Title', 'Amount_MYR']];
+                const rows = [['Cycle', 'Type', 'Category', 'Subcategory', 'Date', 'Title', 'Amount_MYR']];
                 monthKeys.forEach(k => {
                     const mo = ensureMonth(k);
                     mo.incomes.forEach(i => {
-                        rows.push([k, 'Income', 'Inflow', 'Income', `"${String(i.source).replace(/"/g, '""')}"`, Number(i.amount).toFixed(2)]);
+                        rows.push([k, 'Income', 'Inflow', 'Income', i.date || '', `"${String(i.source).replace(/"/g, '""')}"`, Number(i.amount).toFixed(2)]);
                     });
                     mo.budgets.forEach(b => {
                         const sc = SUBCATEGORIES.includes(b.subcategory) ? b.subcategory : 'Self';
-                        rows.push([k, 'Budget', b.category, sc, `"${String(b.name).replace(/"/g, '""')}"`, Number(b.amount).toFixed(2)]);
+                        rows.push([k, 'Budget', b.category, sc, '', `"${String(b.name).replace(/"/g, '""')}"`, Number(b.amount).toFixed(2)]);
                     });
                 });
                 const csv = rows.map(r => r.join(',')).join('\n');
