@@ -696,24 +696,27 @@
 
     </main>
 
-    <!-- Floating Quick-Add Action Button (Bottom Right on Income Plan & Budget) -->
-    <button type="button" id="fab-quick-add" aria-label="Quick Add" class="hidden fixed fab-safe-lift right-4 sm:right-6 z-40 w-14 h-14 rounded-full bg-emerald-500 hover:bg-emerald-600 active:scale-95 text-zinc-950 shadow-xl shadow-emerald-500/25 flex items-center justify-center transition-all duration-200">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>
-        </svg>
-    </button>
-
-    <!-- ==================== FLOATING APPLE LIQUID GLASS PILL NAV BAR ==================== -->
-    <nav aria-label="Primary Navigation" class="fixed nav-safe-lift inset-x-0 z-30 flex justify-center px-4 pointer-events-none">
-        <div class="liquid-glass-pill pointer-events-auto w-full max-w-[390px] sm:max-w-[430px] h-[62px] rounded-full p-1.5 grid grid-cols-4 gap-1 items-center">
+    <!-- ==================== FLOATING APPLE LIQUID GLASS PILL NAV BAR (With Centered Quick-Add) ==================== -->
+    <nav aria-label="Primary Navigation" class="fixed nav-safe-lift inset-x-0 z-30 flex justify-center px-3 pointer-events-none">
+        <div class="liquid-glass-pill pointer-events-auto w-full max-w-[420px] sm:max-w-[460px] h-[64px] rounded-full p-1.5 grid grid-cols-5 gap-1 items-center">
             <button type="button" data-nav="home" class="nav-btn h-full rounded-full flex flex-col items-center justify-center gap-0.5 text-emerald-500 liquid-nav-active active:scale-95 transition-all duration-200">
                 <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2.1" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
                 <span class="text-[10px] font-semibold tracking-tight leading-none">Home</span>
             </button>
             <button type="button" data-nav="income" class="nav-btn h-full rounded-full flex flex-col items-center justify-center gap-0.5 text-ink-secondary hover:text-ink-primary active:scale-95 transition-all duration-200">
                 <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2.1" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                <span class="text-[10px] font-semibold tracking-tight leading-none">Income Plan</span>
+                <span class="text-[10px] font-semibold tracking-tight leading-none">Income</span>
             </button>
+
+            <!-- Center Quick-Add Budget / Income Button -->
+            <div class="flex items-center justify-center h-full">
+                <button type="button" id="pill-quick-add" aria-label="Add Budget or Income" title="Add Budget or Income" class="w-12 h-12 rounded-full bg-emerald-500 hover:bg-emerald-600 active:scale-95 text-zinc-950 shadow-lg shadow-emerald-500/30 flex items-center justify-center transition-all duration-200">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.6" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>
+                    </svg>
+                </button>
+            </div>
+
             <button type="button" data-nav="budget" class="nav-btn h-full rounded-full flex flex-col items-center justify-center gap-0.5 text-ink-secondary hover:text-ink-primary active:scale-95 transition-all duration-200">
                 <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2.1" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
                 <span class="text-[10px] font-semibold tracking-tight leading-none">Budget</span>
@@ -846,23 +849,36 @@
         </form>
     </div>
 
-    <!-- ==================== MODAL: ADD / EDIT BUDGET (With Inline Calculator) ==================== -->
+    <!-- ==================== MODAL: ADD / EDIT BUDGET & INCOME (With Type Dropdown & Inline Calculator) ==================== -->
     <div id="budget-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/60 backdrop-blur-xs overflow-y-auto">
         <form id="budget-form" class="bg-card border border-subtle rounded-2xl max-w-md w-full p-4 sm:p-5 space-y-4 my-auto">
             <div class="flex items-center justify-between">
-                <h3 id="budget-modal-title" class="text-base font-semibold text-ink-primary">Add Budget</h3>
+                <h3 id="budget-modal-title" class="text-base font-semibold text-ink-primary">Add Budget / Income</h3>
                 <button type="button" data-close-modal="budget-modal" class="w-8 h-8 rounded-lg bg-elevated flex items-center justify-center text-ink-secondary hover:text-ink-primary">✕</button>
             </div>
 
             <input type="hidden" id="budget-edit-id">
 
             <div class="space-y-3">
-                <div>
-                    <label for="budget-name" class="block text-xs font-medium text-ink-secondary mb-1">Budget Title</label>
-                    <input type="text" id="budget-name" required placeholder="e.g., Home Rental" class="ctrl-44 w-full px-3 rounded-xl bg-input border border-subtle text-sm text-ink-primary focus:outline-none focus:border-emerald-500">
+                <div id="entry-type-group">
+                    <label for="entry-type-select" class="block text-xs font-medium text-ink-secondary mb-1">Entry Type</label>
+                    <select id="entry-type-select" class="ctrl-44 w-full px-3 rounded-xl bg-input border border-subtle text-sm font-semibold text-ink-primary focus:outline-none focus:border-emerald-500">
+                        <option value="budget">Budget</option>
+                        <option value="income">Income</option>
+                    </select>
                 </div>
 
                 <div>
+                    <label id="budget-name-label" for="budget-name" class="block text-xs font-medium text-ink-secondary mb-1">Budget Title</label>
+                    <input type="text" id="budget-name" required placeholder="e.g., Home Rental" class="ctrl-44 w-full px-3 rounded-xl bg-input border border-subtle text-sm text-ink-primary focus:outline-none focus:border-emerald-500">
+                </div>
+
+                <div id="unified-income-date-group" class="hidden">
+                    <label for="unified-income-date" class="block text-xs font-medium text-ink-secondary mb-1">Date Received</label>
+                    <input type="date" id="unified-income-date" class="ctrl-44 w-full px-3 rounded-xl bg-input border border-subtle font-mono text-sm text-ink-primary focus:outline-none focus:border-emerald-500">
+                </div>
+
+                <div id="budget-category-group">
                     <label for="budget-category" class="block text-xs font-medium text-ink-secondary mb-1">Category</label>
                     <select id="budget-category" class="ctrl-44 w-full px-3 rounded-xl bg-input border border-subtle text-sm text-ink-primary focus:outline-none focus:border-emerald-500">
                         <option value="Commitment">Commitment</option>
@@ -871,7 +887,7 @@
                     </select>
                 </div>
 
-                <div>
+                <div id="budget-subcategory-group">
                     <label for="budget-subcategory" class="block text-xs font-medium text-ink-secondary mb-1">Subcategory</label>
                     <select id="budget-subcategory" class="ctrl-44 w-full px-3 rounded-xl bg-input border border-subtle text-sm text-ink-primary focus:outline-none focus:border-emerald-500">
                         <option value="Self">Self</option>
@@ -930,7 +946,7 @@
 
             <div class="flex items-center justify-end gap-2 pt-2">
                 <button type="button" data-close-modal="budget-modal" class="ctrl-44 px-4 rounded-xl bg-elevated border border-subtle text-xs font-medium text-ink-primary">Cancel</button>
-                <button type="submit" class="ctrl-44 px-5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-zinc-950 text-xs font-semibold">Save Budget</button>
+                <button type="submit" id="budget-submit-btn" class="ctrl-44 px-5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-zinc-950 text-xs font-semibold">Save Budget</button>
             </div>
         </form>
     </div>
@@ -1749,16 +1765,6 @@ notify pgrst, 'reload schema';`;
                     btn.classList.toggle('text-ink-secondary', !isMatch);
                 });
 
-                const fab = document.getElementById('fab-quick-add');
-                if (fab) {
-                    if (page === 'income' || page === 'budget') {
-                        fab.classList.remove('hidden');
-                        fab.setAttribute('aria-label', page === 'income' ? 'Add Income' : 'Add Budget');
-                    } else {
-                        fab.classList.add('hidden');
-                    }
-                }
-
                 if (page === 'analysis') {
                     renderAnalysisPage();
                 }
@@ -2458,21 +2464,22 @@ notify pgrst, 'reload schema';`;
                 const calcPanel = document.getElementById('calc-panel-income');
                 if (calcPanel) calcPanel.classList.add('hidden');
 
+                const todayIso = new Date().toISOString().slice(0, 10);
+                const defaultDate = (todayIso >= m.cycle.startDate && todayIso <= m.cycle.endDate) ? todayIso : m.cycle.startDate;
+
                 if (editId) {
                     const item = m.incomes.find(i => i.id === editId);
                     if (!item) return;
                     if (titleEl) titleEl.textContent = 'Edit Income';
                     if (idEl) idEl.value = item.id;
                     if (srcEl) srcEl.value = item.source;
-                    if (dateEl) dateEl.value = item.date || m.cycle.startDate || '';
+                    if (dateEl) dateEl.value = item.date || defaultDate;
                     if (amtEl) amtEl.value = Number(item.amount).toFixed(2);
                     resetCalc('income', item.amount);
                 } else {
                     if (titleEl) titleEl.textContent = 'Add Income';
                     if (idEl) idEl.value = '';
                     if (srcEl) srcEl.value = '';
-                    const todayIso = new Date().toISOString().slice(0, 10);
-                    const defaultDate = (todayIso >= m.cycle.startDate && todayIso <= m.cycle.endDate) ? todayIso : m.cycle.startDate;
                     if (dateEl) dateEl.value = defaultDate;
                     if (amtEl) amtEl.value = '';
                     resetCalc('income', 0);
@@ -2485,7 +2492,7 @@ notify pgrst, 'reload schema';`;
                 const m = getActiveMonthObj();
                 const editId = document.getElementById('income-edit-id').value;
                 const source = document.getElementById('income-source').value.trim();
-                const date = document.getElementById('income-date')?.value || m.cycle.startDate;
+                const date = document.getElementById('income-date').value || m.cycle.startDate;
                 const amount = parseFloat(document.getElementById('income-amount').value);
 
                 if (!source || isNaN(amount) || amount <= 0) {
@@ -2509,36 +2516,81 @@ notify pgrst, 'reload schema';`;
                 renderAll();
             }
 
-            function openBudgetModal(editId) {
+            function syncUnifiedModalFields() {
+                const typeSel = document.getElementById('entry-type-select');
+                const isIncome = typeSel && typeSel.value === 'income';
+                const editId = document.getElementById('budget-edit-id')?.value;
+
+                const titleEl = document.getElementById('budget-modal-title');
+                const nameLabel = document.getElementById('budget-name-label');
+                const nameInput = document.getElementById('budget-name');
+                const dateGroup = document.getElementById('unified-income-date-group');
+                const catGroup = document.getElementById('budget-category-group');
+                const subGroup = document.getElementById('budget-subcategory-group');
+                const submitBtn = document.getElementById('budget-submit-btn');
+
+                if (isIncome) {
+                    if (titleEl && !editId) titleEl.textContent = 'Add Income';
+                    if (nameLabel) nameLabel.textContent = 'Income Source';
+                    if (nameInput) nameInput.placeholder = 'e.g., Monthly Salary';
+                    if (dateGroup) dateGroup.classList.remove('hidden');
+                    if (catGroup) catGroup.classList.add('hidden');
+                    if (subGroup) subGroup.classList.add('hidden');
+                    if (submitBtn) submitBtn.textContent = 'Save Income';
+                } else {
+                    if (titleEl && !editId) titleEl.textContent = 'Add Budget';
+                    if (nameLabel) nameLabel.textContent = 'Budget Title';
+                    if (nameInput) nameInput.placeholder = 'e.g., Home Rental';
+                    if (dateGroup) dateGroup.classList.add('hidden');
+                    if (catGroup) catGroup.classList.remove('hidden');
+                    if (subGroup) subGroup.classList.remove('hidden');
+                    if (submitBtn) submitBtn.textContent = 'Save Budget';
+                }
+            }
+
+            function openBudgetModal(editId, defaultType) {
                 const m = getActiveMonthObj();
                 const titleEl = document.getElementById('budget-modal-title');
                 const idEl = document.getElementById('budget-edit-id');
+                const typeGroup = document.getElementById('entry-type-group');
+                const typeSel = document.getElementById('entry-type-select');
                 const nameEl = document.getElementById('budget-name');
+                const incDateEl = document.getElementById('unified-income-date');
                 const catEl = document.getElementById('budget-category');
                 const subCatEl = document.getElementById('budget-subcategory');
                 const amtEl = document.getElementById('budget-amount');
                 const calcPanel = document.getElementById('calc-panel-budget');
                 if (calcPanel) calcPanel.classList.add('hidden');
 
+                const todayIso = new Date().toISOString().slice(0, 10);
+                const defaultDate = (todayIso >= m.cycle.startDate && todayIso <= m.cycle.endDate) ? todayIso : m.cycle.startDate;
+
                 if (editId) {
                     const item = m.budgets.find(b => b.id === editId);
                     if (!item) return;
+                    if (typeGroup) typeGroup.classList.add('hidden');
+                    if (typeSel) typeSel.value = 'budget';
                     if (titleEl) titleEl.textContent = 'Edit Budget';
                     if (idEl) idEl.value = item.id;
                     if (nameEl) nameEl.value = item.name;
+                    if (incDateEl) incDateEl.value = defaultDate;
                     if (catEl) catEl.value = item.category;
                     if (subCatEl) subCatEl.value = SUBCATEGORIES.includes(item.subcategory) ? item.subcategory : 'Self';
                     if (amtEl) amtEl.value = Number(item.amount).toFixed(2);
                     resetCalc('budget', item.amount);
                 } else {
-                    if (titleEl) titleEl.textContent = 'Add Budget';
+                    const initialType = defaultType || (activePage === 'income' ? 'income' : 'budget');
+                    if (typeGroup) typeGroup.classList.remove('hidden');
+                    if (typeSel) typeSel.value = initialType;
                     if (idEl) idEl.value = '';
                     if (nameEl) nameEl.value = '';
+                    if (incDateEl) incDateEl.value = defaultDate;
                     if (catEl) catEl.value = activeBudgetTab;
                     if (subCatEl) subCatEl.value = 'Self';
                     if (amtEl) amtEl.value = '';
                     resetCalc('budget', 0);
                 }
+                syncUnifiedModalFields();
                 openModal('budget-modal');
             }
 
@@ -2546,11 +2598,27 @@ notify pgrst, 'reload schema';`;
                 e.preventDefault();
                 const m = getActiveMonthObj();
                 const editId = document.getElementById('budget-edit-id').value;
+                const entryType = document.getElementById('entry-type-select')?.value || 'budget';
                 const name = document.getElementById('budget-name').value.trim();
+                const amount = parseFloat(document.getElementById('budget-amount').value);
+
+                if (!editId && entryType === 'income') {
+                    const date = document.getElementById('unified-income-date')?.value || m.cycle.startDate;
+                    if (!name || isNaN(amount) || amount <= 0) {
+                        showToast('Enter valid source and amount');
+                        return;
+                    }
+                    m.incomes.push({ id: generateId('inc'), source: name, date, amount });
+                    saveState();
+                    closeModal('budget-modal');
+                    renderAll();
+                    showToast('Income added');
+                    return;
+                }
+
                 const category = document.getElementById('budget-category').value;
                 const subVal = document.getElementById('budget-subcategory').value;
                 const subcategory = SUBCATEGORIES.includes(subVal) ? subVal : 'Self';
-                const amount = parseFloat(document.getElementById('budget-amount').value);
 
                 if (!name || !CATEGORIES.includes(category) || isNaN(amount) || amount <= 0) {
                     showToast('Enter valid budget details');
@@ -2781,14 +2849,14 @@ notify pgrst, 'reload schema';`;
                     renderCycleCalendar();
                 });
                 document.getElementById('btn-apply-cycle')?.addEventListener('click', applySelectedCycle);
-
-                // Add Income / Budget & Floating Quick-Add
+                // Add Income / Budget & Center Pill Quick-Add
                 document.getElementById('btn-add-income')?.addEventListener('click', () => openIncomeModal(null));
-                document.getElementById('btn-add-budget')?.addEventListener('click', () => openBudgetModal(null));
-                document.getElementById('fab-quick-add')?.addEventListener('click', () => {
-                    if (activePage === 'income') openIncomeModal(null);
-                    else if (activePage === 'budget') openBudgetModal(null);
+                document.getElementById('btn-add-budget')?.addEventListener('click', () => openBudgetModal(null, 'budget'));
+                document.getElementById('pill-quick-add')?.addEventListener('click', () => {
+                    const defaultType = activePage === 'income' ? 'income' : 'budget';
+                    openBudgetModal(null, defaultType);
                 });
+                document.getElementById('entry-type-select')?.addEventListener('change', syncUnifiedModalFields);
 
                 document.getElementById('income-form')?.addEventListener('submit', handleIncomeFormSubmit);
                 document.getElementById('budget-form')?.addEventListener('submit', handleBudgetFormSubmit);
