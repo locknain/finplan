@@ -662,6 +662,7 @@
                                 <th class="py-2.5 px-3 text-right">Income</th>
                                 <th class="py-2.5 px-3 text-right">Budget</th>
                                 <th class="py-2.5 px-3 text-right">Balance</th>
+                                <th class="py-2.5 px-2.5 text-center w-10"></th>
                             </tr>
                         </thead>
                         <tbody id="history-table-body" class="divide-y divide-subtle text-xs">
@@ -2107,6 +2108,11 @@ notify pgrst, 'reload schema';`;
                                 <td class="py-2.5 px-3 font-mono text-right text-emerald-500 whitespace-nowrap">${formatMYR(t.totalIncome)}</td>
                                 <td class="py-2.5 px-3 font-mono text-right text-sky-500 whitespace-nowrap">${formatMYR(t.totalBudget)}</td>
                                 <td class="py-2.5 px-3 font-mono text-right ${t.salaryBalance < 0 ? 'text-rose-500' : 'text-ink-primary'} whitespace-nowrap">${formatMYR(t.salaryBalance)}</td>
+                                <td class="py-2 px-2 text-center whitespace-nowrap">
+                                    <button type="button" data-action="delete-history-cycle" data-month="${escapeHTML(k)}" aria-label="Delete Cycle" title="Delete Cycle" class="w-8 h-8 rounded-lg bg-card border border-subtle hover:border-rose-500/50 inline-flex items-center justify-center text-ink-secondary hover:text-rose-500 transition">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                                    </button>
+                                </td>
                             </tr>
                         `;
                     }).join('');
@@ -2679,6 +2685,22 @@ notify pgrst, 'reload schema';`;
                                 renderAll();
                                 showToast(`Switched to ${formatMonthKeyShort(mk)}`);
                             }
+                        } else if (act === 'delete-history-cycle') {
+                            e.stopPropagation();
+                            const mk = actionBtn.getAttribute('data-month');
+                            if (!mk || !appData[mk]) return;
+                            delete appData[mk];
+                            const remainingKeys = Object.keys(appData).sort();
+                            if (remainingKeys.length === 0) {
+                                currentMonthKey = getTodayMonthKey();
+                                ensureMonth(currentMonthKey);
+                            } else if (currentMonthKey === mk) {
+                                currentMonthKey = remainingKeys[remainingKeys.length - 1];
+                                ensureMonth(currentMonthKey);
+                            }
+                            saveState();
+                            renderAll();
+                            showToast(`Deleted cycle ${formatMonthKeyShort(mk)}`);
                         }
                     }
                 });
