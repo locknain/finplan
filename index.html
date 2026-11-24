@@ -647,7 +647,12 @@
                         <h2 class="section-title-fluid font-semibold text-ink-primary">Cycle Performance History</h2>
                         <p class="text-xs text-ink-muted mt-0.5">Select row to switch cycle</p>
                     </div>
-                    <button type="button" id="btn-export-all-csv" class="h-9 px-3 rounded-xl bg-elevated hover:border-strong border border-subtle text-xs font-medium text-ink-primary transition">Export CSV</button>
+                    <div class="flex items-center gap-2">
+                        <select id="history-year-filter" aria-label="Filter Cycle History by Year" class="h-9 px-3 rounded-xl bg-input border border-subtle font-mono text-xs font-medium text-ink-primary focus:outline-none">
+                            <!-- Populated dynamically by year -->
+                        </select>
+                        <button type="button" id="btn-export-all-csv" class="h-9 px-3 rounded-xl bg-elevated hover:border-strong border border-subtle text-xs font-medium text-ink-primary transition">Export CSV</button>
+                    </div>
                 </div>
 
                 <div class="relative h-52 w-full">
@@ -1072,6 +1077,7 @@ notify pgrst, 'reload schema';`;
             let currentMonthKey = getTodayMonthKey();
             let activePage = 'home';
             let activeBudgetTab = 'Commitment';
+            let selectedHistoryYear = 'ALL';
 
             // Inline Calculator State per Modal
             const calcStates = {
@@ -1150,6 +1156,30 @@ notify pgrst, 'reload schema';`;
             function formatMonthKeyShort(key) {
                 const [y, m] = key.split('-').map(Number);
                 return `${MONTH_SHORT[(m || 1) - 1]} ${y}`;
+            }
+
+            function formatCycleMonthLabel(monthKey) {
+                const mo = ensureMonth(monthKey);
+                if (mo && mo.cycle && mo.cycle.startDate && mo.cycle.endDate) {
+                    const s = parseISODate(mo.cycle.startDate);
+                    const e = parseISODate(mo.cycle.endDate);
+                    const sMonth = MONTH_SHORT[s.getMonth()];
+                    const eMonth = MONTH_SHORT[e.getMonth()];
+                    if (sMonth === eMonth && s.getFullYear() === e.getFullYear()) {
+                        return sMonth;
+                    }
+                    return `${sMonth}-${eMonth}`;
+                }
+                const [, m] = monthKey.split('-').map(Number);
+                return MONTH_SHORT[(m || 1) - 1];
+            }
+
+            function getCycleYear(monthKey) {
+                const mo = ensureMonth(monthKey);
+                if (mo && mo.cycle && mo.cycle.endDate) {
+                    return String(parseISODate(mo.cycle.endDate).getFullYear());
+                }
+                return String(monthKey.split('-')[0] || new Date().getFullYear());
             }
 
             function formatCycleHeaderLabel(monthObj) {
@@ -2075,12 +2105,14 @@ notify pgrst, 'reload schema';`;
                 let allIncome = 0;
                 let allBudget = 0;
                 const ledgerItems = [];
+                const availableYearsSet = new Set();
 
                 sortedKeys.forEach(k => {
                     const mo = ensureMonth(k);
                     const t = getTotals(mo);
                     allIncome += t.totalIncome;
                     allBudget += t.totalBudget;
+                    availableYearsSet.add(getCycleYear(k));
                     mo.incomes.forEach(inc => {
                         ledgerItems.push({
                             monthKey: k,
@@ -2095,16 +2127,32 @@ notify pgrst, 'reload schema';`;
                 setTxt('history-kpi-budget', formatMYR(allBudget));
                 setTxt('history-kpi-cycles', String(sortedKeys.length));
 
+                // Year Dropdown Filter
+                const availableYears = Array.from(availableYearsSet).sort((a, b) => Number(b) - Number(a));
+                const yearSelect = document.getElementById('history-year-filter');
+                if (yearSelect) {
+                    if (selectedHistoryYear !== 'ALL' && !availableYears.includes(selectedHistoryYear)) {
+                        selectedHistoryYear = availableYears[0] || 'ALL';
+                    }
+                    yearSelect.innerHTML = `<option value="ALL"${selectedHistoryYear === 'ALL' ? ' selected' : ''}>All Years</option>` +
+                        availableYears.map(yr => `<option value="${escapeHTML(yr)}"${selectedHistoryYear === yr ? ' selected' : ''}>${escapeHTML(yr)}</option>`).join('');
+                }
+
+                const yearFilteredKeys = selectedHistoryYear === 'ALL'
+                    ? sortedKeys
+                    : sortedKeys.filter(k => getCycleYear(k) === selectedHistoryYear);
+
                 // History Table
                 const tbody = document.getElementById('history-table-body');
                 if (tbody) {
-                    tbody.innerHTML = [...sortedKeys].reverse().map(k => {
+                    tbody.innerHTML = [...yearFilteredKeys].reverse().map(k => {
                         const mo = ensureMonth(k);
                         const t = getTotals(mo);
                         const isActive = k === currentMonthKey;
+                        const cycleLabel = formatCycleMonthLabel(k);
                         return `
                             <tr data-action="select-history-cycle" data-month="${escapeHTML(k)}" class="cursor-pointer hover:bg-elevated transition ${isActive ? 'bg-emerald-500/10 font-semibold' : ''}">
-                                <td class="py-2.5 px-3 font-mono text-ink-primary whitespace-nowrap">${formatMonthKeyShort(k)}</td>
+                                <td class="py-2.5 px-3 font-mono text-ink-primary whitespace-nowrap">${escapeHTML(cycleLabel)}</td>
                                 <td class="py-2.5 px-3 font-mono text-right text-emerald-500 whitespace-nowrap">${formatMYR(t.totalIncome)}</td>
                                 <td class="py-2.5 px-3 font-mono text-right text-sky-500 whitespace-nowrap">${formatMYR(t.totalBudget)}</td>
                                 <td class="py-2.5 px-3 font-mono text-right ${t.salaryBalance < 0 ? 'text-rose-500' : 'text-ink-primary'} whitespace-nowrap">${formatMYR(t.salaryBalance)}</td>
@@ -2122,7 +2170,7 @@ notify pgrst, 'reload schema';`;
                 const query = (document.getElementById('ledger-search-input')?.value || '').trim().toLowerCase();
                 const filteredLedger = ledgerItems
                     .reverse()
-                    .filter(item => !query || item.source.toLowerCase().includes(query) || formatMonthKeyShort(item.monthKey).toLowerCase().includes(query));
+                    .filter(item => !query || item.source.toLowerCase().includes(query) || formatCycleMonthLabel(item.monthKey).toLowerCase().includes(query) || formatMonthKeyShort(item.monthKey).toLowerCase().includes(query));
 
                 const ledgerEl = document.getElementById('past-income-ledger-container');
                 if (ledgerEl) {
@@ -2142,7 +2190,7 @@ notify pgrst, 'reload schema';`;
                 }
 
                 // Charts
-                renderCharts(byCategory, sortedKeys);
+                renderCharts(byCategory, yearFilteredKeys);
 
                 // Render Detailed Subcategory Breakdown
                 renderAnalysisSubcategories(m);
@@ -2249,15 +2297,15 @@ notify pgrst, 'reload schema';`;
                     }
                 }
 
-                // 2) History Bar Chart (Last 6 Cycles)
+                // 2) History Bar Chart (Cycles in Selected Year)
                 const hCanvas = document.getElementById('chart-history-bar');
                 if (hCanvas) {
                     if (historyBarChart) {
                         historyBarChart.destroy();
                         historyBarChart = null;
                     }
-                    const recentKeys = sortedKeys.slice(-6);
-                    const labels = recentKeys.map(k => formatMonthKeyShort(k));
+                    const recentKeys = sortedKeys.slice(-12);
+                    const labels = recentKeys.map(k => formatCycleMonthLabel(k));
                     const incSeries = recentKeys.map(k => getTotals(ensureMonth(k)).totalIncome);
                     const budSeries = recentKeys.map(k => getTotals(ensureMonth(k)).totalBudget);
 
@@ -2683,12 +2731,13 @@ notify pgrst, 'reload schema';`;
                                 currentMonthKey = mk;
                                 ensureMonth(currentMonthKey);
                                 renderAll();
-                                showToast(`Switched to ${formatMonthKeyShort(mk)}`);
+                                showToast(`Switched to ${formatCycleMonthLabel(mk)}`);
                             }
                         } else if (act === 'delete-history-cycle') {
                             e.stopPropagation();
                             const mk = actionBtn.getAttribute('data-month');
                             if (!mk || !appData[mk]) return;
+                            const deletedLabel = formatCycleMonthLabel(mk);
                             delete appData[mk];
                             const remainingKeys = Object.keys(appData).sort();
                             if (remainingKeys.length === 0) {
@@ -2700,7 +2749,7 @@ notify pgrst, 'reload schema';`;
                             }
                             saveState();
                             renderAll();
-                            showToast(`Deleted cycle ${formatMonthKeyShort(mk)}`);
+                            showToast(`Deleted cycle ${deletedLabel}`);
                         }
                     }
                 });
@@ -2744,11 +2793,15 @@ notify pgrst, 'reload schema';`;
                 document.getElementById('income-form')?.addEventListener('submit', handleIncomeFormSubmit);
                 document.getElementById('budget-form')?.addEventListener('submit', handleBudgetFormSubmit);
 
-                // Sorting & Search
+                // Sorting, Filtering & Search
                 document.getElementById('sort-income-by')?.addEventListener('change', renderIncomePage);
                 document.getElementById('sort-budget-by')?.addEventListener('change', renderBudgetPage);
                 document.getElementById('ledger-search-input')?.addEventListener('input', renderAnalysisPage);
                 document.getElementById('analysis-subcat-filter')?.addEventListener('change', renderAnalysisPage);
+                document.getElementById('history-year-filter')?.addEventListener('change', (e) => {
+                    selectedHistoryYear = e.target.value || 'ALL';
+                    renderAnalysisPage();
+                });
 
                 // Financial Plan Ratios
                 ['commitment', 'wants', 'savings'].forEach(key => {
@@ -2803,7 +2856,13 @@ notify pgrst, 'reload schema';`;
 
                 // Data Export / Import / Reset
                 document.getElementById('btn-export-cycle-csv')?.addEventListener('click', () => exportCycleCSV([currentMonthKey]));
-                document.getElementById('btn-export-all-csv')?.addEventListener('click', () => exportCycleCSV(Object.keys(appData).sort()));
+                document.getElementById('btn-export-all-csv')?.addEventListener('click', () => {
+                    const allKeys = Object.keys(appData).sort();
+                    const keysToExport = selectedHistoryYear === 'ALL'
+                        ? allKeys
+                        : allKeys.filter(k => getCycleYear(k) === selectedHistoryYear);
+                    exportCycleCSV(keysToExport);
+                });
                 document.getElementById('btn-export-json')?.addEventListener('click', () => {
                     const payload = JSON.stringify({ appData, defaultRatios, defaultCycleStartDay }, null, 2);
                     downloadBlob(payload, `finplan-backup-${getTodayMonthKey()}.json`, 'application/json');
