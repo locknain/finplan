@@ -468,12 +468,12 @@
         <section id="page-budget" class="hidden space-y-5">
             <!-- 1) Financial Cycle Card (Placed on Budget Page) -->
             <div class="bg-card border border-subtle rounded-2xl p-4 sm:p-5">
-                <div class="flex items-center justify-between gap-3">
-                    <div class="min-w-0">
+                <div class="flex items-center justify-between gap-2.5">
+                    <div class="min-w-0 flex-1">
                         <h2 class="section-title-fluid font-semibold text-ink-primary">Financial Cycle</h2>
-                        <p id="cycle-card-range" class="font-mono text-xs sm:text-sm text-ink-secondary mt-0.5 truncate">1 Nov 2026 – 30 Nov 2026</p>
+                        <p id="cycle-card-range" class="font-mono text-[11px] sm:text-sm text-ink-secondary mt-0.5 leading-snug">1 Nov 2026 – 30 Nov 2026</p>
                     </div>
-                    <button type="button" id="btn-open-cycle-card" class="ctrl-44 px-3.5 sm:px-4 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-zinc-950 font-semibold text-xs inline-flex items-center justify-center gap-1.5 whitespace-nowrap shrink-0 transition">
+                    <button type="button" id="btn-open-cycle-card" class="ctrl-44 px-3 sm:px-4 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-zinc-950 font-semibold text-xs inline-flex items-center justify-center gap-1.5 whitespace-nowrap shrink-0 transition">
                         <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                         <span>Pick Cycle Calendar</span>
                     </button>
@@ -483,10 +483,7 @@
             <!-- 2) Live Salary Balance Card -->
             <div class="bg-card border border-subtle rounded-2xl p-4 sm:p-5 space-y-3">
                 <div class="flex items-center justify-between gap-2">
-                    <div>
-                        <h2 class="section-title-fluid font-semibold text-ink-primary">Salary Balance</h2>
-                        <p id="budget-balance-sub" class="font-mono text-[11px] text-ink-muted mt-0.5">Income RM 0.00 − Allocated RM 0.00</p>
-                    </div>
+                    <h2 class="section-title-fluid font-semibold text-ink-primary">Salary Balance</h2>
                     <span id="budget-salary-balance-val" class="font-mono font-bold text-base sm:text-lg text-emerald-500">RM 0.00</span>
                 </div>
                 <div class="w-full h-2 bg-elevated rounded-full overflow-hidden">
@@ -524,15 +521,15 @@
                 <div class="bg-elevated border border-subtle rounded-xl p-3.5 sm:p-4 space-y-3">
                     <div class="grid grid-cols-3 gap-2">
                         <div>
-                            <span class="text-xs text-ink-secondary block">Category Subtotal</span>
+                            <span class="text-xs text-ink-secondary block">Subtotal</span>
                             <span id="bucket-allocated-val" class="font-mono font-bold text-xs sm:text-sm text-ink-primary mt-0.5 block truncate">RM 0.00</span>
                         </div>
                         <div>
-                            <span class="text-xs text-ink-secondary block">Target Plan Budget</span>
+                            <span class="text-xs text-ink-secondary block">Allocation</span>
                             <span id="bucket-target-val" class="font-mono font-bold text-xs sm:text-sm text-sky-500 mt-0.5 block truncate">RM 0.00</span>
                         </div>
                         <div>
-                            <span class="text-xs text-ink-secondary block">Category Balance</span>
+                            <span class="text-xs text-ink-secondary block">Balance</span>
                             <span id="bucket-remaining-val" class="font-mono font-bold text-xs sm:text-sm text-emerald-500 mt-0.5 block truncate">RM 0.00</span>
                         </div>
                     </div>
@@ -1933,9 +1930,6 @@ notify pgrst, 'reload schema';`;
                 if (rangeEl) rangeEl.textContent = `${formatDisplayDate(m.cycle.startDate)} – ${formatDisplayDate(m.cycle.endDate)}`;
 
                 // Live Salary Balance Card
-                const balSub = document.getElementById('budget-balance-sub');
-                if (balSub) balSub.textContent = `Income ${formatMYR(totalIncome)} − Allocated ${formatMYR(totalBudget)}`;
-
                 const balVal = document.getElementById('budget-salary-balance-val');
                 if (balVal) {
                     balVal.textContent = formatMYR(salaryBalance);
