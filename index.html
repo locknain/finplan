@@ -386,14 +386,11 @@
 
             <!-- 2) Financial Plan Ratios (Commitment > Wants > Savings) -->
             <div class="bg-card border border-subtle rounded-2xl p-4 sm:p-5 space-y-4">
-                <div class="flex flex-wrap items-center justify-between gap-2">
-                    <div>
-                        <h2 class="section-title-fluid font-semibold text-ink-primary">Financial Plan Ratios</h2>
-                        <p id="ratio-total-indicator" class="font-mono text-xs text-emerald-500 mt-0.5">Total Allocation: 100%</p>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <button type="button" id="btn-auto-balance" class="ctrl-44 px-3 rounded-xl bg-elevated hover:border-strong border border-subtle text-xs font-medium text-ink-primary transition">Auto Balance 100%</button>
-                        <button type="button" id="btn-save-default-ratio" class="ctrl-44 px-3 rounded-xl bg-elevated hover:border-strong border border-subtle text-xs font-medium text-emerald-500 transition">Set Default</button>
+                <div class="flex items-center justify-between gap-2">
+                    <h2 class="section-title-fluid font-semibold text-ink-primary truncate">Planned Ratio</h2>
+                    <div class="flex items-center gap-1.5 shrink-0">
+                        <button type="button" id="btn-auto-balance" class="h-9 px-3 rounded-xl bg-elevated hover:border-strong border border-subtle font-mono text-xs font-medium text-ink-primary transition">100%</button>
+                        <button type="button" id="btn-save-default-ratio" class="h-9 px-3 rounded-xl bg-elevated hover:border-strong border border-subtle text-xs font-medium text-emerald-500 transition">Default</button>
                     </div>
                 </div>
 
@@ -2125,10 +2122,7 @@ notify pgrst, 'reload schema';`;
                         listEl.innerHTML = sorted.map(item => `
                             <div class="bg-elevated border border-subtle rounded-xl px-3.5 py-3 flex items-center justify-between gap-3">
                                 <div class="min-w-0 flex-1">
-                                    <div class="flex flex-wrap items-center gap-x-2 gap-y-0.5">
-                                        <p class="text-xs sm:text-sm font-semibold text-ink-primary truncate">${escapeHTML(item.source)}</p>
-                                        ${item.date ? `<span class="font-mono text-[11px] text-ink-secondary bg-card border border-subtle px-2 py-0.5 rounded-md shrink-0">${formatDisplayDate(item.date)}</span>` : ''}
-                                    </div>
+                                    <p class="text-xs sm:text-sm font-semibold text-ink-primary truncate">${escapeHTML(item.source)}</p>
                                     <p class="font-mono text-xs sm:text-sm font-bold text-emerald-500 mt-1">${formatMYR(item.amount)}</p>
                                 </div>
                                 <div class="flex items-center gap-1.5 shrink-0">
@@ -2149,12 +2143,6 @@ notify pgrst, 'reload schema';`;
                 const rW = Number(m.ratios.Wants) || 0;
                 const rS = Number(m.ratios.Savings) || 0;
                 const sumR = rC + rW + rS;
-
-                const indEl = document.getElementById('ratio-total-indicator');
-                if (indEl) {
-                    indEl.textContent = `Total Allocation: ${sumR}%`;
-                    indEl.className = `font-mono text-xs mt-0.5 ${sumR === 100 ? 'text-emerald-500' : 'text-amber-500'}`;
-                }
 
                 const safeTotal = sumR > 0 ? sumR : 100;
                 const barC = document.getElementById('ratio-bar-commitment');
