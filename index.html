@@ -229,9 +229,8 @@
                     </svg>
                 </div>
                 <div class="leading-tight min-w-0">
-                    <h1 class="font-bold text-sm sm:text-[17px] tracking-tight text-ink-primary truncate flex items-center gap-1.5">
+                    <h1 class="font-bold text-sm sm:text-[17px] tracking-tight text-ink-primary truncate">
                         <span>Fin<span class="text-emerald-500">Plan</span></span>
-                        <span id="supabase-status-dot" title="Local Mode (Configure Supabase in Data)" class="w-2 h-2 rounded-full bg-zinc-400 shrink-0 transition-colors"></span>
                     </h1>
                     <p id="header-page-subtitle" class="text-[11px] sm:text-xs text-ink-secondary truncate">Monthly Summary</p>
                 </div>
@@ -250,16 +249,14 @@
                     </button>
                 </div>
 
-                <!-- Clone & Data Action Group -->
-                <div class="flex items-center gap-1.5 shrink-0">
-                    <button type="button" id="btn-clone-prev" title="Clone Previous Cycle" class="h-9 px-2.5 rounded-xl bg-card border border-subtle hover:border-strong text-xs font-medium text-ink-primary flex items-center gap-1 transition shrink-0">
-                        <svg class="w-3.5 h-3.5 text-ink-secondary shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                        <span>Clone</span>
+                <!-- Clone & Connect Icon-Only Action Group -->
+                <div class="flex items-center gap-1 shrink-0">
+                    <button type="button" id="btn-clone-prev" aria-label="Clone Previous Cycle" title="Clone Previous Cycle" class="w-9 h-9 rounded-full flex items-center justify-center text-ink-secondary hover:text-ink-primary hover:bg-elevated active:scale-95 transition shrink-0">
+                        <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
                     </button>
 
-                    <button type="button" id="btn-open-data" title="Data Backup" class="h-9 px-2.5 rounded-xl bg-card border border-subtle hover:border-strong text-xs font-medium text-ink-primary flex items-center gap-1 transition shrink-0">
-                        <svg class="w-3.5 h-3.5 text-ink-secondary shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"/></svg>
-                        <span>Data</span>
+                    <button type="button" id="btn-open-data" aria-label="Data & Cloud Sync" title="Disconnected (Tap to Connect)" class="w-9 h-9 rounded-full flex items-center justify-center text-rose-500 hover:bg-elevated active:scale-95 transition shrink-0">
+                        <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2.1" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
                     </button>
                 </div>
             </div>
@@ -356,9 +353,8 @@
                         <h2 class="section-title-fluid font-semibold text-ink-primary">Monthly Income</h2>
                         <p class="text-xs text-ink-muted mt-0.5">Record monthly salary inflows</p>
                     </div>
-                    <button type="button" id="btn-add-income" class="ctrl-44 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-zinc-950 font-semibold text-xs flex items-center gap-1.5 shrink-0 transition">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
-                        <span>Add Income</span>
+                    <button type="button" id="btn-add-income" aria-label="Add Income" title="Add Income" class="w-11 h-11 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-zinc-950 font-semibold flex items-center justify-center shrink-0 transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
                     </button>
                 </div>
 
@@ -468,14 +464,13 @@
         <section id="page-budget" class="hidden space-y-5">
             <!-- 1) Financial Cycle Card (Placed on Budget Page) -->
             <div class="bg-card border border-subtle rounded-2xl p-4 sm:p-5">
-                <div class="flex items-center justify-between gap-2.5">
+                <div class="flex items-center justify-between gap-3">
                     <div class="min-w-0 flex-1">
                         <h2 class="section-title-fluid font-semibold text-ink-primary">Financial Cycle</h2>
-                        <p id="cycle-card-range" class="font-mono text-[11px] sm:text-sm text-ink-secondary mt-0.5 leading-snug">1 Nov 2026 – 30 Nov 2026</p>
+                        <p id="cycle-card-range" class="font-mono text-xs sm:text-sm text-ink-secondary mt-0.5 leading-snug">1 Nov 2026 – 30 Nov 2026</p>
                     </div>
-                    <button type="button" id="btn-open-cycle-card" class="ctrl-44 px-3 sm:px-4 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-zinc-950 font-semibold text-xs inline-flex items-center justify-center gap-1.5 whitespace-nowrap shrink-0 transition">
-                        <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                        <span>Pick Cycle Calendar</span>
+                    <button type="button" id="btn-open-cycle-card" aria-label="Pick Cycle Calendar" title="Pick Cycle Calendar" class="w-11 h-11 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-zinc-950 font-semibold flex items-center justify-center shrink-0 transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                     </button>
                 </div>
             </div>
@@ -493,14 +488,10 @@
 
             <!-- 3) Monthly Budget -->
             <div class="bg-card border border-subtle rounded-2xl p-4 sm:p-5 space-y-4">
-                <div class="flex flex-wrap items-center justify-between gap-3">
-                    <div>
-                        <h2 class="section-title-fluid font-semibold text-ink-primary">Monthly Budget</h2>
-                        <p class="text-xs text-ink-muted mt-0.5">Categorized allocation tracker</p>
-                    </div>
-                    <button type="button" id="btn-add-budget" class="ctrl-44 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-zinc-950 font-semibold text-xs flex items-center gap-1.5 transition">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
-                        <span>Add Budget</span>
+                <div class="flex items-center justify-between gap-3">
+                    <h2 class="section-title-fluid font-semibold text-ink-primary">Monthly Budget</h2>
+                    <button type="button" id="btn-add-budget" aria-label="Add Budget" title="Add Budget" class="w-11 h-11 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-zinc-950 font-semibold flex items-center justify-center shrink-0 transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
                     </button>
                 </div>
 
@@ -694,11 +685,64 @@
             </div>
         </section>
 
+        <!-- ==================== PAGE 5: LOANS TRACKER ==================== -->
+        <section id="page-loans" class="hidden space-y-5">
+            <!-- Loan Overview KPIs -->
+            <div class="bg-card border border-subtle rounded-2xl p-4 sm:p-5 space-y-4">
+                <div class="flex items-center justify-between gap-3">
+                    <div>
+                        <h2 class="section-title-fluid font-semibold text-ink-primary">Loan Tracker</h2>
+                        <p class="text-xs text-ink-muted mt-0.5">Accumulated Loans</p>
+                    </div>
+                    <button type="button" id="btn-add-loan" aria-label="Add Loan" title="Add Loan" class="w-11 h-11 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-zinc-950 font-semibold flex items-center justify-center shrink-0 transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <!-- Total Remaining Balance -->
+                    <div class="bg-elevated border border-subtle rounded-xl p-3.5 sm:p-4 space-y-1">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-medium text-ink-secondary">Total Remaining</span>
+                            <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+                        </div>
+                        <p id="loans-kpi-remaining" class="kpi-fluid font-mono font-bold text-rose-500">RM 0.00</p>
+                    </div>
+
+                    <!-- Monthly Payment Commitment -->
+                    <div class="bg-elevated border border-subtle rounded-xl p-3.5 sm:p-4 space-y-1">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-medium text-ink-secondary">Monthly Installment</span>
+                            <span class="w-2 h-2 rounded-full bg-sky-500"></span>
+                        </div>
+                        <p id="loans-kpi-monthly" class="kpi-fluid font-mono font-bold text-sky-500">RM 0.00</p>
+                    </div>
+
+                    <!-- Total Paid Off -->
+                    <div class="bg-elevated border border-subtle rounded-xl p-3.5 sm:p-4 space-y-1.5">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-medium text-ink-secondary">Total Paid Off</span>
+                            <span id="loans-kpi-pct" class="text-[11px] font-mono font-semibold text-emerald-500">0%</span>
+                        </div>
+                        <p id="loans-kpi-paid" class="kpi-fluid font-mono font-bold text-emerald-500">RM 0.00</p>
+                        <div class="w-full h-1.5 bg-card rounded-full overflow-hidden">
+                            <div id="loans-kpi-bar" class="h-full bg-emerald-500 transition-all duration-300" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Active Loans List -->
+            <div id="loans-list-container" class="space-y-3">
+                <!-- Rendered dynamically -->
+            </div>
+        </section>
+
     </main>
 
     <!-- ==================== FLOATING APPLE LIQUID GLASS PILL NAV BAR (With Centered Quick-Add) ==================== -->
     <nav aria-label="Primary Navigation" class="fixed nav-safe-lift inset-x-0 z-30 flex justify-center px-3 pointer-events-none">
-        <div class="liquid-glass-pill pointer-events-auto w-full max-w-[420px] sm:max-w-[460px] h-[64px] rounded-full p-1.5 grid grid-cols-5 gap-1 items-center">
+        <div class="liquid-glass-pill pointer-events-auto w-full max-w-[460px] sm:max-w-[500px] h-[64px] rounded-full p-1.5 grid grid-cols-6 gap-1 items-center">
             <button type="button" data-nav="home" class="nav-btn h-full rounded-full flex flex-col items-center justify-center gap-0.5 text-emerald-500 liquid-nav-active active:scale-95 transition-all duration-200">
                 <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2.1" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
                 <span class="text-[10px] font-semibold tracking-tight leading-none">Home</span>
@@ -710,7 +754,7 @@
 
             <!-- Center Quick-Add Budget / Income Button -->
             <div class="flex items-center justify-center h-full">
-                <button type="button" id="pill-quick-add" aria-label="Add Budget or Income" title="Add Budget or Income" class="w-12 h-12 rounded-full bg-emerald-500 hover:bg-emerald-600 active:scale-95 text-zinc-950 shadow-lg shadow-emerald-500/30 flex items-center justify-center transition-all duration-200">
+                <button type="button" id="pill-quick-add" aria-label="Add Budget or Income" title="Add Budget or Income" class="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-emerald-500 hover:bg-emerald-600 active:scale-95 text-zinc-950 shadow-lg shadow-emerald-500/30 flex items-center justify-center transition-all duration-200">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.6" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>
                     </svg>
@@ -721,12 +765,118 @@
                 <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2.1" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
                 <span class="text-[10px] font-semibold tracking-tight leading-none">Budget</span>
             </button>
+            <button type="button" data-nav="loans" class="nav-btn h-full rounded-full flex flex-col items-center justify-center gap-0.5 text-ink-secondary hover:text-ink-primary active:scale-95 transition-all duration-200">
+                <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2.1" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+                <span class="text-[10px] font-semibold tracking-tight leading-none">Loans</span>
+            </button>
             <button type="button" data-nav="analysis" class="nav-btn h-full rounded-full flex flex-col items-center justify-center gap-0.5 text-ink-secondary hover:text-ink-primary active:scale-95 transition-all duration-200">
                 <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2.1" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
                 <span class="text-[10px] font-semibold tracking-tight leading-none">Analysis</span>
             </button>
         </div>
     </nav>
+
+    <!-- ==================== MODAL: ADD / EDIT LOAN ==================== -->
+    <div id="loan-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/60 backdrop-blur-xs overflow-y-auto">
+        <form id="loan-form" class="bg-card border border-subtle rounded-2xl max-w-md w-full p-4 sm:p-5 space-y-4 my-auto">
+            <div class="flex items-center justify-between">
+                <h3 id="loan-modal-title" class="text-base font-semibold text-ink-primary">Add Loan</h3>
+                <button type="button" data-close-modal="loan-modal" class="w-8 h-8 rounded-lg bg-elevated flex items-center justify-center text-ink-secondary hover:text-ink-primary">✕</button>
+            </div>
+
+            <input type="hidden" id="loan-edit-id">
+
+            <div class="space-y-3">
+                <div>
+                    <label for="loan-name" class="block text-xs font-medium text-ink-secondary mb-1">Loan Name</label>
+                    <input type="text" id="loan-name" required placeholder="e.g., Car Loan / PTPTN / Home Loan" class="ctrl-44 w-full px-3 rounded-xl bg-input border border-subtle text-sm text-ink-primary focus:outline-none focus:border-emerald-500">
+                </div>
+
+                <div>
+                    <label for="loan-total-amount" class="block text-xs font-medium text-ink-secondary mb-1">Total Loan Amount (RM)</label>
+                    <input type="number" id="loan-total-amount" required min="0.01" step="0.01" placeholder="0.00" class="ctrl-44 w-full px-3 rounded-xl bg-input border border-subtle font-mono text-sm text-ink-primary focus:outline-none focus:border-emerald-500">
+                </div>
+
+                <div>
+                    <label for="loan-monthly-payment" class="block text-xs font-medium text-ink-secondary mb-1">Monthly Payment Amount (RM / month)</label>
+                    <input type="number" id="loan-monthly-payment" required min="0.01" step="0.01" placeholder="e.g., 550.00" class="ctrl-44 w-full px-3 rounded-xl bg-input border border-subtle font-mono text-sm text-ink-primary focus:outline-none focus:border-emerald-500">
+                </div>
+
+                <div>
+                    <label for="loan-initial-paid" class="block text-xs font-medium text-ink-secondary mb-1">Already Paid Before Now (RM, Optional)</label>
+                    <input type="number" id="loan-initial-paid" min="0" step="0.01" placeholder="0.00" class="ctrl-44 w-full px-3 rounded-xl bg-input border border-subtle font-mono text-sm text-ink-primary focus:outline-none focus:border-emerald-500">
+                </div>
+            </div>
+
+            <div class="flex items-center justify-between gap-2 pt-2">
+                <button type="button" id="btn-loan-modal-delete" class="hidden ctrl-44 px-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 hover:bg-rose-500/20 text-xs font-semibold text-rose-500 transition">Delete Loan</button>
+                <div class="flex items-center gap-2 ml-auto">
+                    <button type="button" data-close-modal="loan-modal" class="ctrl-44 px-4 rounded-xl bg-elevated border border-subtle text-xs font-medium text-ink-primary">Cancel</button>
+                    <button type="submit" class="ctrl-44 px-5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-zinc-950 text-xs font-semibold">Save Loan</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- ==================== MODAL: RECORD LOAN PAYMENT ==================== -->
+    <div id="loan-payment-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/60 backdrop-blur-xs overflow-y-auto">
+        <form id="loan-payment-form" class="bg-card border border-subtle rounded-2xl max-w-md w-full p-4 sm:p-5 space-y-4 my-auto">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h3 class="text-base font-semibold text-ink-primary">Add Loan Payment</h3>
+                    <p id="loan-pay-subtitle" class="text-xs text-ink-muted mt-0.5">Loan Name</p>
+                </div>
+                <button type="button" data-close-modal="loan-payment-modal" class="w-8 h-8 rounded-lg bg-elevated flex items-center justify-center text-ink-secondary hover:text-ink-primary">✕</button>
+            </div>
+
+            <input type="hidden" id="loan-pay-loan-id">
+
+            <div class="space-y-3">
+                <div>
+                    <label for="loan-pay-amount" class="block text-xs font-medium text-ink-secondary mb-1">Payment Amount (RM)</label>
+                    <input type="number" id="loan-pay-amount" required min="0.01" step="0.01" placeholder="0.00" class="ctrl-44 w-full px-3 rounded-xl bg-input border border-subtle font-mono text-sm text-ink-primary focus:outline-none focus:border-emerald-500">
+                </div>
+
+                <div>
+                    <label for="loan-pay-date" class="block text-xs font-medium text-ink-secondary mb-1">Payment Date</label>
+                    <input type="date" id="loan-pay-date" required class="ctrl-44 w-full px-3 rounded-xl bg-input border border-subtle font-mono text-sm text-ink-primary focus:outline-none focus:border-emerald-500">
+                </div>
+
+                <div>
+                    <label for="loan-pay-note" class="block text-xs font-medium text-ink-secondary mb-1">Note (Optional)</label>
+                    <input type="text" id="loan-pay-note" placeholder="e.g., Nov Installment / Extra Principal" class="ctrl-44 w-full px-3 rounded-xl bg-input border border-subtle text-sm text-ink-primary focus:outline-none focus:border-emerald-500">
+                </div>
+            </div>
+
+            <div class="flex items-center justify-end gap-2 pt-2">
+                <button type="button" data-close-modal="loan-payment-modal" class="ctrl-44 px-4 rounded-xl bg-elevated border border-subtle text-xs font-medium text-ink-primary">Cancel</button>
+                <button type="submit" class="ctrl-44 px-5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-zinc-950 text-xs font-semibold">Record Payment</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- ==================== MODAL: LOAN PAYMENT HISTORY ==================== -->
+    <div id="loan-history-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/60 backdrop-blur-xs overflow-y-auto">
+        <div class="bg-card border border-subtle rounded-2xl max-w-md w-full p-4 sm:p-5 space-y-4 my-auto">
+            <div class="flex items-center justify-between gap-2">
+                <div class="min-w-0">
+                    <h3 id="loan-history-title" class="text-base font-semibold text-ink-primary truncate">Payment History</h3>
+                    <p id="loan-history-subtitle" class="font-mono text-xs text-ink-secondary mt-0.5">0.00 / 0.00</p>
+                </div>
+                <button type="button" data-close-modal="loan-history-modal" class="w-8 h-8 rounded-lg bg-elevated flex items-center justify-center text-ink-secondary hover:text-ink-primary shrink-0">✕</button>
+            </div>
+
+            <div id="loan-history-list" class="space-y-2 max-h-72 overflow-y-auto">
+                <!-- Rendered dynamically -->
+            </div>
+
+            <div class="flex items-center justify-between gap-2 pt-2 border-t border-subtle">
+                <button type="button" id="btn-loan-history-edit" class="ctrl-44 px-3.5 rounded-xl bg-elevated border border-subtle hover:border-strong text-xs font-medium text-ink-primary">Edit Loan</button>
+                <button type="button" id="btn-loan-history-delete" class="ctrl-44 px-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 hover:bg-rose-500/20 text-xs font-medium text-rose-500">Delete Loan</button>
+                <button type="button" data-close-modal="loan-history-modal" class="ctrl-44 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-zinc-950 text-xs font-semibold ml-auto">Done</button>
+            </div>
+        </div>
+    </div>
 
     <!-- ==================== MODAL: FINANCIAL CYCLE CALENDAR ==================== -->
     <div id="cycle-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
@@ -1088,6 +1238,7 @@ notify pgrst, 'reload schema';`;
 
             // Application State
             let appData = {};
+            let loansData = [];
             let defaultRatios = { Commitment: 50, Wants: 30, Savings: 20 };
             let defaultCycleStartDay = 1;
             let currentMonthKey = getTodayMonthKey();
@@ -1283,7 +1434,7 @@ notify pgrst, 'reload schema';`;
             }
 
             function updateSupabaseStatusUI(statusText, stateType) {
-                const headerDot = document.getElementById('supabase-status-dot');
+                const connectBtn = document.getElementById('btn-open-data');
                 const modalDot = document.getElementById('sb-modal-badge-dot');
                 const modalLabel = document.getElementById('sb-connection-label');
                 const connectedActions = document.getElementById('sb-connected-actions');
@@ -1292,13 +1443,14 @@ notify pgrst, 'reload schema';`;
                     connected: 'bg-emerald-500',
                     syncing: 'bg-amber-400 animate-pulse',
                     error: 'bg-rose-500',
-                    offline: 'bg-zinc-400'
+                    offline: 'bg-rose-500'
                 };
                 const dotClass = colorMap[stateType] || colorMap.offline;
 
-                if (headerDot) {
-                    headerDot.className = `w-2 h-2 rounded-full shrink-0 transition-colors ${dotClass}`;
-                    headerDot.title = `Supabase: ${statusText}`;
+                if (connectBtn) {
+                    const iconColor = (stateType === 'connected' || stateType === 'syncing') ? 'text-emerald-500' : 'text-rose-500';
+                    connectBtn.className = `w-9 h-9 rounded-full flex items-center justify-center ${iconColor} hover:bg-elevated active:scale-95 transition shrink-0`;
+                    connectBtn.title = `Supabase: ${statusText}`;
                 }
                 if (modalDot) {
                     modalDot.className = `w-2.5 h-2.5 rounded-full ${dotClass}`;
@@ -1308,7 +1460,7 @@ notify pgrst, 'reload schema';`;
                     modalLabel.className = `font-mono text-[11px] ${
                         stateType === 'connected' ? 'text-emerald-500 font-semibold' :
                         stateType === 'error' ? 'text-rose-500 font-semibold' :
-                        stateType === 'syncing' ? 'text-amber-500' : 'text-ink-muted'
+                        stateType === 'syncing' ? 'text-amber-500' : 'text-rose-500'
                     }`;
                 }
                 if (connectedActions) {
@@ -1397,6 +1549,10 @@ notify pgrst, 'reload schema';`;
                     if (data) {
                         if (data.app_data && typeof data.app_data === 'object') {
                             appData = data.app_data;
+                            if (Array.isArray(appData.__loans__)) {
+                                loansData = appData.__loans__;
+                                delete appData.__loans__;
+                            }
                         }
                         if (data.default_ratios && typeof data.default_ratios === 'object') {
                             const w = data.default_ratios.Wants !== undefined ? data.default_ratios.Wants : data.default_ratios.Needs;
@@ -1451,9 +1607,10 @@ notify pgrst, 'reload schema';`;
                 const executePush = async () => {
                     try {
                         updateSupabaseStatusUI('Syncing...', 'syncing');
+                        const syncedAppData = { ...appData, __loans__: loansData };
                         const payload = {
                             workspace_id: supabaseConfig.workspaceId || 'personal-main',
-                            app_data: appData,
+                            app_data: syncedAppData,
                             default_ratios: defaultRatios,
                             default_cycle_start_day: defaultCycleStartDay,
                             updated_at: new Date().toISOString()
@@ -1498,6 +1655,10 @@ notify pgrst, 'reload schema';`;
                     }
                     if (data.app_data && typeof data.app_data === 'object') {
                         appData = data.app_data;
+                        if (Array.isArray(appData.__loans__)) {
+                            loansData = appData.__loans__;
+                            delete appData.__loans__;
+                        }
                     }
                     if (data.default_ratios && typeof data.default_ratios === 'object') {
                         const w = data.default_ratios.Wants !== undefined ? data.default_ratios.Wants : data.default_ratios.Needs;
@@ -1543,7 +1704,8 @@ notify pgrst, 'reload schema';`;
                     localStorage.setItem(STORAGE_KEY_DATA, JSON.stringify(appData));
                     localStorage.setItem(STORAGE_KEY_DEFAULTS, JSON.stringify({
                         defaultRatios,
-                        defaultCycleStartDay
+                        defaultCycleStartDay,
+                        loansData
                     }));
                 } catch (err) {
                     console.warn('Local storage save error:', err);
@@ -1573,6 +1735,9 @@ notify pgrst, 'reload schema';`;
                         if (parsedDef && parsedDef.defaultCycleStartDay) {
                             defaultCycleStartDay = Number(parsedDef.defaultCycleStartDay) || 1;
                         }
+                        if (parsedDef && Array.isArray(parsedDef.loansData)) {
+                            loansData = parsedDef.loansData;
+                        }
                     }
 
                     const rawData = localStorage.getItem(STORAGE_KEY_DATA);
@@ -1580,6 +1745,10 @@ notify pgrst, 'reload schema';`;
                         const parsed = JSON.parse(rawData);
                         if (parsed && typeof parsed === 'object') {
                             appData = parsed;
+                            if (Array.isArray(appData.__loans__)) {
+                                loansData = appData.__loans__;
+                                delete appData.__loans__;
+                            }
                         }
                     }
                 } catch (err) {
@@ -1587,7 +1756,18 @@ notify pgrst, 'reload schema';`;
                     appData = {};
                 }
 
-                Object.keys(appData).forEach(key => ensureMonth(key));
+                if (!Array.isArray(loansData)) loansData = [];
+                loansData.forEach(l => {
+                    if (!Array.isArray(l.payments)) l.payments = [];
+                });
+
+                Object.keys(appData).forEach(key => {
+                    if (key === '__loans__') {
+                        delete appData[key];
+                    } else {
+                        ensureMonth(key);
+                    }
+                });
                 ensureMonth(currentMonthKey);
             }
 
@@ -1744,12 +1924,13 @@ notify pgrst, 'reload schema';`;
                 home: 'Monthly Summary',
                 income: 'Income Plan',
                 budget: 'Monthly Budget',
+                loans: 'Loan Tracker',
                 analysis: 'Cycle Analysis'
             };
 
             function switchPage(page) {
                 activePage = page;
-                const pages = ['home', 'income', 'budget', 'analysis'];
+                const pages = ['home', 'income', 'budget', 'loans', 'analysis'];
                 pages.forEach(p => {
                     const sec = document.getElementById(`page-${p}`);
                     if (sec) sec.classList.toggle('hidden', p !== page);
@@ -1765,7 +1946,9 @@ notify pgrst, 'reload schema';`;
                     btn.classList.toggle('text-ink-secondary', !isMatch);
                 });
 
-                if (page === 'analysis') {
+                if (page === 'loans') {
+                    renderLoansPage();
+                } else if (page === 'analysis') {
                     renderAnalysisPage();
                 }
             }
@@ -1856,16 +2039,59 @@ notify pgrst, 'reload schema';`;
                                 </span>
                                 <span class="font-mono text-xs font-semibold ${c.text}">${ratioPct}%</span>
                             </div>
-                            <div class="flex items-baseline justify-between gap-2">
-                                <span class="font-mono text-sm font-bold text-ink-primary">${formatMYR(actualAmt)}</span>
-                                <span class="font-mono text-xs text-ink-secondary">/ ${formatMYR(targetAmt)}</span>
-                            </div>
+                            <div class="font-mono text-xs sm:text-sm font-bold text-ink-primary">${formatMYR(actualAmt)}</div>
                             <div class="w-full h-1.5 bg-card rounded-full overflow-hidden">
                                 <div class="h-full ${c.bar} transition-all duration-300" style="width: ${fillPct}%"></div>
+                            </div>
+                            <div class="flex items-center justify-between text-[11px] font-mono text-ink-secondary">
+                                <span>Target: ${formatMYR(targetAmt)}</span>
+                                <span>${fillPct}%</span>
                             </div>
                         </div>
                     `;
                 }).join('');
+            }
+
+            let activeHistoryLoanId = null;
+
+            function openLoanHistoryModal(loanId) {
+                const loan = loansData.find(l => l.id === loanId);
+                if (!loan) return;
+                activeHistoryLoanId = loan.id;
+                const st = getLoanStats(loan);
+
+                const titleEl = document.getElementById('loan-history-title');
+                const subEl = document.getElementById('loan-history-subtitle');
+                const listEl = document.getElementById('loan-history-list');
+
+                if (titleEl) titleEl.textContent = loan.name;
+                if (subEl) {
+                    subEl.textContent = `Balance: ${st.remaining.toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} / ${st.total.toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+                }
+
+                const sortedPayments = [...(loan.payments || [])].reverse();
+                if (listEl) {
+                    if (sortedPayments.length === 0) {
+                        listEl.innerHTML = `<p class="text-xs text-ink-muted text-center py-6 bg-elevated rounded-xl border border-dashed border-subtle">No payment entries logged yet</p>`;
+                    } else {
+                        listEl.innerHTML = sortedPayments.map(p => `
+                            <div class="flex items-center justify-between gap-2 bg-elevated border border-subtle rounded-xl px-3 py-2.5">
+                                <div class="min-w-0 flex-1">
+                                    <div class="flex items-center gap-2">
+                                        <span class="font-mono text-xs font-bold text-emerald-500">${formatMYR(p.amount)}</span>
+                                        <span class="font-mono text-[11px] text-ink-secondary">${formatDisplayDate(p.date)}</span>
+                                    </div>
+                                    ${p.note ? `<p class="text-[11px] text-ink-muted truncate mt-0.5">${escapeHTML(p.note)}</p>` : ''}
+                                </div>
+                                <button type="button" data-action="delete-loan-payment" data-loan-id="${escapeHTML(loan.id)}" data-pay-id="${escapeHTML(p.id)}" aria-label="Delete Payment" class="w-8 h-8 rounded-lg bg-card border border-subtle hover:border-rose-500/50 flex items-center justify-center text-ink-secondary hover:text-rose-500 transition shrink-0">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                                </button>
+                            </div>
+                        `).join('');
+                    }
+                }
+
+                openModal('loan-history-modal');
             }
 
             function renderIncomePage() {
@@ -2346,9 +2572,222 @@ notify pgrst, 'reload schema';`;
                 renderHomePage();
                 renderIncomePage();
                 renderBudgetPage();
+                renderLoansPage();
                 if (activePage === 'analysis') {
                     renderAnalysisPage();
                 }
+            }
+
+            // ==================== LOANS TRACKER LOGIC ====================
+            function getLoanStats(loan) {
+                const total = Math.max(0, Number(loan.totalAmount) || 0);
+                const monthly = Math.max(0, Number(loan.monthlyPayment) || 0);
+                const initialPaid = Math.max(0, Number(loan.initialPaid) || 0);
+                const loggedPaid = (Array.isArray(loan.payments) ? loan.payments : []).reduce((s, p) => s + (Number(p.amount) || 0), 0);
+                const totalPaid = initialPaid + loggedPaid;
+                const remaining = Math.max(0, total - totalPaid);
+                const pct = total > 0 ? Math.min(100, Math.round((totalPaid / total) * 100)) : 0;
+                const monthsLeft = monthly > 0 && remaining > 0 ? Math.ceil(remaining / monthly) : 0;
+                return { total, monthly, initialPaid, loggedPaid, totalPaid, remaining, pct, monthsLeft };
+            }
+
+            function renderLoansPage() {
+                let sumRemaining = 0;
+                let sumMonthly = 0;
+                let sumPaid = 0;
+                let sumTotal = 0;
+
+                loansData.forEach(loan => {
+                    const st = getLoanStats(loan);
+                    sumRemaining += st.remaining;
+                    if (st.remaining > 0) sumMonthly += st.monthly;
+                    sumPaid += st.totalPaid;
+                    sumTotal += st.total;
+                });
+
+                const overallPct = sumTotal > 0 ? Math.min(100, Math.round((sumPaid / sumTotal) * 100)) : 0;
+
+                const remEl = document.getElementById('loans-kpi-remaining');
+                const cntEl = document.getElementById('loans-kpi-count');
+                const monEl = document.getElementById('loans-kpi-monthly');
+                const paidEl = document.getElementById('loans-kpi-paid');
+                const pctEl = document.getElementById('loans-kpi-pct');
+                const barEl = document.getElementById('loans-kpi-bar');
+
+                if (remEl) remEl.textContent = formatMYR(sumRemaining);
+                if (cntEl) cntEl.textContent = `${loansData.length} ${loansData.length === 1 ? 'loan' : 'loans'}`;
+                if (monEl) monEl.textContent = formatMYR(sumMonthly);
+                if (paidEl) paidEl.textContent = formatMYR(sumPaid);
+                if (pctEl) pctEl.textContent = `${overallPct}%`;
+                if (barEl) barEl.style.width = `${overallPct}%`;
+
+                const listEl = document.getElementById('loans-list-container');
+                if (!listEl) return;
+
+                if (loansData.length === 0) {
+                    listEl.innerHTML = `
+                        <div class="bg-card border border-subtle rounded-2xl p-6">
+                            <div class="empty-placeholder-220 bg-elevated border border-dashed border-subtle rounded-xl flex flex-col items-center justify-center text-center p-6 space-y-2">
+                                <p class="text-xs sm:text-sm font-medium text-ink-secondary">No loans recorded yet</p>
+                                <p class="text-xs text-ink-muted">Tap "+ Add Loan" to track your loan balance and monthly payments</p>
+                            </div>
+                        </div>
+                    `;
+                    return;
+                }
+
+                listEl.innerHTML = loansData.map(loan => {
+                    const st = getLoanStats(loan);
+                    return `
+                        <div class="bg-card border border-subtle rounded-2xl p-4 space-y-3">
+                            <div class="flex items-center justify-between gap-3">
+                                <div class="min-w-0 flex-1">
+                                    <h3 class="text-sm sm:text-base font-bold text-ink-primary truncate">${escapeHTML(loan.name)}</h3>
+                                    <p class="font-mono text-xs sm:text-sm text-ink-secondary mt-0.5 truncate">
+                                        <span class="font-semibold text-ink-primary">${st.remaining.toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                                        <span class="text-ink-muted"> / ${st.total.toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                                    </p>
+                                </div>
+
+                                <div class="flex items-center gap-1.5 shrink-0">
+                                    <button type="button" data-action="open-loan-payment" data-id="${escapeHTML(loan.id)}" aria-label="Add Payment" title="Add Payment" class="w-9 h-9 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 flex items-center justify-center text-emerald-500 transition">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+                                    </button>
+                                    <button type="button" data-action="edit-loan" data-id="${escapeHTML(loan.id)}" aria-label="Edit Loan" title="Edit Loan" class="w-9 h-9 rounded-lg bg-elevated border border-subtle hover:border-strong flex items-center justify-center text-ink-secondary hover:text-ink-primary transition">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <button type="button" data-action="open-loan-history" data-id="${escapeHTML(loan.id)}" class="w-full h-9 px-3 rounded-xl bg-elevated border border-subtle hover:border-strong text-xs font-semibold text-ink-primary flex items-center justify-center gap-1.5 transition">
+                                <span>Payment History</span>
+                            </button>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            function openLoanModal(editId) {
+                const titleEl = document.getElementById('loan-modal-title');
+                const idEl = document.getElementById('loan-edit-id');
+                const nameEl = document.getElementById('loan-name');
+                const totalEl = document.getElementById('loan-total-amount');
+                const monthlyEl = document.getElementById('loan-monthly-payment');
+                const initPaidEl = document.getElementById('loan-initial-paid');
+                const delBtn = document.getElementById('btn-loan-modal-delete');
+
+                if (editId) {
+                    const loan = loansData.find(l => l.id === editId);
+                    if (!loan) return;
+                    if (titleEl) titleEl.textContent = 'Edit Loan';
+                    if (idEl) idEl.value = loan.id;
+                    if (nameEl) nameEl.value = loan.name;
+                    if (totalEl) totalEl.value = Number(loan.totalAmount).toFixed(2);
+                    if (monthlyEl) monthlyEl.value = Number(loan.monthlyPayment).toFixed(2);
+                    if (initPaidEl) initPaidEl.value = Number(loan.initialPaid || 0) > 0 ? Number(loan.initialPaid).toFixed(2) : '';
+                    if (delBtn) delBtn.classList.remove('hidden');
+                } else {
+                    if (titleEl) titleEl.textContent = 'Add Loan';
+                    if (idEl) idEl.value = '';
+                    if (nameEl) nameEl.value = '';
+                    if (totalEl) totalEl.value = '';
+                    if (monthlyEl) monthlyEl.value = '';
+                    if (initPaidEl) initPaidEl.value = '';
+                    if (delBtn) delBtn.classList.add('hidden');
+                }
+                openModal('loan-modal');
+            }
+
+            function handleLoanFormSubmit(e) {
+                e.preventDefault();
+                const editId = document.getElementById('loan-edit-id').value;
+                const name = document.getElementById('loan-name').value.trim();
+                const totalAmount = parseFloat(document.getElementById('loan-total-amount').value);
+                const monthlyPayment = parseFloat(document.getElementById('loan-monthly-payment').value);
+                const initialPaid = Math.max(0, parseFloat(document.getElementById('loan-initial-paid').value) || 0);
+
+                if (!name || isNaN(totalAmount) || totalAmount <= 0 || isNaN(monthlyPayment) || monthlyPayment <= 0) {
+                    showToast('Enter valid loan name, total, and monthly payment');
+                    return;
+                }
+
+                if (editId) {
+                    const idx = loansData.findIndex(l => l.id === editId);
+                    if (idx !== -1) {
+                        loansData[idx] = {
+                            ...loansData[idx],
+                            name,
+                            totalAmount,
+                            monthlyPayment,
+                            initialPaid
+                        };
+                    }
+                    showToast('Loan updated');
+                } else {
+                    loansData.push({
+                        id: generateId('loan'),
+                        name,
+                        totalAmount,
+                        monthlyPayment,
+                        initialPaid,
+                        payments: []
+                    });
+                    showToast('Loan added');
+                }
+
+                saveState();
+                closeModal('loan-modal');
+                renderLoansPage();
+            }
+
+            function openLoanPaymentModal(loanId) {
+                const loan = loansData.find(l => l.id === loanId);
+                if (!loan) return;
+                const st = getLoanStats(loan);
+
+                const idEl = document.getElementById('loan-pay-loan-id');
+                const subEl = document.getElementById('loan-pay-subtitle');
+                const amtEl = document.getElementById('loan-pay-amount');
+                const dateEl = document.getElementById('loan-pay-date');
+                const noteEl = document.getElementById('loan-pay-note');
+
+                if (idEl) idEl.value = loan.id;
+                if (subEl) subEl.textContent = `${loan.name} • Remaining: ${formatMYR(st.remaining)}`;
+                const suggestedPay = st.remaining > 0 ? Math.min(st.monthly, st.remaining) : st.monthly;
+                if (amtEl) amtEl.value = suggestedPay > 0 ? suggestedPay.toFixed(2) : '';
+                if (dateEl) dateEl.value = new Date().toISOString().slice(0, 10);
+                if (noteEl) noteEl.value = '';
+
+                openModal('loan-payment-modal');
+            }
+
+            function handleLoanPaymentSubmit(e) {
+                e.preventDefault();
+                const loanId = document.getElementById('loan-pay-loan-id').value;
+                const loan = loansData.find(l => l.id === loanId);
+                if (!loan) return;
+
+                const amount = parseFloat(document.getElementById('loan-pay-amount').value);
+                const date = document.getElementById('loan-pay-date').value || new Date().toISOString().slice(0, 10);
+                const note = document.getElementById('loan-pay-note').value.trim();
+
+                if (isNaN(amount) || amount <= 0) {
+                    showToast('Enter a valid payment amount');
+                    return;
+                }
+
+                if (!Array.isArray(loan.payments)) loan.payments = [];
+                loan.payments.push({
+                    id: generateId('lpay'),
+                    amount,
+                    date,
+                    note
+                });
+
+                saveState();
+                closeModal('loan-payment-modal');
+                renderLoansPage();
+                showToast(`Recorded ${formatMYR(amount)} payment`);
             }
 
             // ==================== CALENDAR PICKER LOGIC ====================
@@ -2793,6 +3232,30 @@ notify pgrst, 'reload schema';`;
                             saveState();
                             renderAll();
                             showToast('Budget removed');
+                        } else if (act === 'edit-loan') {
+                            openLoanModal(id);
+                        } else if (act === 'delete-loan') {
+                            loansData = loansData.filter(l => l.id !== id);
+                            saveState();
+                            renderLoansPage();
+                            showToast('Loan deleted');
+                        } else if (act === 'open-loan-payment') {
+                            openLoanPaymentModal(id);
+                        } else if (act === 'open-loan-history') {
+                            openLoanHistoryModal(id);
+                        } else if (act === 'delete-loan-payment') {
+                            const loanId = actionBtn.getAttribute('data-loan-id');
+                            const payId = actionBtn.getAttribute('data-pay-id');
+                            const loan = loansData.find(l => l.id === loanId);
+                            if (loan && Array.isArray(loan.payments)) {
+                                loan.payments = loan.payments.filter(p => p.id !== payId);
+                                saveState();
+                                renderLoansPage();
+                                if (activeHistoryLoanId === loanId) {
+                                    openLoanHistoryModal(loanId);
+                                }
+                                showToast('Payment entry removed');
+                            }
                         } else if (act === 'select-history-cycle') {
                             const mk = actionBtn.getAttribute('data-month');
                             if (mk) {
@@ -2860,6 +3323,35 @@ notify pgrst, 'reload schema';`;
 
                 document.getElementById('income-form')?.addEventListener('submit', handleIncomeFormSubmit);
                 document.getElementById('budget-form')?.addEventListener('submit', handleBudgetFormSubmit);
+
+                // Loans Tracker Listeners
+                document.getElementById('btn-add-loan')?.addEventListener('click', () => openLoanModal(null));
+                document.getElementById('loan-form')?.addEventListener('submit', handleLoanFormSubmit);
+                document.getElementById('loan-payment-form')?.addEventListener('submit', handleLoanPaymentSubmit);
+                document.getElementById('btn-loan-modal-delete')?.addEventListener('click', () => {
+                    const idToDelete = document.getElementById('loan-edit-id')?.value;
+                    if (!idToDelete) return;
+                    loansData = loansData.filter(l => l.id !== idToDelete);
+                    saveState();
+                    closeModal('loan-modal');
+                    renderLoansPage();
+                    showToast('Loan deleted');
+                });
+                document.getElementById('btn-loan-history-edit')?.addEventListener('click', () => {
+                    if (!activeHistoryLoanId) return;
+                    const idToEdit = activeHistoryLoanId;
+                    closeModal('loan-history-modal');
+                    openLoanModal(idToEdit);
+                });
+                document.getElementById('btn-loan-history-delete')?.addEventListener('click', () => {
+                    if (!activeHistoryLoanId) return;
+                    loansData = loansData.filter(l => l.id !== activeHistoryLoanId);
+                    activeHistoryLoanId = null;
+                    saveState();
+                    closeModal('loan-history-modal');
+                    renderLoansPage();
+                    showToast('Loan deleted');
+                });
 
                 // Sorting, Filtering & Search
                 document.getElementById('sort-income-by')?.addEventListener('change', renderIncomePage);
@@ -2932,7 +3424,7 @@ notify pgrst, 'reload schema';`;
                     exportCycleCSV(keysToExport);
                 });
                 document.getElementById('btn-export-json')?.addEventListener('click', () => {
-                    const payload = JSON.stringify({ appData, defaultRatios, defaultCycleStartDay }, null, 2);
+                    const payload = JSON.stringify({ appData, loansData, defaultRatios, defaultCycleStartDay }, null, 2);
                     downloadBlob(payload, `finplan-backup-${getTodayMonthKey()}.json`, 'application/json');
                     showToast('JSON backup downloaded');
                 });
@@ -2946,6 +3438,12 @@ notify pgrst, 'reload schema';`;
                             const parsed = JSON.parse(String(ev.target?.result || '{}'));
                             if (parsed && parsed.appData && typeof parsed.appData === 'object') {
                                 appData = parsed.appData;
+                                if (Array.isArray(parsed.loansData)) {
+                                    loansData = parsed.loansData;
+                                } else if (Array.isArray(appData.__loans__)) {
+                                    loansData = appData.__loans__;
+                                    delete appData.__loans__;
+                                }
                                 if (parsed.defaultRatios) defaultRatios = parsed.defaultRatios;
                                 if (parsed.defaultCycleStartDay) defaultCycleStartDay = parsed.defaultCycleStartDay;
                                 Object.keys(appData).forEach(k => ensureMonth(k));
@@ -2981,6 +3479,7 @@ notify pgrst, 'reload schema';`;
 
                 document.getElementById('btn-reset-all-data')?.addEventListener('click', () => {
                     appData = {};
+                    loansData = [];
                     defaultRatios = { Commitment: 50, Wants: 30, Savings: 20 };
                     defaultCycleStartDay = 1;
                     ensureMonth(currentMonthKey);
