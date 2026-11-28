@@ -348,37 +348,28 @@
         <section id="page-income" class="hidden space-y-5">
             <!-- 1) Monthly Income -->
             <div class="bg-card border border-subtle rounded-2xl p-4 sm:p-5 space-y-4">
-                <div class="flex items-center justify-between gap-3">
-                    <div>
-                        <h2 class="section-title-fluid font-semibold text-ink-primary">Monthly Income</h2>
-                        <p class="text-xs text-ink-muted mt-0.5">Record monthly salary inflows</p>
-                    </div>
-                    <button type="button" id="btn-add-income" aria-label="Add Income" title="Add Income" class="w-11 h-11 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-zinc-950 font-semibold flex items-center justify-center shrink-0 transition">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
-                    </button>
-                </div>
-
-                <!-- Clean Income KPI & Sort Strip -->
-                <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
-                    <div class="bg-elevated border border-subtle rounded-xl p-3 flex flex-col justify-between min-h-[64px]">
-                        <span class="text-[11px] font-medium text-ink-muted">Total Income</span>
-                        <span id="income-kpi-total" class="font-mono font-bold text-xs sm:text-sm text-emerald-500 mt-1 block truncate">RM 0.00</span>
-                    </div>
-                    <div class="bg-elevated border border-subtle rounded-xl p-3 flex flex-col justify-between min-h-[64px]">
-                        <span class="text-[11px] font-medium text-ink-muted">Income Sources</span>
-                        <span id="income-kpi-count" class="font-mono font-bold text-xs sm:text-sm text-ink-primary mt-1 block">0 items</span>
-                    </div>
-                    <div class="col-span-2 sm:col-span-1 flex items-center">
-                        <select id="sort-income-by" class="ctrl-44 w-full px-3 rounded-xl bg-input border border-subtle text-xs font-medium text-ink-primary focus:outline-none">
-                            <option value="newest">Sort: Latest Added</option>
-                            <option value="amount-desc">Sort: Amount High</option>
-                            <option value="amount-asc">Sort: Amount Low</option>
-                            <option value="name-asc">Sort: Name A–Z</option>
+                <div class="flex items-center justify-between gap-2">
+                    <h2 class="section-title-fluid font-semibold text-ink-primary truncate">Monthly Income</h2>
+                    <div class="flex items-center gap-2 shrink-0">
+                        <select id="sort-income-by" aria-label="Sort Monthly Income" class="h-11 px-3 rounded-xl bg-input border border-subtle text-xs font-medium text-ink-primary focus:outline-none">
+                            <option value="newest">Sort</option>
+                            <option value="amount-desc">High → Low</option>
+                            <option value="amount-asc">Low → High</option>
+                            <option value="name-asc">A → Z</option>
                         </select>
+                        <button type="button" id="btn-add-income" aria-label="Add Income" title="Add Income" class="w-11 h-11 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-zinc-950 font-semibold flex items-center justify-center shrink-0 transition">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+                        </button>
                     </div>
                 </div>
 
-                <!-- Income List -->
+                <!-- Total Income KPI -->
+                <div class="bg-elevated border border-subtle rounded-xl p-3.5 flex items-center justify-between">
+                    <span class="text-xs font-medium text-ink-secondary">Total Income</span>
+                    <span id="income-kpi-total" class="font-mono font-bold text-sm sm:text-base text-emerald-500">RM 0.00</span>
+                </div>
+
+                <!-- Income List (Directly below Total Income) -->
                 <div id="income-list-container" class="space-y-2.5">
                     <!-- Rendered dynamically -->
                 </div>
